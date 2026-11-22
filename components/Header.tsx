@@ -67,7 +67,7 @@ export const Header: React.FC<HeaderProps> = ({ onOpenSearch, mobileMenuOpen, se
           <nav className="flex flex-col p-4 space-y-4">
             <Link to="/" onClick={() => setMobileMenuOpen(false)} className="text-gray-300 block">Home</Link>
             <Link to="/learn" onClick={() => setMobileMenuOpen(false)} className="text-gray-300 block">Learn</Link>
-            <Link to="/tools" onClick={() => setMobileMenuOpen(false)} className="text-gray-300 block">Tools</Link>
+            {/* <Link to="/tools" onClick={() => setMobileMenuOpen(false)} className="text-gray-300 block">Tools</Link> */}
             <Link to="/downloads" onClick={() => setMobileMenuOpen(false)} className="text-gray-300 block">Downloads</Link>
             <Link to="/community" onClick={() => setMobileMenuOpen(false)} className="text-gray-300 block">Community</Link>
           </nav>

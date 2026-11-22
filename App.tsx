@@ -6,7 +6,6 @@ import { Search } from './components/Search';
 import { Home } from './pages/Home';
 import { Learn } from './pages/Learn';
 import { Community } from './pages/Community';
-import { Tools } from './pages/Tools';
 import { Downloads } from './pages/Downloads';
 
 function App() {

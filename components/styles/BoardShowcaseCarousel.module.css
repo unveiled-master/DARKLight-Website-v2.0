@@ -12,7 +12,7 @@
 
 @media (max-width: 500px) {
   .card{
-    width: 95%;
+    width: 100% !important;
   }
 
   .specs{
