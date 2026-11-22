@@ -560,11 +560,9 @@ export const BoardShowcaseCarousel: React.FC<BoardShowcaseCarouselProps> = ({
       {/* Controls: Counter, Play/Pause Toggle & Prev/Next Buttons */}
       <div className={`container mx-auto px-4 mt-4 flex items-center justify-center gap-3 ${styles.actions}`}>
         {/* Slide Index Counter */}
-        <button className={`px-3.5 py-2 rounded-xl bg-gray-900 border border-gray-800 text-gray-400 font-mono text-xs sm:text-sm font-medium tracking-wider tabular-nums flex items-center gap-1.5 ${styles.exploreAction}`} >
-          <Link to='/learn' style={{fontSize: '0.85rem', fontFamily: 'serif', letterSpacing: '0.25rem', color: '#3ce9e0'}}>
-            Explore
-          </Link>
-        </button>
+        <Link className={`px-3.5 py-2 rounded-xl bg-gray-900 border border-gray-800 text-gray-400 font-mono text-xs sm:text-sm font-medium tracking-wider tabular-nums flex items-center gap-1.5 ${styles.exploreAction}`} to='/learn' style={{fontSize: '0.85rem', fontFamily: 'serif', letterSpacing: '0.25rem', color: '#3ce9e0'}}>
+          Explore
+        </Link>
         <div className={styles.navAction}>
           <div className="px-3.5 py-2 rounded-xl bg-gray-900 border border-gray-800 text-gray-400 font-mono text-xs sm:text-sm font-medium tracking-wider tabular-nums flex items-center gap-1.5">
             <span className="text-white font-bold">{String(currentIndex + 1).padStart(2, '0')}</span>
