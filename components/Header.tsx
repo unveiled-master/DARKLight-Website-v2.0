@@ -37,7 +37,7 @@ export const Header: React.FC<HeaderProps> = ({ onOpenSearch, mobileMenuOpen, se
         <nav className="hidden md:flex items-center space-x-8 text-sm font-medium">
           <Link to="/" className={isActive('/')}>Home</Link>
           <Link to="/learn" className={isActive('/learn')}>Learn</Link>
-          <Link to="/tools" className={isActive('/tools')}>Tools</Link>
+          {/* <Link to="/tools" className={isActive('/tools')}>Tools</Link> */}
           <Link to="/downloads" className={isActive('/downloads')}>Downloads</Link>
           <Link to="/community" className={isActive('/community')}>Community</Link>
         </nav>

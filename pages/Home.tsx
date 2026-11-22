@@ -229,9 +229,9 @@ export const Home: React.FC = () => {
                 The Core is just the beginning. Expand your capabilities with our modular stackable shields.
               </p>
             </div>
-            <Link to="/tools" className="hidden md:flex text-brand-400 hover:text-white items-center gap-2 text-sm font-semibold mt-4 md:mt-0">
+            {/* <Link to="/tools" className="hidden md:flex text-brand-400 hover:text-white items-center gap-2 text-sm font-semibold mt-4 md:mt-0">
               View Compatibility Guide <ArrowRight size={16} />
-            </Link>
+            </Link> */}
           </div>
 
           <div className="grid grid-cols-2 md:grid-cols-4 gap-4">

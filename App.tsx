@@ -46,7 +46,7 @@ function App() {
               path="/learn"
               element={<Navigate to="/learn/installation-setup" replace />}
             />
-            <Route path="/tools" element={<Tools />} />
+            {/* <Route path="/tools" element={<Tools />} /> */}
             <Route path="/downloads" element={<Downloads />} />
             <Route path="/community" element={<Community />} />
           </Routes>
