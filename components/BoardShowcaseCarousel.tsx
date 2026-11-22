@@ -66,6 +66,12 @@ const BOARD_TIERS: Record<number, BoardTierMeta> = {
   },
 };
 
+const CAROUSEL_SLIDES = [
+  { boardIndex: BOARDS.length - 1, isClone: true },
+  ...BOARDS.map((_, boardIndex) => ({ boardIndex, isClone: false })),
+  { boardIndex: 0, isClone: true },
+];
+
 const AUTO_SCROLL_DELAY = 6000; // 6 seconds per slide
 
 interface BoardShowcaseCarouselProps {
@@ -89,20 +95,8 @@ export const BoardShowcaseCarousel: React.FC<BoardShowcaseCarouselProps> = ({
   const [scrollStartLeft, setScrollStartLeft] = useState(0);
 
   // Auto-scroll states adhering to Web Interface Guidelines
-  const [isAutoPlaying, setIsAutoPlaying] = useState<boolean>(() => {
-    if (typeof window !== 'undefined') {
-      return !window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-    }
-    return true;
-  });
+  const [isAutoPlaying, setIsAutoPlaying] = useState<boolean>(false);
   const [isFocused, setIsFocused] = useState(false);
-
-  // Sync with external activeBoard if passed
-  useEffect(() => {
-    if (activeBoard !== currentIndex) {
-      setCurrentIndex(activeBoard);
-    }
-  }, [activeBoard, currentIndex]);
 
   // Honor prefers-reduced-motion changes dynamically
   useEffect(() => {
@@ -127,37 +121,103 @@ export const BoardShowcaseCarousel: React.FC<BoardShowcaseCarouselProps> = ({
     setCanScrollRight(scrollLeft + clientWidth < scrollWidth - 20);
   }, []);
 
-  // Smooth scroll to slide
-  const scrollToSlide = useCallback((index: number) => {
-    const target = slideRefs.current[index];
+  const scrollToPhysicalSlide = useCallback((physicalIndex: number, behavior: ScrollBehavior) => {
+    const target = slideRefs.current[physicalIndex];
     const scroller = scrollerRef.current;
     if (!target || !scroller) return;
 
-    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-
-    // Calculate center offset
     const scrollerRect = scroller.getBoundingClientRect();
     const targetRect = target.getBoundingClientRect();
     const targetLeft = scroller.scrollLeft + (targetRect.left - scrollerRect.left) - (scrollerRect.width - targetRect.width) / 2;
 
     scroller.scrollTo({
       left: Math.max(0, targetLeft),
-      behavior: prefersReducedMotion ? 'auto' : 'smooth',
+      behavior,
     });
+  }, []);
+
+  // Scroll to a real board. Edge copies are used only for wrapping.
+  const scrollToSlide = useCallback((index: number, physicalIndex = index + 1) => {
+    if (index < 0 || index >= BOARDS.length) return;
+    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    scrollToPhysicalSlide(physicalIndex, prefersReducedMotion ? 'auto' : 'smooth');
 
     setCurrentIndex(index);
     onBoardChange?.(index);
-  }, [onBoardChange]);
+  }, [onBoardChange, scrollToPhysicalSlide]);
 
   const handlePrev = useCallback(() => {
-    const nextIdx = (currentIndex - 1 + BOARDS.length) % BOARDS.length;
-    scrollToSlide(nextIdx);
+    if (currentIndex === 0) {
+      scrollToSlide(BOARDS.length - 1, 0);
+    } else {
+      scrollToSlide(currentIndex - 1);
+    }
   }, [currentIndex, scrollToSlide]);
 
   const handleNext = useCallback(() => {
-    const nextIdx = (currentIndex + 1) % BOARDS.length;
-    scrollToSlide(nextIdx);
+    if (currentIndex === BOARDS.length - 1) {
+      scrollToSlide(0, BOARDS.length + 1);
+    } else {
+      scrollToSlide(currentIndex + 1);
+    }
   }, [currentIndex, scrollToSlide]);
+
+  // Keep external selection and the centered card in sync.
+  useEffect(() => {
+    if (activeBoard >= 0 && activeBoard < BOARDS.length && activeBoard !== currentIndex) {
+      scrollToSlide(activeBoard);
+    }
+  }, [activeBoard, currentIndex, scrollToSlide]);
+
+  // Start with the first real card centered, then loop at either edge after scrolling settles.
+  useEffect(() => {
+    const scroller = scrollerRef.current;
+    if (!scroller) return;
+
+    scrollToPhysicalSlide(1, 'auto');
+
+    let settleTimer: ReturnType<typeof setTimeout> | undefined;
+    const handleScrollEnd = () => {
+      if (settleTimer) clearTimeout(settleTimer);
+      settleTimer = setTimeout(() => {
+        const scrollerRect = scroller.getBoundingClientRect();
+        const center = scrollerRect.left + scroller.clientWidth / 2;
+        let nearestIndex = 0;
+        let nearestDistance = Number.POSITIVE_INFINITY;
+
+        slideRefs.current.forEach((slide, index) => {
+          if (!slide) return;
+          const rect = slide.getBoundingClientRect();
+          const distance = Math.abs(rect.left + rect.width / 2 - center);
+          if (distance < nearestDistance) {
+            nearestDistance = distance;
+            nearestIndex = index;
+          }
+        });
+
+        const logicalIndex = nearestIndex === 0
+          ? BOARDS.length - 1
+          : nearestIndex === BOARDS.length + 1
+            ? 0
+            : nearestIndex - 1;
+
+        setCurrentIndex(logicalIndex);
+        onBoardChange?.(logicalIndex);
+
+        if (nearestIndex === 0) {
+          scrollToPhysicalSlide(BOARDS.length, 'auto');
+        } else if (nearestIndex === BOARDS.length + 1) {
+          scrollToPhysicalSlide(1, 'auto');
+        }
+      }, 120);
+    };
+
+    scroller.addEventListener('scroll', handleScrollEnd, { passive: true });
+    return () => {
+      scroller.removeEventListener('scroll', handleScrollEnd);
+      if (settleTimer) clearTimeout(settleTimer);
+    };
+  }, [onBoardChange, scrollToPhysicalSlide]);
 
   // Smooth auto-scroll timer: pauses on focus or drag
   useEffect(() => {
@@ -171,36 +231,6 @@ export const BoardShowcaseCarousel: React.FC<BoardShowcaseCarouselProps> = ({
 
     return () => clearInterval(timer);
   }, [isAutoPlaying, isFocused, isPointerDown, handleNext]);
-
-  // IntersectionObserver to detect snapped slide
-  useEffect(() => {
-    const scroller = scrollerRef.current;
-    if (!scroller) return;
-
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            const index = Number(entry.target.getAttribute('data-index'));
-            if (!isNaN(index)) {
-              setCurrentIndex(index);
-              onBoardChange?.(index);
-            }
-          }
-        });
-      },
-      {
-        root: scroller,
-        threshold: 0.6,
-      }
-    );
-
-    slideRefs.current.forEach((slide) => {
-      if (slide) observer.observe(slide);
-    });
-
-    return () => observer.disconnect();
-  }, [onBoardChange]);
 
   // Scroll listener for affordances
   useEffect(() => {
@@ -262,7 +292,11 @@ export const BoardShowcaseCarousel: React.FC<BoardShowcaseCarouselProps> = ({
     }
   };
 
-  const isPaused = !isAutoPlaying || isFocused || isPointerDown;
+  const handlePointerCancel = (e: React.PointerEvent) => {
+    handlePointerUp(e);
+  };
+
+  const isPaused = isFocused || isPointerDown;
 
   return (
     <section 
@@ -362,26 +396,28 @@ export const BoardShowcaseCarousel: React.FC<BoardShowcaseCarouselProps> = ({
           onPointerDown={handlePointerDown}
           onPointerMove={handlePointerMove}
           onPointerUp={handlePointerUp}
+          onPointerCancel={handlePointerCancel}
           onPointerLeave={handlePointerUp}
-          className="flex gap-3 sm:gap-5 overflow-x-auto snap-x snap-mandatory scroll-smooth no-scrollbar py-3 px-4 sm:px-8 lg:px-12 cursor-grab active:cursor-grabbing"
+          className={`flex gap-3 sm:gap-5 overflow-x-auto snap-x snap-mandatory no-scrollbar py-3 cursor-grab active:cursor-grabbing ${styles.track}`}
           style={{
             scrollbarWidth: 'none',
             msOverflowStyle: 'none',
             WebkitOverflowScrolling: 'touch',
           }}
         >
-          {BOARDS.map((board, index) => {
-            const meta = BOARD_TIERS[index] || BOARD_TIERS[0];
-            const isActive = index === currentIndex;
+          {CAROUSEL_SLIDES.map(({ boardIndex, isClone }, physicalIndex) => {
+            const board = BOARDS[boardIndex];
+            const meta = BOARD_TIERS[boardIndex] || BOARD_TIERS[0];
+            const isActive = !isClone && boardIndex === currentIndex;
 
             return (
               <div
-                key={index}
-                ref={(el) => (slideRefs.current[index] = el)}
-                data-index={index}
+                key={isClone ? `clone-${physicalIndex}` : `board-${boardIndex}`}
+                ref={(el) => (slideRefs.current[physicalIndex] = el)}
                 role="group"
                 aria-roledescription="slide"
-                aria-label={`Slide ${index + 1} of ${BOARDS.length}: ${board.title}`}
+                aria-label={`Slide ${boardIndex + 1} of ${BOARDS.length}: ${board.title}`}
+                aria-hidden={isClone}
                 className={` ${styles.card} snap-center shrink-0 w-[50vw] sm:w-[47vw] md:w-[416px] lg:w-[540px] xl:w-[608px] rounded-xl bg-gradient-to-b from-gray-900/90 via-gray-900/70 to-gray-950/95 border transition-[border-color,opacity,box-shadow] duration-500 relative overflow-hidden backdrop-blur-md p-3 sm:p-4 lg:p-5 shadow-2xl group ${
                   isActive
                     ? 'border-gray-700/80 shadow-brand-500/5 ring-1 ring-white/5'
@@ -448,7 +484,8 @@ export const BoardShowcaseCarousel: React.FC<BoardShowcaseCarouselProps> = ({
                     {/* Action Row */}
                     <div className="flex flex-wrap items-center gap-2 pt-2.5 border-t border-gray-800/80">
                       <button
-                        onClick={() => onOpenPinout(index)}
+                        onClick={() => onOpenPinout(boardIndex)}
+                        tabIndex={isClone ? -1 : undefined}
                         className="px-3 py-1.5 bg-brand-600 hover:bg-brand-500 text-white rounded-lg font-semibold text-[11px] sm:text-xs transition-[transform,background-color,box-shadow] duration-200 flex items-center justify-center gap-1 group/btn shadow-lg shadow-brand-600/20 active:scale-95 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-500"
                       >
                         <Cpu size={13} aria-hidden="true" />
@@ -480,7 +517,7 @@ export const BoardShowcaseCarousel: React.FC<BoardShowcaseCarouselProps> = ({
                         width={1200}
                         height={800}
                         className="w-full h-full object-cover opacity-85 group-hover/img:opacity-95 group-hover/img:scale-105 transition-[transform,opacity] duration-700 ease-out"
-                        loading={index === 0 ? 'eager' : 'lazy'}
+                        loading={boardIndex === 0 ? 'eager' : 'lazy'}
                       />
 
                       {/* Top Badges Overlay */}
@@ -560,7 +597,7 @@ export const BoardShowcaseCarousel: React.FC<BoardShowcaseCarouselProps> = ({
       {/* Controls: Counter, Play/Pause Toggle & Prev/Next Buttons */}
       <div className={`container mx-auto px-4 mt-4 flex items-center justify-center gap-3 ${styles.actions}`}>
         {/* Slide Index Counter */}
-        <Link className={`px-3.5 py-2 rounded-xl bg-gray-900 border border-gray-800 text-gray-400 font-mono text-xs sm:text-sm font-medium tracking-wider tabular-nums flex items-center gap-1.5 ${styles.exploreAction}`} to='/learn' style={{fontSize: '0.85rem', fontFamily: 'serif', letterSpacing: '0.25rem', color: '#3ce9e0'}}>
+        <Link className={`px-3.5 py-2 rounded-xl bg-gray-900 border border-gray-800 text-gray-400 font-mono text-xs sm:text-sm font-medium tracking-wider tabular-nums flex items-center gap-1.5 ${styles.exploreAction}`} to='/learn' style={{color: '#3ce9e0'}}>
           Explore
         </Link>
         <div className={styles.navAction}>

@@ -25,6 +25,7 @@ import {
   Bug,
 } from 'lucide-react';
 import { BOARDS } from '../components/ImageCarousel';
+import styles from './styles/downloads.module.css'
 
 type CategoryFilter = 'all' | 'tools' | 'sdk' | 'templates' | 'docs' | 'libraries';
 
@@ -474,7 +475,7 @@ export const Downloads: React.FC = () => {
               </p>
 
               {/* Quick Ecosystem Pill Badges */}
-              <div className="flex flex-wrap items-center gap-2.5 pt-2">
+              {/* <div className="flex flex-wrap items-center gap-2.5 pt-2">
                 <div className="px-3 py-1.5 rounded-xl bg-gray-950/80 border border-gray-800 text-xs font-mono text-gray-300 flex items-center gap-2">
                   <Cpu size={14} className="text-brand-400" />
                   <span>5 Hardware Targets</span>
@@ -487,123 +488,7 @@ export const Downloads: React.FC = () => {
                   <ShieldCheck size={14} className="text-emerald-400" />
                   <span>CMSIS & MISRA-C Compliant</span>
                 </div>
-              </div>
-            </div>
-
-            {/* Right Column: Custom SVG Hardware Toolchain Pipeline Illustration */}
-            <div className="lg:col-span-5">
-              <div className="rounded-2xl bg-gray-950/90 border border-gray-800/90 p-4 sm:p-5 shadow-inner relative overflow-hidden">
-                <div className="flex items-center justify-between mb-3 pb-2 border-b border-gray-800/80">
-                  <span className="text-[11px] font-mono uppercase tracking-wider text-gray-400 flex items-center gap-1.5">
-                    <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
-                    Toolchain Architecture Pipeline
-                  </span>
-                  <span className="text-[11px] font-mono text-brand-400">SWD @ 20 MHz</span>
-                </div>
-
-                {/* Custom SVG Schematic Graphic */}
-                <svg
-                  viewBox="0 0 420 165"
-                  className="w-full h-auto"
-                  role="img"
-                  aria-label="DarkLight development pipeline from SEGGER IDE through J-Link Probe to DarkLight Cortex-M0 MCU"
-                >
-                  <defs>
-                    <linearGradient id="traceGrad" x1="0%" y1="0%" x2="100%" y2="0%">
-                      <stop offset="0%" stopColor="#38bdf8" stopOpacity="0.2" />
-                      <stop offset="50%" stopColor="#22d3ee" stopOpacity="0.9" />
-                      <stop offset="100%" stopColor="#3b82f6" stopOpacity="0.3" />
-                    </linearGradient>
-                    <linearGradient id="chipGrad" x1="0%" y1="0%" x2="100%" y2="100%">
-                      <stop offset="0%" stopColor="#1e293b" />
-                      <stop offset="100%" stopColor="#0f172a" />
-                    </linearGradient>
-                  </defs>
-
-                  {/* Background PCB Traces */}
-                  <path
-                    d="M 20 30 H 110 L 130 50 H 290 L 310 30 H 400"
-                    fill="none"
-                    stroke="#1e293b"
-                    strokeWidth="1.5"
-                  />
-                  <path
-                    d="M 20 135 H 95 L 115 115 H 305 L 325 135 H 400"
-                    fill="none"
-                    stroke="#1e293b"
-                    strokeWidth="1.5"
-                  />
-
-                  {/* Animated Signal Bus Lines */}
-                  <line x1="118" y1="74" x2="162" y2="74" stroke="url(#traceGrad)" strokeWidth="2.5" strokeDasharray="4 3" />
-                  <line x1="118" y1="90" x2="162" y2="90" stroke="#334155" strokeWidth="1.5" />
-                  <line x1="258" y1="74" x2="302" y2="74" stroke="url(#traceGrad)" strokeWidth="2.5" strokeDasharray="4 3" />
-                  <line x1="258" y1="90" x2="302" y2="90" stroke="#334155" strokeWidth="1.5" />
-
-                  {/* Node 1: SEGGER Studio + BSP */}
-                  <g transform="translate(14, 38)">
-                    <rect width="104" height="88" rx="12" fill="url(#chipGrad)" stroke="#334155" strokeWidth="1.5" />
-                    <rect x="10" y="10" width="84" height="16" rx="4" fill="#0f172a" stroke="#1e293b" />
-                    <circle cx="18" cy="18" r="2.5" fill="#f87171" />
-                    <circle cx="26" cy="18" r="2.5" fill="#fbbf24" />
-                    <circle cx="34" cy="18" r="2.5" fill="#34d399" />
-                    <text x="52" y="44" textAnchor="middle" fill="#e2e8f0" fontSize="10" fontWeight="bold" fontFamily="monospace">
-                      SEGGER IDE
-                    </text>
-                    <text x="52" y="58" textAnchor="middle" fill="#38bdf8" fontSize="8.5" fontFamily="monospace">
-                      BSP + FreeRTOS
-                    </text>
-                    <rect x="20" y="67" width="64" height="11" rx="3" fill="#0284c7" fillOpacity="0.2" />
-                    <text x="52" y="75" textAnchor="middle" fill="#7dd3fc" fontSize="7.5" fontFamily="monospace">
-                      C99 / CMSIS
-                    </text>
-                  </g>
-
-                  {/* Node 2: J-Link Probe / USB Driver */}
-                  <g transform="translate(162, 43)">
-                    <rect width="96" height="78" rx="12" fill="url(#chipGrad)" stroke="#0891b2" strokeWidth="1.5" />
-                    <path d="M 32 18 H 64 M 26 28 H 70" stroke="#164e63" strokeWidth="2" strokeLinecap="round" />
-                    <text x="48" y="42" textAnchor="middle" fill="#ffffff" fontSize="10" fontWeight="bold" fontFamily="monospace">
-                      J-Link / USB
-                    </text>
-                    <text x="48" y="55" textAnchor="middle" fill="#22d3ee" fontSize="8" fontFamily="monospace">
-                      SWDIO • SWCLK
-                    </text>
-                    <text x="48" y="67" textAnchor="middle" fill="#94a3b8" fontSize="7.5" fontFamily="monospace">
-                      RTT & Trace
-                    </text>
-                  </g>
-
-                  {/* Node 3: DarkLight 48-Pin QFP Silicon Graphic */}
-                  <g transform="translate(302, 30)">
-                    {/* QFP IC Pins Top/Bottom/Left/Right */}
-                    {[0, 1, 2, 3, 4, 5].map((pin) => (
-                      <g key={pin} fill="#64748b">
-                        <rect x={22 + pin * 10} y="2" width="4" height="8" rx="1" />
-                        <rect x={22 + pin * 10} y="94" width="4" height="8" rx="1" />
-                        <rect x="4" y={20 + pin * 10} width="8" height="4" rx="1" />
-                        <rect x="92" y={20 + pin * 10} width="8" height="4" rx="1" />
-                      </g>
-                    ))}
-                    {/* IC Body */}
-                    <rect x="12" y="10" width="80" height="84" rx="8" fill="#090d16" stroke="#38bdf8" strokeWidth="1.8" />
-                    <circle cx="22" cy="20" r="3" fill="#38bdf8" fillOpacity="0.6" />
-                    <text x="52" y="42" textAnchor="middle" fill="#ffffff" fontSize="9.5" fontWeight="bold" fontFamily="monospace">
-                      DARKLIGHT
-                    </text>
-                    <text x="52" y="54" textAnchor="middle" fill="#38bdf8" fontSize="8" fontFamily="monospace">
-                      Cortex-M0
-                    </text>
-                    <text x="52" y="66" textAnchor="middle" fill="#94a3b8" fontSize="7.5" fontFamily="monospace">
-                      48MHz • DMA
-                    </text>
-                    <rect x="24" y="73" width="56" height="11" rx="3" fill="#10b981" fillOpacity="0.15" />
-                    <text x="52" y="81" textAnchor="middle" fill="#34d399" fontSize="7" fontFamily="monospace">
-                      48-PIN QFP
-                    </text>
-                  </g>
-                </svg>
-              </div>
+              </div> */}
             </div>
           </div>
 
@@ -854,65 +739,30 @@ export const Downloads: React.FC = () => {
                 </div>
 
                 {/* 6-Card Grid for Selected Board Resources */}
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-                  {filteredBoardResources.map((item) => (
-                    <div
-                      key={item.id}
-                      className="group rounded-2xl border border-gray-800/90 bg-gray-900/60 hover:bg-gray-900/90 p-5 flex flex-col justify-between hover:border-gray-700 transition-all duration-200 shadow-md"
-                    >
-                      <div>
-                        <div className="flex items-center justify-between gap-2 mb-3.5">
-                          <div className="w-10 h-10 rounded-xl bg-gray-950 border border-gray-800 flex items-center justify-center">
-                            {getTypeIcon(item.type)}
-                          </div>
-                          <div className="flex items-center gap-1.5">
-                            <span className="px-2 py-0.5 rounded bg-gray-950 border border-gray-800 text-[11px] font-mono text-gray-400">
-                              {item.version}
-                            </span>
-                            <span
-                              className={`px-2 py-0.5 rounded text-[10px] font-mono font-bold border ${getTypeBadgeStyle(
-                                item.type
-                              )}`}
-                            >
-                              {item.formatBadge}
-                            </span>
-                          </div>
-                        </div>
-
-                        {item.highlight && (
-                          <span className="inline-block text-[11px] font-mono text-brand-400 mb-1">
-                            {item.highlight}
-                          </span>
-                        )}
-
-                        <h4 className="text-base font-bold text-white mb-1.5 group-hover:text-brand-300 transition-colors">
-                          {item.title}
-                        </h4>
-
-                        <p className="text-xs sm:text-sm text-gray-400 leading-relaxed mb-5">
-                          {item.description}
-                        </p>
-                      </div>
-
-                      <div className="pt-3.5 border-t border-gray-800/80 flex items-center justify-between gap-2">
-                        <span className="text-[11px] font-mono text-gray-500">
-                          {item.sizeOrPlatform}
-                        </span>
-
-                        <a
-                          href={item.link}
-                          className="px-3.5 py-1.5 rounded-xl bg-brand-600/15 hover:bg-brand-600 text-brand-300 hover:text-white border border-brand-500/30 hover:border-brand-500 text-xs font-semibold transition-all flex items-center gap-1.5"
-                        >
-                          <span>{item.actionText}</span>
-                          {item.formatBadge.includes('PDF') || item.type === 'Examples' ? (
-                            <ArrowUpRight size={13} />
-                          ) : (
-                            <Download size={13} />
-                          )}
-                        </a>
-                      </div>
-                    </div>
-                  ))}
+                <div className={styles.tableContent}>
+                  <table className={styles.table}>
+                    <thead>
+                      <tr>
+                        <th>Name</th>
+                        <th>Description</th>
+                        <th>Link</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      
+                    {filteredBoardResources.map((item) => (
+                      <tr>
+                        <td>{item.title}</td>
+                        <td>{item.description}</td>
+                        <td>
+                          <a href={item.link}>
+                            {item.actionText}
+                          </a>
+                        </td>
+                      </tr>
+                    ))}
+                    </tbody>
+                  </table>
                 </div>
               </section>
               :
@@ -936,129 +786,30 @@ export const Downloads: React.FC = () => {
                     </div>
                   </div>
 
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                    {filteredLibraries.map((lib) => (
-                      <div
-                        key={lib.id}
-                        className="group rounded-2xl border border-gray-800/90 bg-gradient-to-b from-gray-900/90 to-gray-950 p-6 flex flex-col justify-between hover:border-brand-500/50 transition-all shadow-lg"
-                      >
-                        <div>
-                          {/* Header row */}
-                          <div className="flex items-center justify-between gap-2 mb-4">
-                            <div className="flex items-center gap-3">
-                              <div className="w-11 h-11 rounded-xl bg-gray-950 border border-gray-800 flex items-center justify-center">
-                                {getTypeIcon(lib.type)}
-                              </div>
-                              <div>
-                                <h3 className="text-lg font-bold text-white font-mono group-hover:text-brand-300 transition-colors">
-                                  {lib.title}
-                                </h3>
-                                <span className="text-xs font-mono text-brand-400">
-                                  {lib.protocol}
-                                </span>
-                              </div>
-                            </div>
-
-                            <div className="flex items-center gap-1.5">
-                              <span className="px-2.5 py-0.5 rounded bg-gray-950 border border-gray-800 text-xs font-mono text-gray-300">
-                                {lib.version}
-                              </span>
-                              <span
-                                className={`px-2.5 py-0.5 rounded text-[10px] font-mono font-bold border ${getTypeBadgeStyle(
-                                  lib.type
-                                )}`}
-                              >
-                                {lib.formatBadge}
-                              </span>
-                            </div>
-                          </div>
-
-                          {/* Custom SVG Digital Logic Waveform Graphic */}
-                          <div className="rounded-xl bg-gray-950 border border-gray-800/90 p-3.5 mb-4">
-                            <div className="flex items-center justify-between text-[10px] font-mono text-gray-400 mb-2">
-                              <span className="text-gray-300">{lib.headerFile}</span>
-                              <span className="text-emerald-400">0% CPU Load (DMA Ch.1)</span>
-                            </div>
-
-                            {lib.waveformType === 'nzr' ? (
-                              <svg
-                                viewBox="0 0 360 44"
-                                className="w-full h-11"
-                                aria-label="WS2812B 800kHz NZR PWM DMA waveform diagram"
-                              >
-                                <text x="4" y="14" fill="#64748b" fontSize="8" fontFamily="monospace">
-                                  PWM_OUT
-                                </text>
-                                {/* 800kHz Bit-1 and Bit-0 duty cycle pulses */}
-                                <path
-                                  d="M 55 34 V 10 H 85 V 34 H 105 V 10 H 120 V 34 H 150 V 10 H 180 V 34 H 200 V 10 H 230 V 34 H 250 V 10 H 265 V 34 H 295 V 10 H 325 V 34 H 350"
-                                  fill="none"
-                                  stroke="#38bdf8"
-                                  strokeWidth="2"
-                                />
-                                <text x="63" y="25" fill="#7dd3fc" fontSize="7.5" fontFamily="monospace">
-                                  T1H
-                                </text>
-                                <text x="108" y="25" fill="#94a3b8" fontSize="7.5" fontFamily="monospace">
-                                  T0H
-                                </text>
-                                <text x="158" y="25" fill="#7dd3fc" fontSize="7.5" fontFamily="monospace">
-                                  T1H
-                                </text>
-                                <text x="208" y="25" fill="#7dd3fc" fontSize="7.5" fontFamily="monospace">
-                                  T1H
-                                </text>
-                              </svg>
-                            ) : (
-                              <svg
-                                viewBox="0 0 360 44"
-                                className="w-full h-11"
-                                aria-label="APA102 Synchronous SPI Clock and Data waveform diagram"
-                              >
-                                <text x="4" y="15" fill="#64748b" fontSize="8" fontFamily="monospace">
-                                  SPI_SCK
-                                </text>
-                                <text x="4" y="36" fill="#64748b" fontSize="8" fontFamily="monospace">
-                                  SPI_MOSI
-                                </text>
-                                {/* Clock train */}
-                                <path
-                                  d="M 55 18 V 6 H 70 V 18 H 85 V 6 H 100 V 18 H 115 V 6 H 130 V 18 H 145 V 6 H 160 V 18 H 175 V 6 H 190 V 18 H 205 V 6 H 220 V 18 H 235 V 6 H 250 V 18 H 265 V 6 H 280 V 18 H 295 V 6 H 310 V 18 H 345"
-                                  fill="none"
-                                  stroke="#22d3ee"
-                                  strokeWidth="1.6"
-                                />
-                                {/* Data line */}
-                                <path
-                                  d="M 55 38 L 62 26 H 110 L 116 38 H 168 L 174 26 H 242 L 248 38 H 290 L 296 26 H 345"
-                                  fill="none"
-                                  stroke="#a855f7"
-                                  strokeWidth="1.8"
-                                />
-                              </svg>
-                            )}
-                          </div>
-
-                          <p className="text-sm text-gray-400 leading-relaxed mb-6">
-                            {lib.description}
-                          </p>
-                        </div>
-
-                        <div className="pt-4 border-t border-gray-800/80 flex items-center justify-between gap-3">
-                          <span className="text-xs font-mono text-gray-500">
-                            {lib.sizeOrPlatform}
-                          </span>
-
-                          <a
-                            href={lib.link}
-                            className="px-4 py-2 rounded-xl bg-brand-600 hover:bg-brand-500 text-white text-xs font-semibold transition-all flex items-center gap-1.5 shadow-md shadow-brand-600/20"
-                          >
-                            <Download size={14} />
-                            <span>{lib.actionText}</span>
-                          </a>
-                        </div>
-                      </div>
-                    ))}
+                  <div className={styles.tableContent}>
+                    <table className={styles.table}>
+                      <thead>
+                        <tr>
+                          <th>Name</th>
+                          <th>Description</th>
+                          <th>Link</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        
+                      {filteredLibraries.map((item) => (
+                        <tr>
+                          <td>{item.title}</td>
+                          <td>{item.description}</td>
+                          <td>
+                            <a href={item.link}>
+                              {item.actionText}
+                            </a>
+                          </td>
+                        </tr>
+                      ))}
+                      </tbody>
+                    </table>
                   </div>
                 </section>
                 

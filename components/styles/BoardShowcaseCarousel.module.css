@@ -3,18 +3,39 @@
   gap: 0.5rem;
 }
 
+.card {
+  width: 150%;
+}
+.track{
+  padding-inline: calc((100% - 50vw) / 2);
+}
+@media (min-width: 640px) {
+  .track{
+    padding-inline: calc((100% - 47vw) / 2);
+  }
+}
+@media (min-width: 768px) {
+  .track{
+    padding-inline: calc((100% - 416px) / 2);
+  }
+}
+@media (min-width: 1024px) {
+  .track{
+    padding-inline: calc((100% - 540px) / 2);
+  }
+}
+@media (min-width: 1280px) {
+  .track{
+    padding-inline: calc((100% - 608px) / 2);
+  }
+}
 @media (max-width: 700px) {
   .card{
-    width: 100%;
     max-height: 90dvh;
   }
 }
 
 @media (max-width: 500px) {
-  .card{
-    width: 100% !important;
-  }
-
   .specs{
     display: none;
   }
