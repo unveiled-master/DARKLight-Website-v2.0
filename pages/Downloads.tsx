@@ -122,6 +122,10 @@ const BOARD_THEMES: BoardTierTheme[] = [
   },
 ];
 
+const DOC_ITEMS: DownloadItem[] = [
+
+]
+
 const SOFTWARE_TOOLS: DownloadItem[] = [
   {
     id: 'segger-ses',
@@ -292,6 +296,8 @@ const getBoardDownloads = (boardTitle: string, shortName: string, hasWireless?: 
 ];
 
 export const Downloads: React.FC = () => {
+  const [title, setTItle] = useState<string>('Software Tools & Host Drivers');
+  const [downloadItems, setDownLoadItems] = useState<DownloadItem[]>(SOFTWARE_TOOLS);
   const [selectedBoardIdx, setSelectedBoardIdx] = useState<number>(0);
   const [activeCategory, setActiveCategory] = useState<CategoryFilter>('all');
   const [searchQuery, setSearchQuery] = useState<string>('');
@@ -377,6 +383,11 @@ export const Downloads: React.FC = () => {
         return 'bg-indigo-500/10 text-indigo-300 border-indigo-500/30';
     }
   };
+
+  const renderItems = (items: DownloadItem[], title: string) => {
+    setDownLoadItems(items);
+    setTItle(title);
+  }
 
   return (
     <div className="min-h-screen bg-gray-950 relative overflow-hidden">
@@ -597,64 +608,7 @@ export const Downloads: React.FC = () => {
           </div>
 
           {/* Interactive Search & Category Filter Bar */}
-          <div className="relative z-10 mt-8 pt-6 border-t border-gray-800/80 flex flex-col md:flex-row items-stretch md:items-center justify-between gap-4">
-            {/* Search Input */}
-            <div className="relative flex-1 max-w-md">
-              <Search
-                size={17}
-                className="absolute left-3.5 top-1/2 -translate-y-1/2 text-gray-500 pointer-events-none"
-              />
-              <input
-                type="text"
-                value={searchQuery}
-                onChange={(e) => setSearchQuery(e.target.value)}
-                placeholder="Search SDKs, FreeRTOS, datasheets, WS2812B..."
-                aria-label="Search downloadable resources"
-                className="w-full pl-10 pr-9 py-2.5 bg-gray-950/90 border border-gray-800 rounded-xl text-sm text-white placeholder-gray-500 focus:outline-none focus:border-brand-500 focus:ring-1 focus:ring-brand-500 transition-colors"
-              />
-              {searchQuery && (
-                <button
-                  onClick={() => setSearchQuery('')}
-                  aria-label="Clear search"
-                  className="absolute right-2.5 top-1/2 -translate-y-1/2 text-gray-500 hover:text-gray-300 p-1"
-                >
-                  <X size={14} />
-                </button>
-              )}
-            </div>
-
-            {/* Category Filter Pills */}
-            <div className="flex items-center gap-1.5 overflow-x-auto no-scrollbar pb-1 md:pb-0">
-              <span className="text-xs text-gray-500 font-mono mr-1 hidden xl:inline-flex items-center gap-1">
-                <SlidersHorizontal size={12} />
-                Filter:
-              </span>
-              {(
-                [
-                  { id: 'all', label: 'All Resources' },
-                  { id: 'tools', label: 'IDE & Drivers' },
-                  { id: 'sdk', label: 'BSP & Examples' },
-                  { id: 'templates', label: 'RTOS Templates' },
-                  { id: 'docs', label: 'Datasheets' },
-                  { id: 'libraries', label: 'Libraries' },
-                ] as { id: CategoryFilter; label: string }[]
-              ).map((tab) => {
-                const isActive = activeCategory === tab.id;
-                return (
-                  <button
-                    key={tab.id}
-                    onClick={() => setActiveCategory(tab.id)}
-                    className={`px-3 py-1.5 rounded-xl text-xs font-semibold whitespace-nowrap transition-all border ${isActive
-                        ? 'bg-brand-600 text-white border-brand-500 shadow-lg shadow-brand-600/20'
-                        : 'bg-gray-950/70 text-gray-400 border-gray-800 hover:bg-gray-800 hover:text-gray-200'
-                      }`}
-                  >
-                    {tab.label}
-                  </button>
-                );
-              })}
-            </div>
-          </div>
+          
         </div>
 
         {/* MAIN BODY: STICKY SIDEBAR + CONTENT */}
@@ -671,7 +625,10 @@ export const Downloads: React.FC = () => {
                 <ul className="space-y-1.5">
                   <li>
                     <button
-                      onClick={() => scrollToSection('software-tools')}
+                      onClick={() => {
+                        renderItems(SOFTWARE_TOOLS, 'Software Tools & Host Drivers');
+                        scrollToSection('software-tools');
+                      }}
                       className="w-full text-left px-3 py-2 rounded-xl text-sm font-medium text-gray-300 hover:text-white hover:bg-gray-800/70 flex items-center justify-between group transition-colors"
                     >
                       <span className="flex items-center gap-2.5">
@@ -686,12 +643,12 @@ export const Downloads: React.FC = () => {
 
                   <li>
                     <button
-                      onClick={() => scrollToSection('board-hub')}
+                      onClick={() => renderItems([], 'Documentation')}
                       className="w-full text-left px-3 py-2 rounded-xl text-sm font-medium text-gray-300 hover:text-white hover:bg-gray-800/70 flex items-center justify-between group transition-colors"
                     >
                       <span className="flex items-center gap-2.5">
                         <Cpu size={15} className="text-cyan-400" />
-                        Board SDKs & Docs
+                        Docs
                       </span>
                       <span className="text-[11px] font-mono text-gray-500 group-hover:text-gray-300">
                         5 Boards
@@ -701,53 +658,18 @@ export const Downloads: React.FC = () => {
 
                   <li>
                     <button
-                      onClick={() => scrollToSection('libraries')}
+                      onClick={() => renderItems(LIBRARIES, 'Extended Libraries')}
                       className="w-full text-left px-3 py-2 rounded-xl text-sm font-medium text-gray-300 hover:text-white hover:bg-gray-800/70 flex items-center justify-between group transition-colors"
                     >
                       <span className="flex items-center gap-2.5">
                         <Library size={15} className="text-purple-400" />
-                        DMA Libraries
+                        Extended Libraries
                       </span>
                       <span className="text-[11px] font-mono text-gray-500 group-hover:text-gray-300">
                         {LIBRARIES.length}
                       </span>
                     </button>
                   </li>
-                </ul>
-              </div>
-
-              {/* Quick Hardware Target Jump */}
-              <div className="pt-5 border-t border-gray-800/80">
-                <h6 className="text-xs font-bold uppercase tracking-wider text-gray-400 mb-3 flex items-center gap-2">
-                  <HardDrive size={14} className="text-brand-400" />
-                  <span>Select Target Board</span>
-                </h6>
-                <ul className="space-y-1">
-                  {BOARD_THEMES.map((board, idx) => {
-                    const isSelected = idx === selectedBoardIdx;
-                    return (
-                      <li key={board.id}>
-                        <button
-                          onClick={() => handleSelectBoardAndScroll(idx)}
-                          className={`w-full text-left px-3 py-2 rounded-xl text-xs font-semibold flex items-center justify-between transition-all ${isSelected
-                              ? 'bg-gray-800 text-white border border-gray-700 shadow-sm'
-                              : 'text-gray-400 hover:text-gray-200 hover:bg-gray-800/40'
-                            }`}
-                        >
-                          <span className="flex items-center gap-2 truncate">
-                            <span
-                              className={`w-2 h-2 rounded-full ${isSelected ? 'bg-brand-400 animate-pulse' : 'bg-gray-600'
-                                }`}
-                            />
-                            <span className="truncate">DarkLight {board.shortName}</span>
-                          </span>
-                          {board.hasWireless && (
-                            <Radio size={12} className="text-amber-400 shrink-0" title="Wireless IoT" />
-                          )}
-                        </button>
-                      </li>
-                    );
-                  })}
                 </ul>
               </div>
 
@@ -785,101 +707,9 @@ export const Downloads: React.FC = () => {
               </div>
             )}
 
-            {/* SECTION 1: SOFTWARE TOOLS & DRIVERS */}
-            {filteredTools.length > 0 && (
-              <section id="software-tools" className="scroll-mt-24">
-                <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-2 mb-6">
-                  <div>
-                    <div className="flex items-center gap-2.5">
-                      <div className="w-9 h-9 rounded-xl bg-brand-500/10 border border-brand-500/30 flex items-center justify-center">
-                        <Wrench size={18} className="text-brand-400" />
-                      </div>
-                      <h2 className="text-2xl font-bold text-white tracking-tight">
-                        Software Tools & Host Drivers
-                      </h2>
-                    </div>
-                    <p className="text-sm text-gray-400 mt-1.5">
-                      Core development environment, J-Link debug probes, and USB communication drivers.
-                    </p>
-                  </div>
-                  <span className="text-xs font-mono text-gray-500">
-                    Windows 10/11 • macOS (Universal) • Ubuntu/Debian
-                  </span>
-                </div>
-
-                <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
-                  {filteredTools.map((tool) => (
-                    <div
-                      key={tool.id}
-                      className="group relative rounded-2xl border border-gray-800/90 bg-gradient-to-b from-gray-900/90 to-gray-950 p-6 flex flex-col justify-between hover:border-brand-500/50 transition-all duration-300 shadow-lg hover:shadow-brand-500/5 overflow-hidden"
-                    >
-                      {/* Decorative Corner Schematic Accent */}
-                      <div className="absolute -right-8 -top-8 w-28 h-28 bg-brand-500/5 rounded-full blur-2xl group-hover:bg-brand-500/15 transition-colors pointer-events-none" />
-
-                      <div>
-                        {/* Top Icon + Format Pill */}
-                        <div className="flex items-center justify-between gap-2 mb-4">
-                          <div className="w-11 h-11 rounded-xl bg-gray-950 border border-gray-800 flex items-center justify-center shadow-inner group-hover:border-gray-700 transition-colors">
-                            {getTypeIcon(tool.type)}
-                          </div>
-                          <div className="flex items-center gap-1.5">
-                            <span className="px-2.5 py-0.5 rounded-md bg-gray-950 border border-gray-800 text-[11px] font-mono text-gray-300">
-                              {tool.version}
-                            </span>
-                            <span
-                              className={`px-2.5 py-0.5 rounded-md text-[10px] font-mono font-bold border ${getTypeBadgeStyle(
-                                tool.type
-                              )}`}
-                            >
-                              {tool.formatBadge}
-                            </span>
-                          </div>
-                        </div>
-
-                        {/* Highlight Tag */}
-                        {tool.highlight && (
-                          <div className="text-[11px] font-mono text-brand-400 mb-1 flex items-center gap-1">
-                            <Sparkles size={11} />
-                            <span>{tool.highlight}</span>
-                          </div>
-                        )}
-
-                        <h3 className="text-lg font-bold text-white mb-2 group-hover:text-brand-300 transition-colors">
-                          {tool.title}
-                        </h3>
-
-                        <p className="text-sm text-gray-400 leading-relaxed mb-6">
-                          {tool.description}
-                        </p>
-                      </div>
-
-                      <div className="pt-4 border-t border-gray-800/80 flex items-center justify-between gap-3">
-                        <span className="text-xs font-mono text-gray-500">
-                          {tool.sizeOrPlatform}
-                        </span>
-
-                        <a
-                          href={tool.link}
-                          target={tool.isExternal ? '_blank' : undefined}
-                          rel={tool.isExternal ? 'noopener noreferrer' : undefined}
-                          className="px-4 py-2 rounded-xl bg-gray-800 hover:bg-brand-600 text-white text-xs font-semibold border border-gray-700 hover:border-brand-500 transition-all flex items-center gap-1.5 shadow-sm"
-                        >
-                          <span>{tool.actionText}</span>
-                          {tool.isExternal ? (
-                            <ExternalLink size={13} />
-                          ) : (
-                            <Download size={13} />
-                          )}
-                        </a>
-                      </div>
-                    </div>
-                  ))}
-                </div>
-              </section>
-            )}
-
-            {/* SECTION 2: INTERACTIVE 5-BOARD HARDWARE HUB */}
-            {filteredBoardResources.length > 0 && (
+            {
+              title === 'Documentation' 
+              ?
               <section id="board-hub" className="scroll-mt-24">
                 <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4 mb-6">
                   <div>
@@ -987,7 +817,7 @@ export const Downloads: React.FC = () => {
                         </div>
 
                         <h3 className="text-2xl sm:text-3xl font-extrabold text-white tracking-tight mb-2">
-                          {activeBoard.title} Downloads
+                          {activeBoard.title} Documentation
                         </h3>
 
                         <p className="text-sm text-gray-400 leading-relaxed">
@@ -1079,153 +909,255 @@ export const Downloads: React.FC = () => {
                   ))}
                 </div>
               </section>
-            )}
-
-            {/* SECTION 3: HARDWARE PERIPHERAL LIBRARIES WITH WAVEFORM GRAPHICS */}
-            {filteredLibraries.length > 0 && (
-              <section id="libraries" className="scroll-mt-24 pb-8">
-                <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-2 mb-6">
-                  <div>
-                    <div className="flex items-center gap-2.5">
-                      <div className="w-9 h-9 rounded-xl bg-purple-500/10 border border-purple-500/30 flex items-center justify-center">
-                        <Library size={18} className="text-purple-400" />
+              :
+              (
+                title === 'Extended Libraries' 
+                ?
+                <section id="libraries" className="scroll-mt-24 pb-8">
+                  <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-2 mb-6">
+                    <div>
+                      <div className="flex items-center gap-2.5">
+                        <div className="w-9 h-9 rounded-xl bg-purple-500/10 border border-purple-500/30 flex items-center justify-center">
+                          <Library size={18} className="text-purple-400" />
+                        </div>
+                        <h2 className="text-2xl font-bold text-white tracking-tight">
+                          Non-Blocking DMA Peripheral Libraries
+                        </h2>
                       </div>
-                      <h2 className="text-2xl font-bold text-white tracking-tight">
-                        Non-Blocking DMA Peripheral Libraries
-                      </h2>
+                      <p className="text-sm text-gray-400 mt-1.5">
+                        Production C libraries engineered around DarkLight&apos;s DMA controller for zero-jitter waveform generation.
+                      </p>
                     </div>
-                    <p className="text-sm text-gray-400 mt-1.5">
-                      Production C libraries engineered around DarkLight&apos;s DMA controller for zero-jitter waveform generation.
-                    </p>
                   </div>
-                </div>
 
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                  {filteredLibraries.map((lib) => (
-                    <div
-                      key={lib.id}
-                      className="group rounded-2xl border border-gray-800/90 bg-gradient-to-b from-gray-900/90 to-gray-950 p-6 flex flex-col justify-between hover:border-brand-500/50 transition-all shadow-lg"
-                    >
-                      <div>
-                        {/* Header row */}
-                        <div className="flex items-center justify-between gap-2 mb-4">
-                          <div className="flex items-center gap-3">
-                            <div className="w-11 h-11 rounded-xl bg-gray-950 border border-gray-800 flex items-center justify-center">
-                              {getTypeIcon(lib.type)}
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    {filteredLibraries.map((lib) => (
+                      <div
+                        key={lib.id}
+                        className="group rounded-2xl border border-gray-800/90 bg-gradient-to-b from-gray-900/90 to-gray-950 p-6 flex flex-col justify-between hover:border-brand-500/50 transition-all shadow-lg"
+                      >
+                        <div>
+                          {/* Header row */}
+                          <div className="flex items-center justify-between gap-2 mb-4">
+                            <div className="flex items-center gap-3">
+                              <div className="w-11 h-11 rounded-xl bg-gray-950 border border-gray-800 flex items-center justify-center">
+                                {getTypeIcon(lib.type)}
+                              </div>
+                              <div>
+                                <h3 className="text-lg font-bold text-white font-mono group-hover:text-brand-300 transition-colors">
+                                  {lib.title}
+                                </h3>
+                                <span className="text-xs font-mono text-brand-400">
+                                  {lib.protocol}
+                                </span>
+                              </div>
                             </div>
-                            <div>
-                              <h3 className="text-lg font-bold text-white font-mono group-hover:text-brand-300 transition-colors">
-                                {lib.title}
-                              </h3>
-                              <span className="text-xs font-mono text-brand-400">
-                                {lib.protocol}
+
+                            <div className="flex items-center gap-1.5">
+                              <span className="px-2.5 py-0.5 rounded bg-gray-950 border border-gray-800 text-xs font-mono text-gray-300">
+                                {lib.version}
+                              </span>
+                              <span
+                                className={`px-2.5 py-0.5 rounded text-[10px] font-mono font-bold border ${getTypeBadgeStyle(
+                                  lib.type
+                                )}`}
+                              >
+                                {lib.formatBadge}
                               </span>
                             </div>
                           </div>
 
-                          <div className="flex items-center gap-1.5">
-                            <span className="px-2.5 py-0.5 rounded bg-gray-950 border border-gray-800 text-xs font-mono text-gray-300">
-                              {lib.version}
-                            </span>
-                            <span
-                              className={`px-2.5 py-0.5 rounded text-[10px] font-mono font-bold border ${getTypeBadgeStyle(
-                                lib.type
-                              )}`}
-                            >
-                              {lib.formatBadge}
-                            </span>
+                          {/* Custom SVG Digital Logic Waveform Graphic */}
+                          <div className="rounded-xl bg-gray-950 border border-gray-800/90 p-3.5 mb-4">
+                            <div className="flex items-center justify-between text-[10px] font-mono text-gray-400 mb-2">
+                              <span className="text-gray-300">{lib.headerFile}</span>
+                              <span className="text-emerald-400">0% CPU Load (DMA Ch.1)</span>
+                            </div>
+
+                            {lib.waveformType === 'nzr' ? (
+                              <svg
+                                viewBox="0 0 360 44"
+                                className="w-full h-11"
+                                aria-label="WS2812B 800kHz NZR PWM DMA waveform diagram"
+                              >
+                                <text x="4" y="14" fill="#64748b" fontSize="8" fontFamily="monospace">
+                                  PWM_OUT
+                                </text>
+                                {/* 800kHz Bit-1 and Bit-0 duty cycle pulses */}
+                                <path
+                                  d="M 55 34 V 10 H 85 V 34 H 105 V 10 H 120 V 34 H 150 V 10 H 180 V 34 H 200 V 10 H 230 V 34 H 250 V 10 H 265 V 34 H 295 V 10 H 325 V 34 H 350"
+                                  fill="none"
+                                  stroke="#38bdf8"
+                                  strokeWidth="2"
+                                />
+                                <text x="63" y="25" fill="#7dd3fc" fontSize="7.5" fontFamily="monospace">
+                                  T1H
+                                </text>
+                                <text x="108" y="25" fill="#94a3b8" fontSize="7.5" fontFamily="monospace">
+                                  T0H
+                                </text>
+                                <text x="158" y="25" fill="#7dd3fc" fontSize="7.5" fontFamily="monospace">
+                                  T1H
+                                </text>
+                                <text x="208" y="25" fill="#7dd3fc" fontSize="7.5" fontFamily="monospace">
+                                  T1H
+                                </text>
+                              </svg>
+                            ) : (
+                              <svg
+                                viewBox="0 0 360 44"
+                                className="w-full h-11"
+                                aria-label="APA102 Synchronous SPI Clock and Data waveform diagram"
+                              >
+                                <text x="4" y="15" fill="#64748b" fontSize="8" fontFamily="monospace">
+                                  SPI_SCK
+                                </text>
+                                <text x="4" y="36" fill="#64748b" fontSize="8" fontFamily="monospace">
+                                  SPI_MOSI
+                                </text>
+                                {/* Clock train */}
+                                <path
+                                  d="M 55 18 V 6 H 70 V 18 H 85 V 6 H 100 V 18 H 115 V 6 H 130 V 18 H 145 V 6 H 160 V 18 H 175 V 6 H 190 V 18 H 205 V 6 H 220 V 18 H 235 V 6 H 250 V 18 H 265 V 6 H 280 V 18 H 295 V 6 H 310 V 18 H 345"
+                                  fill="none"
+                                  stroke="#22d3ee"
+                                  strokeWidth="1.6"
+                                />
+                                {/* Data line */}
+                                <path
+                                  d="M 55 38 L 62 26 H 110 L 116 38 H 168 L 174 26 H 242 L 248 38 H 290 L 296 26 H 345"
+                                  fill="none"
+                                  stroke="#a855f7"
+                                  strokeWidth="1.8"
+                                />
+                              </svg>
+                            )}
                           </div>
+
+                          <p className="text-sm text-gray-400 leading-relaxed mb-6">
+                            {lib.description}
+                          </p>
                         </div>
 
-                        {/* Custom SVG Digital Logic Waveform Graphic */}
-                        <div className="rounded-xl bg-gray-950 border border-gray-800/90 p-3.5 mb-4">
-                          <div className="flex items-center justify-between text-[10px] font-mono text-gray-400 mb-2">
-                            <span className="text-gray-300">{lib.headerFile}</span>
-                            <span className="text-emerald-400">0% CPU Load (DMA Ch.1)</span>
-                          </div>
+                        <div className="pt-4 border-t border-gray-800/80 flex items-center justify-between gap-3">
+                          <span className="text-xs font-mono text-gray-500">
+                            {lib.sizeOrPlatform}
+                          </span>
 
-                          {lib.waveformType === 'nzr' ? (
-                            <svg
-                              viewBox="0 0 360 44"
-                              className="w-full h-11"
-                              aria-label="WS2812B 800kHz NZR PWM DMA waveform diagram"
-                            >
-                              <text x="4" y="14" fill="#64748b" fontSize="8" fontFamily="monospace">
-                                PWM_OUT
-                              </text>
-                              {/* 800kHz Bit-1 and Bit-0 duty cycle pulses */}
-                              <path
-                                d="M 55 34 V 10 H 85 V 34 H 105 V 10 H 120 V 34 H 150 V 10 H 180 V 34 H 200 V 10 H 230 V 34 H 250 V 10 H 265 V 34 H 295 V 10 H 325 V 34 H 350"
-                                fill="none"
-                                stroke="#38bdf8"
-                                strokeWidth="2"
-                              />
-                              <text x="63" y="25" fill="#7dd3fc" fontSize="7.5" fontFamily="monospace">
-                                T1H
-                              </text>
-                              <text x="108" y="25" fill="#94a3b8" fontSize="7.5" fontFamily="monospace">
-                                T0H
-                              </text>
-                              <text x="158" y="25" fill="#7dd3fc" fontSize="7.5" fontFamily="monospace">
-                                T1H
-                              </text>
-                              <text x="208" y="25" fill="#7dd3fc" fontSize="7.5" fontFamily="monospace">
-                                T1H
-                              </text>
-                            </svg>
-                          ) : (
-                            <svg
-                              viewBox="0 0 360 44"
-                              className="w-full h-11"
-                              aria-label="APA102 Synchronous SPI Clock and Data waveform diagram"
-                            >
-                              <text x="4" y="15" fill="#64748b" fontSize="8" fontFamily="monospace">
-                                SPI_SCK
-                              </text>
-                              <text x="4" y="36" fill="#64748b" fontSize="8" fontFamily="monospace">
-                                SPI_MOSI
-                              </text>
-                              {/* Clock train */}
-                              <path
-                                d="M 55 18 V 6 H 70 V 18 H 85 V 6 H 100 V 18 H 115 V 6 H 130 V 18 H 145 V 6 H 160 V 18 H 175 V 6 H 190 V 18 H 205 V 6 H 220 V 18 H 235 V 6 H 250 V 18 H 265 V 6 H 280 V 18 H 295 V 6 H 310 V 18 H 345"
-                                fill="none"
-                                stroke="#22d3ee"
-                                strokeWidth="1.6"
-                              />
-                              {/* Data line */}
-                              <path
-                                d="M 55 38 L 62 26 H 110 L 116 38 H 168 L 174 26 H 242 L 248 38 H 290 L 296 26 H 345"
-                                fill="none"
-                                stroke="#a855f7"
-                                strokeWidth="1.8"
-                              />
-                            </svg>
-                          )}
+                          <a
+                            href={lib.link}
+                            className="px-4 py-2 rounded-xl bg-brand-600 hover:bg-brand-500 text-white text-xs font-semibold transition-all flex items-center gap-1.5 shadow-md shadow-brand-600/20"
+                          >
+                            <Download size={14} />
+                            <span>{lib.actionText}</span>
+                          </a>
                         </div>
-
-                        <p className="text-sm text-gray-400 leading-relaxed mb-6">
-                          {lib.description}
-                        </p>
                       </div>
+                    ))}
+                  </div>
+                </section>
+                
+                  :
 
-                      <div className="pt-4 border-t border-gray-800/80 flex items-center justify-between gap-3">
-                        <span className="text-xs font-mono text-gray-500">
-                          {lib.sizeOrPlatform}
-                        </span>
-
-                        <a
-                          href={lib.link}
-                          className="px-4 py-2 rounded-xl bg-brand-600 hover:bg-brand-500 text-white text-xs font-semibold transition-all flex items-center gap-1.5 shadow-md shadow-brand-600/20"
-                        >
-                          <Download size={14} />
-                          <span>{lib.actionText}</span>
-                        </a>
+                <section id="software-tools" className="scroll-mt-24">
+                  <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-2 mb-6">
+                    <div>
+                      <div className="flex items-center gap-2.5">
+                        <div className="w-9 h-9 rounded-xl bg-brand-500/10 border border-brand-500/30 flex items-center justify-center">
+                          <Wrench size={18} className="text-brand-400" />
+                        </div>
+                        <h2 className="text-2xl font-bold text-white tracking-tight">
+                          {title}
+                        </h2>
                       </div>
+                      <p className="text-sm text-gray-400 mt-1.5">
+                        Core development environment, J-Link debug probes, and USB communication drivers.
+                      </p>
                     </div>
-                  ))}
-                </div>
-              </section>
-            )}
+                    <span className="text-xs font-mono text-gray-500">
+                      Windows 10/11 • macOS (Universal) • Ubuntu/Debian
+                    </span>
+                  </div>
+
+                  <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
+                    {downloadItems.map((tool) => (
+                      <div
+                        key={tool.id}
+                        className="group relative rounded-2xl border border-gray-800/90 bg-gradient-to-b from-gray-900/90 to-gray-950 p-6 flex flex-col justify-between hover:border-brand-500/50 transition-all duration-300 shadow-lg hover:shadow-brand-500/5 overflow-hidden"
+                      >
+                        {/* Decorative Corner Schematic Accent */}
+                        <div className="absolute -right-8 -top-8 w-28 h-28 bg-brand-500/5 rounded-full blur-2xl group-hover:bg-brand-500/15 transition-colors pointer-events-none" />
+
+                        <div>
+                          {/* Top Icon + Format Pill */}
+                          <div className="flex items-center justify-between gap-2 mb-4">
+                            <div className="w-11 h-11 rounded-xl bg-gray-950 border border-gray-800 flex items-center justify-center shadow-inner group-hover:border-gray-700 transition-colors">
+                              {getTypeIcon(tool.type)}
+                            </div>
+                            <div className="flex items-center gap-1.5">
+                              <span className="px-2.5 py-0.5 rounded-md bg-gray-950 border border-gray-800 text-[11px] font-mono text-gray-300">
+                                {tool.version}
+                              </span>
+                              <span
+                                className={`px-2.5 py-0.5 rounded-md text-[10px] font-mono font-bold border ${getTypeBadgeStyle(
+                                  tool.type
+                                )}`}
+                              >
+                                {tool.formatBadge}
+                              </span>
+                            </div>
+                          </div>
+
+                          {/* Highlight Tag */}
+                          {tool.highlight && (
+                            <div className="text-[11px] font-mono text-brand-400 mb-1 flex items-center gap-1">
+                              <Sparkles size={11} />
+                              <span>{tool.highlight}</span>
+                            </div>
+                          )}
+
+                          <h3 className="text-lg font-bold text-white mb-2 group-hover:text-brand-300 transition-colors">
+                            {tool.title}
+                          </h3>
+
+                          <p className="text-sm text-gray-400 leading-relaxed mb-6">
+                            {tool.description}
+                          </p>
+                        </div>
+
+                        <div className="pt-4 border-t border-gray-800/80 flex items-center justify-between gap-3">
+                          <span className="text-xs font-mono text-gray-500">
+                            {tool.sizeOrPlatform}
+                          </span>
+
+                          <a
+                            href={tool.link}
+                            target={tool.isExternal ? '_blank' : undefined}
+                            rel={tool.isExternal ? 'noopener noreferrer' : undefined}
+                            className="px-4 py-2 rounded-xl bg-gray-800 hover:bg-brand-600 text-white text-xs font-semibold border border-gray-700 hover:border-brand-500 transition-all flex items-center gap-1.5 shadow-sm"
+                          >
+                            <span>{tool.actionText}</span>
+                            {tool.isExternal ? (
+                              <ExternalLink size={13} />
+                            ) : (
+                              <Download size={13} />
+                            )}
+                          </a>
+                        </div>
+                      </div>
+                    )
+                  )}
+                  </div>
+                </section>
+              ) 
+            }
+
+            {/* SECTION 2: INTERACTIVE 5-BOARD HARDWARE HUB */}
+            
+
+            {/* SECTION 3: HARDWARE PERIPHERAL LIBRARIES WITH WAVEFORM GRAPHICS */}
+            {/* {filteredLibraries.length > 0 && (
+              
+            )} */}
           </main>
         </div>
       </div>
