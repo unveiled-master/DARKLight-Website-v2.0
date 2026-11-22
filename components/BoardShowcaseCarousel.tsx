@@ -5,6 +5,7 @@ import {
   ExternalLink, Sparkles, Layers, Radio, Play, Pause, ShieldCheck
 } from 'lucide-react';
 import { BOARDS } from './ImageCarousel';
+import styles from './styles/BoardShowcaseCarousel.module.css';
 
 // Tier metadata to enrich board presentation
 interface BoardTierMeta {
@@ -381,7 +382,7 @@ export const BoardShowcaseCarousel: React.FC<BoardShowcaseCarouselProps> = ({
                 role="group"
                 aria-roledescription="slide"
                 aria-label={`Slide ${index + 1} of ${BOARDS.length}: ${board.title}`}
-                className={`snap-center shrink-0 w-[50vw] sm:w-[47vw] md:w-[416px] lg:w-[540px] xl:w-[608px] rounded-xl bg-gradient-to-b from-gray-900/90 via-gray-900/70 to-gray-950/95 border transition-[border-color,opacity,box-shadow] duration-500 relative overflow-hidden backdrop-blur-md p-3 sm:p-4 lg:p-5 shadow-2xl group ${
+                className={` ${styles.card} snap-center shrink-0 w-[50vw] sm:w-[47vw] md:w-[416px] lg:w-[540px] xl:w-[608px] rounded-xl bg-gradient-to-b from-gray-900/90 via-gray-900/70 to-gray-950/95 border transition-[border-color,opacity,box-shadow] duration-500 relative overflow-hidden backdrop-blur-md p-3 sm:p-4 lg:p-5 shadow-2xl group ${
                   isActive
                     ? 'border-gray-700/80 shadow-brand-500/5 ring-1 ring-white/5'
                     : 'border-gray-800/80 opacity-85 hover:opacity-100'
@@ -419,7 +420,7 @@ export const BoardShowcaseCarousel: React.FC<BoardShowcaseCarouselProps> = ({
                       </p>
 
                       {/* Specifications Grid */}
-                      <div className="mb-3.5">
+                      <div className={`mb-3.5 ${styles.specs}`}>
                         <p className="text-[10px] font-semibold uppercase tracking-wider text-gray-500 mb-1.5 flex items-center gap-1">
                           <Layers size={10} className="text-brand-400" aria-hidden="true" />
                           Key Hardware Architecture
@@ -557,67 +558,68 @@ export const BoardShowcaseCarousel: React.FC<BoardShowcaseCarouselProps> = ({
       </div>
 
       {/* Controls: Counter, Play/Pause Toggle & Prev/Next Buttons */}
-      <div className="container mx-auto px-4 mt-4 flex items-center justify-center gap-3">
+      <div className={`container mx-auto px-4 mt-4 flex items-center justify-center gap-3 ${styles.actions}`}>
         {/* Slide Index Counter */}
-        <button className="px-3.5 py-2 rounded-xl bg-gray-900 border border-gray-800 text-gray-400 font-mono text-xs sm:text-sm font-medium tracking-wider tabular-nums flex items-center gap-1.5" >
+        <button className={`px-3.5 py-2 rounded-xl bg-gray-900 border border-gray-800 text-gray-400 font-mono text-xs sm:text-sm font-medium tracking-wider tabular-nums flex items-center gap-1.5 ${styles.exploreAction}`} >
           <Link to='/learn' style={{fontSize: '0.85rem', fontFamily: 'serif', letterSpacing: '0.25rem', color: '#3ce9e0'}}>
             Explore
           </Link>
         </button>
+        <div className={styles.navAction}>
+          <div className="px-3.5 py-2 rounded-xl bg-gray-900 border border-gray-800 text-gray-400 font-mono text-xs sm:text-sm font-medium tracking-wider tabular-nums flex items-center gap-1.5">
+            <span className="text-white font-bold">{String(currentIndex + 1).padStart(2, '0')}</span>
+            <span className="text-gray-600">/</span>
+            <span>{String(BOARDS.length).padStart(2, '0')}</span>
+            {isAutoPlaying && (
+              <span 
+                className={`w-1.5 h-1.5 rounded-full ml-1 transition-[background-color] duration-300 ${
+                  isPaused ? 'bg-amber-400' : 'bg-brand-400 animate-pulse'
+                }`} 
+                title={isPaused ? 'Auto-scroll paused' : 'Auto-scroll running'}
+                aria-hidden="true"
+              />
+            )}
+          </div>
 
-        <div className="px-3.5 py-2 rounded-xl bg-gray-900 border border-gray-800 text-gray-400 font-mono text-xs sm:text-sm font-medium tracking-wider tabular-nums flex items-center gap-1.5">
-          <span className="text-white font-bold">{String(currentIndex + 1).padStart(2, '0')}</span>
-          <span className="text-gray-600">/</span>
-          <span>{String(BOARDS.length).padStart(2, '0')}</span>
-          {isAutoPlaying && (
-            <span 
-              className={`w-1.5 h-1.5 rounded-full ml-1 transition-[background-color] duration-300 ${
-                isPaused ? 'bg-amber-400' : 'bg-brand-400 animate-pulse'
-              }`} 
-              title={isPaused ? 'Auto-scroll paused' : 'Auto-scroll running'}
-              aria-hidden="true"
-            />
-          )}
-        </div>
-
-        {/* Play / Pause Toggle Button */}
-        <button
-          onClick={() => setIsAutoPlaying((prev) => !prev)}
-          aria-label={isAutoPlaying ? 'Pause carousel auto-scroll' : 'Resume carousel auto-scroll'}
-          aria-pressed={isAutoPlaying}
-          className="w-10 h-10 rounded-xl bg-gray-900 border border-gray-800 text-gray-300 hover:text-white hover:bg-gray-800 hover:border-gray-700 active:scale-95 transition-[transform,opacity,background-color,border-color] duration-200 flex items-center justify-center focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-500 shadow-lg"
-        >
-          {isAutoPlaying ? (
-            <Pause 
-              size={16} 
-              aria-hidden="true" 
-              className={isPaused ? 'text-amber-400' : 'text-brand-400'} 
-            />
-          ) : (
-            <Play 
-              size={16} 
-              aria-hidden="true" 
-              className="text-gray-400 ml-0.5" 
-            />
-          )}
-        </button>
-
-        {/* Direction Arrows */}
-        <div className="flex items-center gap-1.5">
+          {/* Play / Pause Toggle Button */}
           <button
-            onClick={handlePrev}
-            aria-label="Previous board"
+            onClick={() => setIsAutoPlaying((prev) => !prev)}
+            aria-label={isAutoPlaying ? 'Pause carousel auto-scroll' : 'Resume carousel auto-scroll'}
+            aria-pressed={isAutoPlaying}
             className="w-10 h-10 rounded-xl bg-gray-900 border border-gray-800 text-gray-300 hover:text-white hover:bg-gray-800 hover:border-gray-700 active:scale-95 transition-[transform,opacity,background-color,border-color] duration-200 flex items-center justify-center focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-500 shadow-lg"
           >
-            <ChevronLeft size={20} aria-hidden="true" />
+            {isAutoPlaying ? (
+              <Pause 
+                size={16} 
+                aria-hidden="true" 
+                className={isPaused ? 'text-amber-400' : 'text-brand-400'} 
+              />
+            ) : (
+              <Play 
+                size={16} 
+                aria-hidden="true" 
+                className="text-gray-400 ml-0.5" 
+              />
+            )}
           </button>
-          <button
-            onClick={handleNext}
-            aria-label="Next board"
-            className="w-10 h-10 rounded-xl bg-gray-900 border border-gray-800 text-gray-300 hover:text-white hover:bg-gray-800 hover:border-gray-700 active:scale-95 transition-[transform,opacity,background-color,border-color] duration-200 flex items-center justify-center focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-500 shadow-lg"
-          >
-            <ChevronRight size={20} aria-hidden="true" />
-          </button>
+
+          {/* Direction Arrows */}
+          <div className="flex items-center gap-1.5">
+            <button
+              onClick={handlePrev}
+              aria-label="Previous board"
+              className="w-10 h-10 rounded-xl bg-gray-900 border border-gray-800 text-gray-300 hover:text-white hover:bg-gray-800 hover:border-gray-700 active:scale-95 transition-[transform,opacity,background-color,border-color] duration-200 flex items-center justify-center focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-500 shadow-lg"
+            >
+              <ChevronLeft size={20} aria-hidden="true" />
+            </button>
+            <button
+              onClick={handleNext}
+              aria-label="Next board"
+              className="w-10 h-10 rounded-xl bg-gray-900 border border-gray-800 text-gray-300 hover:text-white hover:bg-gray-800 hover:border-gray-700 active:scale-95 transition-[transform,opacity,background-color,border-color] duration-200 flex items-center justify-center focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-500 shadow-lg"
+            >
+              <ChevronRight size={20} aria-hidden="true" />
+            </button>
+          </div>
         </div>
       </div>
     </section>

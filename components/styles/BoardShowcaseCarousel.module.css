@@ -1,0 +1,43 @@
+.navAction{
+  display: flex;
+  gap: 0.5rem;
+}
+
+@media (max-width: 700px) {
+  .card{
+    width: 100%;
+    max-height: 90dvh;
+  }
+}
+
+@media (max-width: 500px) {
+  .card{
+    width: 95%;
+  }
+
+  .specs{
+    display: none;
+  }
+
+  .actions{
+    flex-flow: column;
+  }
+
+  .exploreAction{
+    width: 100%;
+  }
+
+  .navAction{
+    width: 100%;
+    justify-content: space-between;
+  }
+
+  /* .card:hover .specs{
+    display: block;
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    background-color: #3636362d;
+    backdrop-filter: blur(4px);
+  } */
+}
