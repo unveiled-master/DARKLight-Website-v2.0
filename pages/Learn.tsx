@@ -3,7 +3,6 @@ import { useLocation, useParams, Link } from 'react-router-dom';
 import { DOC_DATA } from '../constants';
 import { BookOpen, ChevronRight } from 'lucide-react';
 import { LEARN_PAGES } from '../learnPages';
-import styles from './styles/learn.module.css';
 
 export const Learn: React.FC = () => {
   const [isMobile, setIsMobile] = useState<boolean>(window.innerWidth < 768);
@@ -67,7 +66,7 @@ export const Learn: React.FC = () => {
   const renderDocsInfo = (id: string) => {
     return <>
     { isMobile && openSubMenu.includes(id) && (
-      <div className={`space-y-20 ${styles.dropDownInformation}`}>
+      <div className='space-y-20 p-4'>
         {pageDocs.map(doc => (
           <section
             key={doc.id}

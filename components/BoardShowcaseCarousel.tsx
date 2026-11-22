@@ -455,13 +455,12 @@ export const BoardShowcaseCarousel: React.FC<BoardShowcaseCarouselProps> = ({
                         <ArrowRight size={12} aria-hidden="true" className="transition-transform duration-200 group-hover/btn:translate-x-1" />
                       </button>
 
-                      <Link
+                      {/* <Link
                         to="/learn"
                         className="px-3 py-1.5 bg-gray-800/80 hover:bg-gray-800 text-gray-200 hover:text-white border border-gray-700/80 rounded-lg font-semibold text-[11px] sm:text-xs transition-[transform,background-color,color] duration-200 flex items-center gap-1 active:scale-95 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-500"
                       >
-                        <span>Start Learning</span>
                         <ExternalLink size={11} aria-hidden="true" className="text-gray-400" />
-                      </Link>
+                      </Link> */}
 
                       <div className="hidden sm:flex items-center gap-1 text-[10px] text-gray-500 ml-auto font-mono">
                         <ShieldCheck size={11} aria-hidden="true" className="text-brand-400" />
@@ -560,6 +559,12 @@ export const BoardShowcaseCarousel: React.FC<BoardShowcaseCarouselProps> = ({
       {/* Controls: Counter, Play/Pause Toggle & Prev/Next Buttons */}
       <div className="container mx-auto px-4 mt-4 flex items-center justify-center gap-3">
         {/* Slide Index Counter */}
+        <button className="px-3.5 py-2 rounded-xl bg-gray-900 border border-gray-800 text-gray-400 font-mono text-xs sm:text-sm font-medium tracking-wider tabular-nums flex items-center gap-1.5" >
+          <Link to='/learn' style={{fontSize: '0.85rem', fontFamily: 'serif', letterSpacing: '0.25rem', color: '#3ce9e0'}}>
+            Explore
+          </Link>
+        </button>
+
         <div className="px-3.5 py-2 rounded-xl bg-gray-900 border border-gray-800 text-gray-400 font-mono text-xs sm:text-sm font-medium tracking-wider tabular-nums flex items-center gap-1.5">
           <span className="text-white font-bold">{String(currentIndex + 1).padStart(2, '0')}</span>
           <span className="text-gray-600">/</span>
