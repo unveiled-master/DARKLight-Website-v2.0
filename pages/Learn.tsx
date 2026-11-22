@@ -39,9 +39,12 @@ export const Learn: React.FC = () => {
     return () => window.removeEventListener("resize", handleResize);
   }, []);
 
-  // useEffect(() => {
-  //   setOpenSubMenu('/learn/installation-setup');
-  // }, []);
+  useEffect(() => {
+
+    // alert(window.location);
+    renderDocsInfo(String(window.location))//.replace('#', ''));
+    setOpenSubMenu(String(window.location))//.replace('#', ''))
+  }, []);
 
 
   useEffect(() => {
