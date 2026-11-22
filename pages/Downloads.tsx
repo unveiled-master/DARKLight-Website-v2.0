@@ -643,7 +643,10 @@ export const Downloads: React.FC = () => {
 
                   <li>
                     <button
-                      onClick={() => renderItems([], 'Documentation')}
+                      onClick={() => {
+                        renderItems([], 'Documentation');
+                        scrollToSection('board-hub')
+                      }}
                       className="w-full text-left px-3 py-2 rounded-xl text-sm font-medium text-gray-300 hover:text-white hover:bg-gray-800/70 flex items-center justify-between group transition-colors"
                     >
                       <span className="flex items-center gap-2.5">
@@ -658,7 +661,10 @@ export const Downloads: React.FC = () => {
 
                   <li>
                     <button
-                      onClick={() => renderItems(LIBRARIES, 'Extended Libraries')}
+                      onClick={() => {
+                        renderItems(LIBRARIES, 'Extended Libraries');
+                        scrollToSection('libraries');
+                      }}
                       className="w-full text-left px-3 py-2 rounded-xl text-sm font-medium text-gray-300 hover:text-white hover:bg-gray-800/70 flex items-center justify-between group transition-colors"
                     >
                       <span className="flex items-center gap-2.5">
