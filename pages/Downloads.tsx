@@ -458,15 +458,15 @@ export const Downloads: React.FC = () => {
           <div className="relative z-10 grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
             {/* Left Column: Title, Copy & Ecosystem Metrics */}
             <div className="lg:col-span-7 space-y-4">
-              <div className="inline-flex items-center gap-2 rounded-full border border-brand-500/30 bg-brand-500/10 px-3.5 py-1 text-xs font-semibold text-brand-300 tracking-wide uppercase">
+              {/* <div className="inline-flex items-center gap-2 rounded-full border border-brand-500/30 bg-brand-500/10 px-3.5 py-1 text-xs font-semibold text-brand-300 tracking-wide uppercase">
                 <Sparkles size={13} className="text-brand-400" />
                 <span>DarkLight Developer Resource Center • SDK v2.4</span>
-              </div>
+              </div> */}
 
               <h1 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-white tracking-tight leading-tight">
-                Hardware SDKs, Toolchains &{' '}
+                Darklight {' '}
                 <span className="text-transparent bg-clip-text bg-gradient-to-r from-brand-400 via-cyan-400 to-blue-500">
-                  Silicon Resources
+                  Resources
                 </span>
               </h1>
 
@@ -846,10 +846,10 @@ export const Downloads: React.FC = () => {
 
                         <div>
                           {/* Top Icon + Format Pill */}
-                          <div className="flex items-center justify-between gap-2 mb-4">
-                            <div className="w-11 h-11 rounded-xl bg-gray-950 border border-gray-800 flex items-center justify-center shadow-inner group-hover:border-gray-700 transition-colors">
+                          {/*<div className="flex items-center justify-between gap-2 mb-4">
+                             <div className="w-11 h-11 rounded-xl bg-gray-950 border border-gray-800 flex items-center justify-center shadow-inner group-hover:border-gray-700 transition-colors">
                               {getTypeIcon(tool.type)}
-                            </div>
+                            </div> 
                             <div className="flex items-center gap-1.5">
                               <span className="px-2.5 py-0.5 rounded-md bg-gray-950 border border-gray-800 text-[11px] font-mono text-gray-300">
                                 {tool.version}
@@ -862,15 +862,15 @@ export const Downloads: React.FC = () => {
                                 {tool.formatBadge}
                               </span>
                             </div>
-                          </div>
+                          </div>*/}
 
-                          {/* Highlight Tag */}
+                          {/* Highlight Tag 
                           {tool.highlight && (
                             <div className="text-[11px] font-mono text-brand-400 mb-1 flex items-center gap-1">
                               <Sparkles size={11} />
                               <span>{tool.highlight}</span>
                             </div>
-                          )}
+                          )}*/}
 
                           <h3 className="text-lg font-bold text-white mb-2 group-hover:text-brand-300 transition-colors">
                             {tool.title}
@@ -882,9 +882,9 @@ export const Downloads: React.FC = () => {
                         </div>
 
                         <div className="pt-4 border-t border-gray-800/80 flex items-center justify-between gap-3">
-                          <span className="text-xs font-mono text-gray-500">
+                          {/* <span className="text-xs font-mono text-gray-500">
                             {tool.sizeOrPlatform}
-                          </span>
+                          </span> */}
 
                           <a
                             href={tool.link}
