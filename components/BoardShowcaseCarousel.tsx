@@ -376,7 +376,7 @@ export const BoardShowcaseCarousel: React.FC<BoardShowcaseCarouselProps> = ({
       <div className="relative w-full">
         {/* Left Scroll Gradient Affordance */}
         <div 
-          className={`absolute left-0 top-0 bottom-0 w-12 sm:w-24 bg-gradient-to-r from-gray-950 via-gray-950/80 to-transparent z-20 pointer-events-none transition-opacity duration-300 ${
+          className={`pointer-events-none transition-opacity duration-300 ${
             canScrollLeft ? 'opacity-100' : 'opacity-0'
           }`}
           aria-hidden="true"
@@ -384,7 +384,7 @@ export const BoardShowcaseCarousel: React.FC<BoardShowcaseCarouselProps> = ({
 
         {/* Right Scroll Gradient Affordance */}
         <div 
-          className={`absolute right-0 top-0 bottom-0 w-12 sm:w-24 bg-gradient-to-l from-gray-950 via-gray-950/80 to-transparent z-20 pointer-events-none transition-opacity duration-300 ${
+          className={` pointer-events-none transition-opacity duration-300 ${
             canScrollRight ? 'opacity-100' : 'opacity-0'
           }`}
           aria-hidden="true"
@@ -418,7 +418,7 @@ export const BoardShowcaseCarousel: React.FC<BoardShowcaseCarouselProps> = ({
                 aria-roledescription="slide"
                 aria-label={`Slide ${boardIndex + 1} of ${BOARDS.length}: ${board.title}`}
                 aria-hidden={isClone}
-                className={` ${styles.card} snap-center shrink-0 w-[50vw] sm:w-[47vw] md:w-[416px] lg:w-[540px] xl:w-[608px] rounded-xl bg-gradient-to-b from-gray-900/90 via-gray-900/70 to-gray-950/95 border transition-[border-color,opacity,box-shadow] duration-500 relative overflow-hidden backdrop-blur-md p-3 sm:p-4 lg:p-5 shadow-2xl group ${
+                className={` ${styles.card} snap-center shrink-0 w-[50vw] sm:w-[47vw] md:w-[416px] lg:w-[540px] xl:w-[608px] rounded-xl bg-gradient-to-b from-gray-900/90 via-gray-900/70 to-gray-950/95 border transition-[border-color,opacity] duration-500 relative overflow-hidden backdrop-blur-md p-3 sm:p-4 lg:p-5 shadow-2xl group ${
                   isActive
                     ? 'border-gray-700/80 shadow-brand-500/5 ring-1 ring-white/5'
                     : 'border-gray-800/80 opacity-85 hover:opacity-100'

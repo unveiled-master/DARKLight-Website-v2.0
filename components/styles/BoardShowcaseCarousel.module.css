@@ -5,10 +5,15 @@
 
 .card {
   width: 150%;
+  
+  scroll-snap-align: start;
 }
 .track{
   padding-inline: calc((100% - 50vw) / 2);
+  scroll-snap-type: x mandatory;
 }
+
+
 @media (min-width: 640px) {
   .track{
     padding-inline: calc((100% - 47vw) / 2);
@@ -38,6 +43,11 @@
 @media (max-width: 500px) {
   .specs{
     display: none;
+  }
+
+  .card{
+    width: 160%;
+    scroll-snap-align: center;
   }
 
   .actions{
