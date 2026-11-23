@@ -9,8 +9,8 @@
 }
 
 .card {
-  width: 180%;
-  scroll-snap-align: start;
+  width: 180% !important;
+  scroll-snap-align: start !important;
 }
 
 
