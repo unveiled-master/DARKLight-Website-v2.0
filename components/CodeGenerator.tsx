@@ -1,6 +1,8 @@
+import { classNames } from '../styles/classNames';
 import React, { useState, useEffect } from 'react';
 import { CodeBlock } from './CodeBlock';
 import { Settings, RefreshCw, Layers } from 'lucide-react';
+import styles from './styles/CodeGenerator.module.css';
 
 type ComponentType = 'DigitalOut' | 'DigitalIn' | 'PwmOut' | 'AnalogIn' | 'Ticker' | 'InterruptIn';
 
@@ -60,25 +62,23 @@ export const CodeGenerator: React.FC = () => {
   };
 
   return (
-    <div className="grid lg:grid-cols-3 gap-8">
+    <div className={classNames(styles, styles.layout)}>
       {/* Configuration Panel */}
-      <div className="bg-gray-800/50 border border-gray-700 rounded-xl p-6 h-fit">
-        <h3 className="text-xl font-bold text-white mb-6 flex items-center gap-2">
-          <Settings size={20} className="text-brand-400" />
+      <div className={classNames(styles, styles.panel)}>
+        <h3 className={classNames(styles, styles.heading)}>
+          <Settings size={20} className={classNames(styles, styles.accentIcon)} />
           Configuration
         </h3>
 
-        <div className="space-y-6">
+        <div className={classNames(styles, styles.fields)}>
           <div>
-            <label className="block text-sm font-medium text-gray-400 mb-2">Function / Class</label>
-            <div className="grid grid-cols-2 gap-2">
+            <label className={classNames(styles, styles.label)}>Function / Class</label>
+            <div className={classNames(styles, styles.types)}>
               {(['DigitalOut', 'DigitalIn', 'PwmOut', 'AnalogIn', 'Ticker', 'InterruptIn'] as ComponentType[]).map(t => (
                 <button
                   key={t}
                   onClick={() => setType(t)}
-                  className={`px-3 py-2 rounded text-sm font-medium transition-colors text-left flex items-center gap-2 ${
-                    type === t ? 'bg-brand-600 text-white' : 'bg-gray-700 text-gray-300 hover:bg-gray-600'
-                  }`}
+                  className={classNames(styles, `${styles.typeButton} ${type === t ? styles.typeSelected : ''}`)}
                 >
                   {type === t && <Layers size={14} />}
                   {t}
@@ -87,24 +87,24 @@ export const CodeGenerator: React.FC = () => {
             </div>
           </div>
 
-          <div className="grid grid-cols-2 gap-4">
+          <div className={classNames(styles, styles.pair)}>
              <div>
-                <label className="block text-sm font-medium text-gray-400 mb-2">Object Name</label>
+                <label className={classNames(styles, styles.label)}>Object Name</label>
                 <input 
                   type="text" 
                   value={variableName}
                   onChange={(e) => setVariableName(e.target.value)}
-                  className="w-full bg-gray-900 border border-gray-700 rounded px-3 py-2 text-white focus:border-brand-500 focus:outline-none"
+                  className={classNames(styles, styles.input)}
                 />
              </div>
              
              {type !== 'Ticker' && (
                <div>
-                  <label className="block text-sm font-medium text-gray-400 mb-2">Pin Name</label>
+                  <label className={classNames(styles, styles.label)}>Pin Name</label>
                   <select 
                     value={pin}
                     onChange={(e) => setPin(e.target.value)}
-                    className="w-full bg-gray-900 border border-gray-700 rounded px-3 py-2 text-white focus:border-brand-500 focus:outline-none"
+                    className={classNames(styles, styles.input)}
                   >
                     <option value="PTA0">PTA0</option>
                     <option value="PTA5">PTA5</option>
@@ -119,7 +119,7 @@ export const CodeGenerator: React.FC = () => {
 
           {(type === 'PwmOut' || type === 'Ticker') && (
             <div>
-              <label className="block text-sm font-medium text-gray-400 mb-2">
+              <label className={classNames(styles, styles.label)}>
                 {type === 'PwmOut' ? 'Duty Cycle (0.0 - 1.0)' : 'Interval (seconds)'}
               </label>
               <input 
@@ -129,14 +129,14 @@ export const CodeGenerator: React.FC = () => {
                 max={type === 'PwmOut' ? "1" : "100"}
                 value={extraParam}
                 onChange={(e) => setExtraParam(e.target.value)}
-                className="w-full bg-gray-900 border border-gray-700 rounded px-3 py-2 text-white focus:border-brand-500 focus:outline-none"
+                className={classNames(styles, styles.input)}
               />
             </div>
           )}
           
           <button 
              onClick={generate}
-             className="w-full bg-gray-700 hover:bg-gray-600 text-white py-2 rounded flex items-center justify-center gap-2 transition-colors mt-4"
+             className={classNames(styles, styles.regenerate)}
           >
              <RefreshCw size={16} /> Regenerate
           </button>
@@ -144,14 +144,14 @@ export const CodeGenerator: React.FC = () => {
       </div>
 
       {/* Preview Panel */}
-      <div className="lg:col-span-2">
-        <div className="flex items-center justify-between mb-2">
-           <h3 className="text-lg font-semibold text-gray-300">Generated Snippet</h3>
-           <span className="text-xs text-gray-500">main.cpp</span>
+      <div className={classNames(styles, styles.preview)}>
+        <div className={classNames(styles, styles.previewHeading)}>
+           <h3 className={classNames(styles, styles.previewTitle)}>Generated Snippet</h3>
+           <span className={classNames(styles, styles.filename)}>main.cpp</span>
         </div>
-        <div className="h-full">
+        <div className={classNames(styles, styles.codeWrap)}>
            <CodeBlock code={generatedCode} language="cpp" />
-           <p className="text-sm text-gray-500 mt-2">
+           <p className={classNames(styles, styles.note)}>
              Copy this code directly into your main project file. Ensure you have the DarkLight library linked in your build system.
            </p>
         </div>

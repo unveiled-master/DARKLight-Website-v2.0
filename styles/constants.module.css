@@ -1,0 +1,86 @@
+
+/* Locally scoped utility translations for this component. */
+.u8wfnxx{font-size:1.5rem;line-height:2rem}
+.u3ruxow{font-weight:700}
+.u1hgbn9f{color:var(--color-brand-400)}
+.u14s6uuh{margin-top:2rem}
+.u13su9x3{margin-bottom:1rem}
+.u1qxcg9w{border-bottom-width:1px;border-bottom-style:solid}
+.u4nbk0l{border-color:#374151}
+.u1mvujv8{padding-bottom:0.5rem}
+.uj8124d{font-size:1.25rem;line-height:1.75rem}
+.uzd3ouy{font-weight:600}
+.u19pykq9{color:#e5e7eb}
+.u17k2vs7{margin-top:1.5rem}
+.u12yvgu6{margin-bottom:0.75rem}
+.ualh2km{color:#d1d5db}
+.udhzepn{line-height:1.625}
+.u47673y{padding-left:1.5rem}
+.u1nrkyk8{--space-y:0.5rem;margin-top:calc(0.5rem * (1 - var(--space-y-reverse, 0)));margin-bottom:calc(0.5rem * var(--space-y-reverse, 0))}
+.u1ov9j6q{background-color:rgb(30 58 138 / 0.2)}
+.u8ouvcn{border-width:1px;border-style:solid}
+.uc6yhtt{border-radius:.75rem}
+.u16omn86{padding:1rem}
+.uug9mx0{margin-top:1.5rem;margin-bottom:1.5rem}
+.u14oaq3e{color:#fff}
+.u138v2j5{margin-bottom:0.5rem}
+.uiyw1ix{font-size:.875rem;line-height:1.25rem}
+.u348sne:hover{color:var(--color-brand-300)}
+.u1rohwu7{text-decoration-line:underline}
+.u1kztrto{border-color:#3b82f6}
+.u14cthb1{margin-bottom:1.5rem}
+.udzqs14{color:#60a5fa}
+.u1kagvzm{display:flex}
+.u1ytsssi{overflow-x:auto}
+.u1gzz0fc{width:100%}
+.ucm9lk4{text-align:left}
+.udm2rhw{border-radius:.5rem}
+.u13pd2yi{overflow:hidden}
+.unoqjyj{background-color:#1f2937}
+.uxzz6wq{color:var(--color-brand-300)}
+.u17ilgb3{padding:0.75rem}
+.u1kcv8fl{background-color:rgb(31 41 55 / 0.5)}
+.u2o682h{color:#4ade80}
+.u1lhert3{background-color:rgb(31 41 55 / 0.3)}
+.u1dq19d5{color:#f87171}
+.utxpsat{background-color:rgb(127 29 29 / 0.2)}
+.u1urqz8v{border-color:#ef4444}
+.u1y292xp{position:relative}
+.u7hsuxg{display:inline-block}
+.u3u29x8{position:absolute}
+.uvrjzy2{border-radius:.25rem}
+.u1lex1u0{font-family:ui-monospace,SFMono-Regular,Menlo,monospace}
+.u6cuyp4{text-align:center}
+.urodlza{margin-top:2rem;margin-bottom:2rem}
+
+/* Locally scoped utility translations for this component. */
+.u348sne:hover{color:var(--color-brand-300)}
+
+/* Locally scoped utility translations for this component. */
+.u348sne:hover{color:var(--color-brand-300)}
+.uvcjgd8{border-color:#eab308}
+.ubi8uhr{color:#eab308}
+
+/* Locally scoped utility translations for this component. */
+.u348sne:hover{color:var(--color-brand-300)}
+
+/* Locally scoped utility translations for this component. */
+.u348sne:hover{color:var(--color-brand-300)}
+.u14z0xhb{border-left-width:4px;border-left-style:solid}
+.upq0kqn{background-color:rgb(113 63 18 / 0.3)}
+.uu6g96m{color:#fef08a}
+.ux4kg8q{--module-divide-y:1}
+@keyframes pointerWave {
+  0%, 100% { transform: translateX(0); }
+  50% { transform: translateX(-3cm); }
+}
+
+.pointerContainer {
+  animation: pointerWave 1s ease-in-out infinite;
+}
+
+/* Additional locally scoped rules. */
+.u1ra2p9t{list-style-type:disc}
+.urn5ek3{list-style-type:decimal}
+.u1wb4i2p{border-collapse:collapse}
+.uutdi50{border-color:#374151}

@@ -1,3 +1,4 @@
+import { classNames } from './styles/classNames';
 import React, { useState, useEffect } from 'react';
 import { HashRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 import { Header } from './components/Header';
@@ -7,6 +8,8 @@ import { Home } from './pages/Home';
 import { Learn } from './pages/Learn';
 import { Community } from './pages/Community';
 import { Downloads } from './pages/Downloads';
+import styles from './styles/App.module.css';
+import './styles/global.css';
 
 function App() {
   const [isSearchOpen, setIsSearchOpen] = useState(false);
@@ -29,14 +32,14 @@ function App() {
 
   return (
     <Router>
-      <div className="min-h-screen flex flex-col bg-gray-950 text-gray-100 font-sans">
+      <div className={classNames(styles, styles.shell)}>
         <Header 
           onOpenSearch={() => setIsSearchOpen(true)} 
           mobileMenuOpen={mobileMenuOpen}
           setMobileMenuOpen={setMobileMenuOpen}
         />
         
-        <main className="flex-grow">
+        <main className={classNames(styles, styles.main)}>
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/learn/:pageSlug" element={<Learn />} />

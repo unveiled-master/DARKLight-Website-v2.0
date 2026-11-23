@@ -1,6 +1,8 @@
+import { classNames } from '../styles/classNames';
 import React from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { Search as SearchIcon, Cpu, Menu, X, Wrench } from 'lucide-react';
+import styles from './styles/Header.module.css';
 
 interface HeaderProps {
   onOpenSearch: () => void;
@@ -14,46 +16,46 @@ export const Header: React.FC<HeaderProps> = ({ onOpenSearch, mobileMenuOpen, se
   const isActive = (path: string) => {
   if (path === '/') {
     return location.pathname === '/'
-      ? 'text-brand-400'
-      : 'text-gray-300 hover:text-white';
+      ? styles.navActive
+      : styles.navLink;
   }
 
   return location.pathname.startsWith(path)
-    ? 'text-brand-400'
-    : 'text-gray-300 hover:text-white';
+    ? styles.navActive
+    : styles.navLink;
 };
 
   return (
-    <header className="sticky top-0 z-40 w-full border-b border-gray-800 bg-gray-900/80 backdrop-blur">
-      <div className="container mx-auto px-4 h-16 flex items-center justify-between">
-        <Link to="/" className="flex items-center space-x-2">
-          <Cpu className="text-brand-500" size={28} />
-          <span className="text-xl font-bold tracking-tight text-white">
-            Dark<span className="text-brand-500">Light</span>
+    <header className={classNames(styles, styles.header)}>
+      <div className={classNames(styles, styles.bar)}>
+        <Link to="/" className={classNames(styles, styles.brandLink)}>
+          <Cpu className={classNames(styles, styles.brandIcon)} size={28} />
+          <span className={classNames(styles, styles.brandName)}>
+            Dark<span className={classNames(styles, styles.brandAccent)}>Light</span>
           </span>
         </Link>
 
         {/* Desktop Nav */}
-        <nav className="hidden md:flex items-center space-x-8 text-sm font-medium">
-          <Link to="/" className={isActive('/')}>Home</Link>
-          <Link to="/learn" className={isActive('/learn')}>Learn</Link>
+        <nav className={classNames(styles, styles.desktopNav)}>
+          <Link to="/" className={classNames(styles, isActive('/'))}>Home</Link>
+          <Link to="/learn" className={classNames(styles, isActive('/learn'))}>Learn</Link>
           {/* <Link to="/tools" className={isActive('/tools')}>Tools</Link> */}
-          <Link to="/downloads" className={isActive('/downloads')}>Downloads</Link>
-          <Link to="/community" className={isActive('/community')}>Community</Link>
+          <Link to="/downloads" className={classNames(styles, isActive('/downloads'))}>Downloads</Link>
+          <Link to="/community" className={classNames(styles, isActive('/community'))}>Community</Link>
         </nav>
 
-        <div className="flex items-center space-x-4">
+        <div className={classNames(styles, styles.actions)}>
           <button 
             onClick={onOpenSearch}
-            className="flex items-center space-x-2 bg-gray-800 hover:bg-gray-700 text-gray-400 hover:text-white px-3 py-1.5 rounded-full text-sm transition-colors border border-gray-700"
+            className={classNames(styles, styles.searchButton)}
           >
             <SearchIcon size={14} />
-            <span className="hidden sm:inline">Search...</span>
-            <kbd className="hidden sm:inline-block px-1.5 py-0.5 text-xs text-gray-500 bg-gray-900 rounded border border-gray-700">Ctrl K</kbd>
+            <span className={classNames(styles, styles.searchText)}>Search...</span>
+            <kbd className={classNames(styles, styles.shortcut)}>Ctrl K</kbd>
           </button>
           
           <button 
-            className="md:hidden text-gray-300"
+            className={classNames(styles, styles.menuButton)}
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
           >
             {mobileMenuOpen ? <X /> : <Menu />}
@@ -63,13 +65,13 @@ export const Header: React.FC<HeaderProps> = ({ onOpenSearch, mobileMenuOpen, se
 
       {/* Mobile Menu */}
       {mobileMenuOpen && (
-        <div className="md:hidden border-t border-gray-800 bg-gray-900">
-          <nav className="flex flex-col p-4 space-y-4">
-            <Link to="/" onClick={() => setMobileMenuOpen(false)} className="text-gray-300 block">Home</Link>
-            <Link to="/learn" onClick={() => setMobileMenuOpen(false)} className="text-gray-300 block">Learn</Link>
+        <div className={classNames(styles, styles.mobileMenu)}>
+          <nav className={classNames(styles, styles.mobileNav)}>
+            <Link to="/" onClick={() => setMobileMenuOpen(false)} className={classNames(styles, styles.mobileLink)}>Home</Link>
+            <Link to="/learn" onClick={() => setMobileMenuOpen(false)} className={classNames(styles, styles.mobileLink)}>Learn</Link>
             {/* <Link to="/tools" onClick={() => setMobileMenuOpen(false)} className="text-gray-300 block">Tools</Link> */}
-            <Link to="/downloads" onClick={() => setMobileMenuOpen(false)} className="text-gray-300 block">Downloads</Link>
-            <Link to="/community" onClick={() => setMobileMenuOpen(false)} className="text-gray-300 block">Community</Link>
+            <Link to="/downloads" onClick={() => setMobileMenuOpen(false)} className={classNames(styles, styles.mobileLink)}>Downloads</Link>
+            <Link to="/community" onClick={() => setMobileMenuOpen(false)} className={classNames(styles, styles.mobileLink)}>Community</Link>
           </nav>
         </div>
       )}

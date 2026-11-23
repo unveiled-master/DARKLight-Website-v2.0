@@ -1,8 +1,10 @@
+import { classNames } from '../styles/classNames';
 import React, { useEffect } from 'react';
 import { PinoutDiagram } from '../components/PinoutDiagram';
 import { CodeGenerator } from '../components/CodeGenerator';
 import { Cpu, Download, Terminal, Package } from 'lucide-react';
 import { useLocation } from 'react-router-dom';
+import styles from './styles/Tools.module.css';
 
 export const Tools: React.FC = () => {
   const location = useLocation();

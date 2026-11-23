@@ -1,5 +1,7 @@
+import { classNames } from '../styles/classNames';
 import React, { useState } from 'react';
 import { Download, ExternalLink, Code, Video, FileCode, Monitor, Play } from 'lucide-react';
+import styles from './styles/Community.module.css';
 
 const neopixelProjectImg = new URL('../images/FJR4C12KR8CCQDL-1024x649.jpg', import.meta.url).href;
 const tickerProjectImg = new URL('../images/human_detection_robot_using_pir.webp', import.meta.url).href;
@@ -14,9 +16,9 @@ export const Community: React.FC = () => {
   };
 
   return (
-    <div className="container mx-auto px-4 py-12">
-      <div className="max-w-4xl mx-auto">
-        <h1 className="text-4xl font-bold text-white mb-4">Community & Resources</h1>
+    <div className={classNames(styles, styles.container)}>
+      <div className={classNames(styles, styles.content)}>
+        <h1 className={classNames(styles, styles.pageTitle)}>Community & Resources</h1>
         {/* <p className="text-gray-400 text-lg mb-12">
           Download the latest libraries, view tutorials, and connect with other DarkLight developers.
         </p>
@@ -75,48 +77,48 @@ export const Community: React.FC = () => {
         </section> */}
 
         {/* Tutorials Section */}
-        <section className="mb-16">
-          <h2 className="text-2xl font-bold text-white mb-6 flex items-center gap-3">
-            <Code className="text-brand-500" /> Example Projects
+        <section className={classNames(styles, styles.section)}>
+          <h2 className={classNames(styles, styles.sectionTitle)}>
+            <Code className={classNames(styles, styles.brandIcon)} /> Example Projects
           </h2>
-          <div className="grid md:grid-cols-2 gap-8">
+          <div className={classNames(styles, styles.projectGrid)}>
             {/* Project 1 */}
-            <div className="group cursor-pointer bg-gray-900 rounded-xl overflow-hidden border border-gray-800 hover:border-brand-500/50 transition-all">
-              <div className="overflow-hidden h-48 relative">
+            <div className={classNames(styles, styles.projectCard)}>
+              <div className={classNames(styles, styles.projectImageWrap)}>
                 <img
                   src={neopixelProjectImg}
                   alt="Neopixel Project"
-                  className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                  className={classNames(styles, styles.projectImage)}
                 />
-                <div className="absolute inset-0 bg-gradient-to-t from-gray-900 to-transparent opacity-60"></div>
-                <div className="absolute bottom-4 left-4">
-                  <span className="bg-blue-600/90 backdrop-blur-sm text-xs text-white px-2 py-1 rounded font-medium">Intermediate</span>
+                <div className={classNames(styles, styles.imageShade)}></div>
+                <div className={classNames(styles, styles.badgePosition)}>
+                  <span className={classNames(styles, `${styles.badge} ${styles.intermediate}`)}>Intermediate</span>
                 </div>
               </div>
-              <div className="p-6">
-                <h3 className="text-xl font-bold text-white group-hover:text-brand-400 transition-colors mb-2">Bluetooth Controlled NeoPixel Stick</h3>
-                <p className="text-gray-400 text-sm line-clamp-2">
+              <div className={classNames(styles, styles.projectBody)}>
+                <h3 className={classNames(styles, styles.projectTitle)}>Bluetooth Controlled NeoPixel Stick</h3>
+                <p className={classNames(styles, styles.projectText)}>
                   Learn how to interface with a BLE module via UART and control an addressable LED strip using high-speed digital output.
                 </p>
               </div>
             </div>
 
             {/* Project 2 */}
-            <div className="group cursor-pointer bg-gray-900 rounded-xl overflow-hidden border border-gray-800 hover:border-brand-500/50 transition-all">
-              <div className="overflow-hidden h-48 relative">
+            <div className={classNames(styles, styles.projectCard)}>
+              <div className={classNames(styles, styles.projectImageWrap)}>
                 <img
                   src={tickerProjectImg}
                   alt="Ticker Project"
-                  className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                  className={classNames(styles, styles.projectImage)}
                 />
-                <div className="absolute inset-0 bg-gradient-to-t from-gray-900 to-transparent opacity-60"></div>
-                <div className="absolute bottom-4 left-4">
-                  <span className="bg-green-600/90 backdrop-blur-sm text-xs text-white px-2 py-1 rounded font-medium">Beginner</span>
+                <div className={classNames(styles, styles.imageShade)}></div>
+                <div className={classNames(styles, styles.badgePosition)}>
+                  <span className={classNames(styles, `${styles.badge} ${styles.beginner}`)}>Beginner</span>
                 </div>
               </div>
-              <div className="p-6">
-                <h3 className="text-xl font-bold text-white group-hover:text-brand-400 transition-colors mb-2">Ticker Example 2: Multi-rate Scheduling</h3>
-                <p className="text-gray-400 text-sm line-clamp-2">
+              <div className={classNames(styles, styles.projectBody)}>
+                <h3 className={classNames(styles, styles.projectTitle)}>Ticker Example 2: Multi-rate Scheduling</h3>
+                <p className={classNames(styles, styles.projectText)}>
                   A deep dive into the Ticker class. Create a system with 3 different tasks running at 10Hz, 50Hz, and 1Hz without blocking.
                 </p>
               </div>
@@ -125,14 +127,14 @@ export const Community: React.FC = () => {
         </section>
 
         {/* Explainer Video Section */}
-        <section className="mb-16">
-          <h2 className="text-2xl font-bold text-white mb-6 flex items-center gap-3">
-            <Play className="text-brand-500" /> What is DarkLight?
+        <section className={classNames(styles, styles.section)}>
+          <h2 className={classNames(styles, styles.sectionTitle)}>
+            <Play className={classNames(styles, styles.brandIcon)} /> What is DarkLight?
           </h2>
-          <div className="relative aspect-video rounded-xl overflow-hidden bg-gray-900 border border-gray-800 shadow-2xl group">
+          <div className={classNames(styles, styles.videoFrame)}>
             {isPlaying ? (
               <iframe
-                className="w-full h-full"
+                className={classNames(styles, "w-full h-full")}
                 src="https://www.youtube.com/embed/TBgTCUJeZ5s?autoplay=1"
                 title="DarkLight Explainer Video"
                 frameBorder="0"
@@ -140,22 +142,22 @@ export const Community: React.FC = () => {
                 allowFullScreen
               ></iframe>
             ) : (
-              <div className="w-full h-full cursor-pointer relative" onClick={() => setIsPlaying(true)}>
+              <div className={classNames(styles, styles.videoPreview)} onClick={() => setIsPlaying(true)}>
                 <img
                   src={explainerVideoImg}
                   alt="DarkLight Explainer"
-                  className="w-full h-full object-cover opacity-50 group-hover:opacity-40 transition-opacity duration-500"
+                  className={classNames(styles, styles.videoImage)}
                 />
 
-                <div className="absolute inset-0 flex items-center justify-center">
-                  <div className="w-20 h-20 bg-brand-600/90 hover:bg-brand-500 rounded-full flex items-center justify-center text-white transition-all transform group-hover:scale-110 shadow-lg backdrop-blur-sm border border-brand-400/20">
-                    <Play size={32} fill="currentColor" className="ml-1" />
+                <div className={classNames(styles, styles.playCenter)}>
+                  <div className={classNames(styles, styles.playButton)}>
+                    <Play size={32} fill="currentColor" className={classNames(styles, styles.playIcon)} />
                   </div>
                 </div>
 
-                <div className="absolute bottom-0 left-0 right-0 p-8 bg-gradient-to-t from-gray-950 via-gray-950/80 to-transparent pointer-events-none">
-                  <h3 className="text-2xl font-bold text-white mb-2">The DarkLight Architecture Explained</h3>
-                  <p className="text-gray-300">
+                <div className={classNames(styles, styles.videoCaption)}>
+                  <h3 className={classNames(styles, styles.videoTitle)}>The DarkLight Architecture Explained</h3>
+                  <p>
                     Join our lead architect for a 2-minute overview of the 3.3V logic system, the 12-bit ADC, and how the non-blocking core revolutionizes embedded loops.
                   </p>
                 </div>
@@ -166,24 +168,24 @@ export const Community: React.FC = () => {
 
         {/* Video Tutorial Placeholder */}
         <section>
-          <h2 className="text-2xl font-bold text-white mb-6 flex items-center gap-3">
-            <Video className="text-brand-500" /> Video Guides
+          <h2 className={classNames(styles, styles.sectionTitle)}>
+            <Video className={classNames(styles, styles.brandIcon)} /> Video Guides
           </h2>
-          <div className="bg-gray-900 border border-gray-800 rounded-xl p-12 text-center relative overflow-hidden group">
-            <div className="absolute inset-0 bg-gradient-to-br from-gray-800/50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity"></div>
-            <div className="relative z-10">
-              <div className="w-16 h-16 bg-gray-800 rounded-full flex items-center justify-center mx-auto mb-6 text-brand-400 group-hover:scale-110 transition-transform">
+          <div className={classNames(styles, styles.resourcePanel)}>
+            <div className={classNames(styles, styles.resourceGlow)}></div>
+            <div className={classNames(styles, styles.resourceContent)}>
+              <div className={classNames(styles, styles.resourceIcon)}>
                 <Video size={32} />
               </div>
-              <h3 className="text-xl font-bold text-white mb-2">Visual Learner?</h3>
-              <p className="text-gray-400 mb-8 max-w-md mx-auto">
+              <h3 className={classNames(styles, styles.resourceTitle)}>Visual Learner?</h3>
+              <p className={classNames(styles, styles.resourceText)}>
                 Check out our official YouTube channel for getting started guides, soldering tips, and project showcases.
               </p>
               <a
                 href="https://www.youtube.com"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-block bg-gray-800 hover:bg-gray-700 text-white px-8 py-3 rounded-full border border-gray-700 hover:border-brand-500/50 transition-all font-semibold"
+                className={classNames(styles, styles.resourceLink)}
               >
                 Visit Channel
               </a>

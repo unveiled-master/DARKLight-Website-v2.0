@@ -1,0 +1,15 @@
+.carousel { position: relative; width: 100%; height: 100%; overflow: hidden; background: #111827; }
+.slide { position: absolute; inset: 0; transition: transform 1.2s cubic-bezier(.22,1,.36,1), opacity 1.2s cubic-bezier(.22,1,.36,1), scale 1.2s cubic-bezier(.22,1,.36,1); }
+.slideActive { transform: translateX(0) scale(1); opacity: 1; }
+.slideInactive { transform: translateX(100%) scale(1.05); opacity: 0; pointer-events: none; }
+.image { width: 100%; height: 100%; object-fit: cover; opacity: .7; transition: transform .7s ease-out, opacity .7s ease-out; }
+.carousel:hover .image { transform: scale(1.05); opacity: .6; }
+.caption { position: absolute; right: 0; bottom: 0; left: 0; padding: 2rem; background: linear-gradient(to top, rgb(0 0 0 / .9), rgb(0 0 0 / .4), transparent); }
+.title { margin: 0 0 .25rem; color: #fff; font-size: 1.25rem; font-weight: 700; }
+.description { margin: 0; color: #d1d5db; font-size: .875rem; opacity: 0; transition: opacity .5s; }
+.carousel:hover .description { opacity: 1; }
+.control { position: absolute; top: 50%; display: flex; width: 2.5rem; height: 2.5rem; align-items: center; justify-content: center; border: 1px solid rgb(255 255 255 / .1); border-radius: 50%; color: #fff; background: rgb(0 0 0 / .4); opacity: 0; transform: translateY(-50%); transition: opacity .3s, background .3s, scale .3s; }
+.carousel:hover .control { opacity: 1; }
+.control:hover { background: var(--color-brand-600); scale: 1.05; }
+.controlPrevious { left: 1rem; }
+.controlNext { right: 1rem; }

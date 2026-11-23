@@ -1,5 +1,7 @@
+import { classNames } from '../styles/classNames';
 import React, { useState, useEffect, useCallback } from 'react';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
+import styles from './styles/ImageCarousel.module.css';
 
 const uhuruBoardImg = new URL('../images/pic-microcontroller-projects.jpg', import.meta.url).href;
 const katanaBoardImg = new URL('../images/PTS-00204-211_Application_d90dc395-121e-42a0-bf84-adc077d6b4f8_480x480.webp', import.meta.url).href;
@@ -154,32 +156,28 @@ export const ImageCarousel: React.FC<ImageCarouselProps> = ({
 
   return (
     <div
-      className="relative w-full h-full group overflow-hidden bg-gray-900"
+      className={classNames(styles, styles.carousel)}
       onMouseEnter={() => setIsHovering(true)}
       onMouseLeave={() => setIsHovering(false)}
     >
       {BOARDS.map((board, index) => {
         const isActive = index === currentIndex;
-        const slideClass = isActive
-          ? 'translate-x-0 opacity-100 scale-100'
-          : 'translate-x-full opacity-0 scale-105 pointer-events-none';
-
         return (
         <div
           key={index}
-          className={`absolute inset-0 transition-all duration-[1200ms] ease-[cubic-bezier(0.22,1,0.36,1)] ${slideClass}`}
+          className={classNames(styles, `${styles.slide} ${isActive ? styles.slideActive : styles.slideInactive}`)}
         >
           <img
             src={board.image.url}
             alt={board.image.title}
-            className="w-full h-full object-cover opacity-70 group-hover:opacity-60 transition-all duration-700 ease-out group-hover:scale-105"
+            className={classNames(styles, styles.image)}
           />
 
-          <div className="absolute bottom-0 left-0 right-0 p-8 bg-gradient-to-t from-black/90 via-black/40 to-transparent">
-            <h3 className="text-xl font-bold text-white mb-1">
+          <div className={classNames(styles, styles.caption)}>
+            <h3 className={classNames(styles, styles.title)}>
               {board.image.title}
             </h3>
-            <p className="text-sm text-gray-300 opacity-0 group-hover:opacity-100 transition-opacity duration-500">
+            <p className={classNames(styles, styles.description)}>
               {board.image.desc}
             </p>
           </div>
@@ -189,14 +187,14 @@ export const ImageCarousel: React.FC<ImageCarouselProps> = ({
 
       <button
         onClick={prev}
-        className="absolute left-4 top-1/2 -translate-y-1/2 w-10 h-10 flex items-center justify-center rounded-full bg-black/40 border border-white/10 text-white hover:bg-brand-600 hover:scale-105 transition-all duration-300 opacity-0 group-hover:opacity-100"
+        className={classNames(styles, `${styles.control} ${styles.controlPrevious}`)}
       >
         <ChevronLeft size={24} />
       </button>
 
       <button
         onClick={next}
-        className="absolute right-4 top-1/2 -translate-y-1/2 w-10 h-10 flex items-center justify-center rounded-full bg-black/40 border border-white/10 text-white hover:bg-brand-600 hover:scale-105 transition-all duration-300 opacity-0 group-hover:opacity-100"
+        className={classNames(styles, `${styles.control} ${styles.controlNext}`)}
       >
         <ChevronRight size={24} />
       </button>

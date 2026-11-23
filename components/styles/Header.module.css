@@ -1,0 +1,23 @@
+.header { position: sticky; top: 0; z-index: 40; width: 100%; border-bottom: 1px solid #1f2937; background: rgb(17 24 39 / 80%); backdrop-filter: blur(12px); }
+.bar { width: min(100% - 2rem, 80rem); height: 4rem; margin: 0 auto; display: flex; align-items: center; justify-content: space-between; }
+.brandLink { display: flex; align-items: center; gap: .5rem; text-decoration: none; }
+.brandIcon, .brandAccent { color: var(--color-brand-500); }
+.brandName { color: #fff; font-size: 1.25rem; font-weight: 700; letter-spacing: -.025em; }
+.desktopNav { display: none; align-items: center; gap: 2rem; font-size: .875rem; font-weight: 500; }
+.navLink, .mobileLink { color: #d1d5db; text-decoration: none; transition: color .2s; }
+.navLink:hover, .mobileLink:hover { color: #fff; }
+.navActive { color: var(--color-brand-400); }
+.actions { display: flex; align-items: center; gap: 1rem; }
+.searchButton { display: flex; align-items: center; gap: .5rem; padding: .375rem .75rem; border: 1px solid #374151; border-radius: 9999px; color: #9ca3af; background: #1f2937; font-size: .875rem; transition: color .2s, background .2s; }
+.searchButton:hover { color: #fff; background: #374151; }
+.shortcut { padding: .125rem .375rem; border: 1px solid #374151; border-radius: .25rem; color: #6b7280; background: #111827; font-size: .75rem; }
+.menuButton { display: inline-flex; border: 0; color: #d1d5db; background: none; }
+.mobileMenu { border-top: 1px solid #1f2937; background: #111827; }
+.mobileNav { display: flex; flex-direction: column; gap: 1rem; padding: 1rem; }
+.mobileLink { display: block; }
+@media (min-width: 768px) { .desktopNav { display: flex; } .menuButton { display: none; } .mobileMenu { display: none; } }
+@media (max-width: 639px) { .searchText, .shortcut { display: none; } }
+
+/* Locally scoped utility translations for this component. */
+.ualh2km{color:#d1d5db}
+.u1t7uh5u{display:block}

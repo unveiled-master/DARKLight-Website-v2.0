@@ -1,0 +1,40 @@
+.diagram { padding: 1.5rem; border: 1px solid #1f2937; border-radius: .75rem; background: #111827; box-shadow: 0 25px 50px -12px rgb(0 0 0 / .35); }
+.content { display: flex; flex-direction: column; gap: 2rem; }
+.boardColumn { display: flex; min-width: 0; flex: 1; flex-direction: column; align-items: center; }
+.legend { display: flex; flex-wrap: wrap; gap: 1rem; margin-bottom: 1rem; color: #9ca3af; font-size: .875rem; }
+.legendItem { display: flex; align-items: center; gap: .25rem; }
+.swatch { width: .75rem; height: .75rem; border: 1px solid; border-radius: .2rem; }
+.analogSwatch { border-color: rgb(59 130 246 / .5); background: #1e3a8a; }
+.pwmSwatch { border-color: rgb(168 85 247 / .5); background: #581c87; }
+.digitalSwatch { border-color: #4b5563; background: #374151; }
+.board { position: relative; width: 100%; max-width: 42rem; padding: 1rem; overflow: hidden; border: 2px solid #1f2937; border-radius: 1rem; background: #030712; box-shadow: inset 0 2px 4px rgb(0 0 0 / .3); }
+.chipWatermark { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; opacity: .1; pointer-events: none; }
+.chipLabel { position: absolute; top: 50%; left: 50%; color: #1f2937; text-align: center; transform: translate(-50%, -50%); pointer-events: none; }
+.chipTitle { margin: 0; font-size: 1.5rem; font-weight: 700; letter-spacing: .15em; }
+.chipVersion { font-family: ui-monospace, monospace; }
+.banks { position: relative; z-index: 1; display: flex; justify-content: space-between; gap: 2rem; }
+.pinBank { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: .5rem; }
+.pin { position: relative; display: flex; width: 2.5rem; height: 2.5rem; align-items: center; justify-content: center; border: 1px solid transparent; border-radius: .25rem; color: #fff; font: 700 .625rem ui-monospace, monospace; transition: background .2s, border .2s; }
+.pinDigital { background: #374151; }
+.pinDigital:hover { background: #4b5563; }
+.pinPwm { border-color: rgb(168 85 247 / .5); background: rgb(88 28 135 / .8); }
+.pinPwm:hover { background: #6b21a8; }
+.pinAnalog { border-color: rgb(59 130 246 / .5); background: rgb(30 58 138 / .8); }
+.pinAnalog:hover { background: #1e40af; }
+.pinSelected { border-color: var(--color-brand-400); outline: 2px solid rgb(45 212 191 / .5); background: var(--color-brand-600); }
+.pinMarker { position: absolute; top: -.25rem; right: -.25rem; width: .5rem; height: .5rem; border-radius: 50%; background: #fff; animation: pulse 2s infinite; }
+.info { display: flex; flex-direction: column; padding: 1.5rem; border: 1px solid #374151; border-radius: .75rem; background: rgb(31 41 55 / .5); }
+.infoHeading { display: flex; align-items: center; gap: .5rem; margin: 0 0 1rem; color: #fff; font-size: 1.25rem; font-weight: 700; }
+.accentIcon { color: var(--color-brand-400); }
+.pinDetails { animation: enter .3s ease-out; }
+.pinName { color: var(--color-brand-500); font: 700 3rem ui-monospace, monospace; }
+.physicalPin { display: block; margin-top: .25rem; color: #6b7280; font-size: .875rem; }
+.detailSection { margin-bottom: 1.5rem; }
+.detailTitle { margin: 0 0 .75rem; color: #d1d5db; font-size: .875rem; font-weight: 600; letter-spacing: .08em; text-transform: uppercase; }
+.capabilities { display: flex; flex-wrap: wrap; gap: .5rem; }
+.capability { display: inline-flex; align-items: center; gap: .25rem; padding: .25rem .5rem; border: 1px solid #4b5563; border-radius: .25rem; color: #fff; background: #374151; font-size: .75rem; }
+.empty { display: flex; min-height: 200px; flex: 1; flex-direction: column; align-items: center; justify-content: center; gap: 1rem; color: #6b7280; text-align: center; }
+@keyframes pulse { 50% { opacity: .5; } }
+@keyframes enter { from { opacity: 0; transform: translateX(1rem); } to { opacity: 1; transform: translateX(0); } }
+@media (min-width: 768px) { .diagram { padding: 2rem; } .board { padding: 2rem; } .pinBank { gap: .75rem; } .pin { width: 3rem; height: 3rem; font-size: .75rem; } }
+@media (min-width: 1024px) { .content { flex-direction: row; } .info { width: 20rem; flex: 0 0 20rem; } }

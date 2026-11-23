@@ -1,25 +1,16 @@
+import { classNames } from './styles/classNames';
 import React from 'react';
+import styles from './styles/constants.module.css';
 import { DocSection } from './types';
 import { CodeBlock } from './components/CodeBlock';
 import { Link } from 'react-router-dom';
 
-// Animation styles
-const pointerAnimationStyle = `
-  @keyframes pointer-wave {
-    0%, 100% { transform: translateX(0); }
-    50% { transform: translateX(-3cm); }
-  }
-  .pointer-container {
-    animation: pointer-wave 1s ease-in-out infinite;
-  }
-`;
-
 // Helper to render section headers
-const H2 = ({ children }: { children?: React.ReactNode }) => <h2 className="text-2xl font-bold text-brand-400 mt-8 mb-4 border-b border-gray-700 pb-2">{children}</h2>;
-const H3 = ({ children }: { children?: React.ReactNode }) => <h3 className="text-xl font-semibold text-gray-200 mt-6 mb-3">{children}</h3>;
-const P = ({ children }: { children?: React.ReactNode }) => <p className="text-gray-300 mb-4 leading-relaxed">{children}</p>;
-const UL = ({ children }: { children?: React.ReactNode }) => <ul className="list-disc pl-6 mb-4 text-gray-300 space-y-2">{children}</ul>;
-const OL = ({ children }: { children?: React.ReactNode }) => <ol className="list-decimal pl-6 mb-4 text-gray-300 space-y-2" style={{listStyleType: 'decimal'}}>{children}</ol>;
+const H2 = ({ children }: { children?: React.ReactNode }) => <h2 className={classNames(styles, "text-2xl font-bold text-brand-400 mt-8 mb-4 border-b border-gray-700 pb-2")}>{children}</h2>;
+const H3 = ({ children }: { children?: React.ReactNode }) => <h3 className={classNames(styles, "text-xl font-semibold text-gray-200 mt-6 mb-3")}>{children}</h3>;
+const P = ({ children }: { children?: React.ReactNode }) => <p className={classNames(styles, "text-gray-300 mb-4 leading-relaxed")}>{children}</p>;
+const UL = ({ children }: { children?: React.ReactNode }) => <ul className={classNames(styles, "list-disc pl-6 mb-4 text-gray-300 space-y-2")}>{children}</ul>;
+const OL = ({ children }: { children?: React.ReactNode }) => <ol className={classNames(styles, "list-decimal pl-6 mb-4 text-gray-300 space-y-2")} style={{listStyleType: 'decimal'}}>{children}</ol>;
 
 export const DOC_DATA: DocSection[] = [
    {
@@ -57,23 +48,23 @@ export const DOC_DATA: DocSection[] = [
         </P>
         <P>
             {/*<div className="bg-blue-900/20 border border-blue-700/30 rounded-xl p-4 my-6">*/}
-              <h3 className="text-white font-semibold mb-2">
+              <h3 className={classNames(styles, "text-white font-semibold mb-2")}>
                 Downloads
               </h3>
-              <p className="text-gray-300 text-sm mb-3">
+              <p className={classNames(styles, "text-gray-300 text-sm mb-3")}>
                 Visit the DarkLight Downloads Page to download the required installation packages.
               </p>
               <Link
                 to="/downloads"
-                className="text-brand-400 hover:text-brand-300 underline"
+                className={classNames(styles, "text-brand-400 hover:text-brand-300 underline")}
               >
                 Go to Downloads Page
               </Link>
             {/*</div>*/}  
         </P>
-        <div className="bg-blue-900/20 p-4 border-l-4 border-blue-500 mb-6">
-                <h4 className="font-bold text-blue-400">Info</h4>
-                  <p className="text-sm text-gray-300">
+        <div className={classNames(styles, "bg-blue-900/20 p-4 border-l-4 border-blue-500 mb-6")}>
+                <h4 className={classNames(styles, "font-bold text-blue-400")}>Info</h4>
+                  <p className={classNames(styles, "text-sm text-gray-300")}>
                    Watch the short video below for a step-by-step guide to installing and configuring the Darklight development environment.
                   </p>
         </div>
@@ -109,9 +100,9 @@ export const DOC_DATA: DocSection[] = [
           and actuators are compatible with 3.3V logic levels to prevent hardware damage.
         </P>
         
-        <div className="bg-yellow-900/30 border-l-4 border-yellow-500 p-4 mb-6">
-          <p className="font-bold text-yellow-500">Important:</p>
-          <p className="text-yellow-200">Always include the core library header at the top of your main file:</p>
+        <div className={classNames(styles, "bg-yellow-900/30 border-l-4 border-yellow-500 p-4 mb-6")}>
+          <p className={classNames(styles, "font-bold text-yellow-500")}>Important:</p>
+          <p className={classNames(styles, "text-yellow-200")}>Always include the core library header at the top of your main file:</p>
           <CodeBlock code='#include "DarkLight.h"' language="cpp" />
         </div>
 
@@ -121,28 +112,28 @@ export const DOC_DATA: DocSection[] = [
           Understanding these interchangeable terms is key to mastering the platform.
         </P>
         
-        <div className="overflow-x-auto">
-          <table className="w-full text-left border-collapse rounded-lg overflow-hidden">
+        <div className={classNames(styles, "overflow-x-auto")}>
+          <table className={classNames(styles, "w-full text-left border-collapse rounded-lg overflow-hidden")}>
             <thead>
-              <tr className="bg-gray-800 text-brand-300">
-                <th className="p-3">State</th>
-                <th className="p-3">Voltage</th>
-                <th className="p-3">Common Terms</th>
-                <th className="p-3">Boolean / Logic</th>
+              <tr className={classNames(styles, "bg-gray-800 text-brand-300")}>
+                <th className={classNames(styles, "p-3")}>State</th>
+                <th className={classNames(styles, "p-3")}>Voltage</th>
+                <th className={classNames(styles, "p-3")}>Common Terms</th>
+                <th className={classNames(styles, "p-3")}>Boolean / Logic</th>
               </tr>
             </thead>
-            <tbody className="divide-y divide-gray-700">
-              <tr className="bg-gray-800/50">
-                <td className="p-3 font-bold text-green-400">ON</td>
-                <td className="p-3">3.3V</td>
-                <td className="p-3">Closed, High, Set</td>
-                <td className="p-3">True, Logic 1</td>
+            <tbody className={classNames(styles, "divide-y divide-gray-700")}>
+              <tr className={classNames(styles, "bg-gray-800/50")}>
+                <td className={classNames(styles, "p-3 font-bold text-green-400")}>ON</td>
+                <td className={classNames(styles, "p-3")}>3.3V</td>
+                <td className={classNames(styles, "p-3")}>Closed, High, Set</td>
+                <td className={classNames(styles, "p-3")}>True, Logic 1</td>
               </tr>
-              <tr className="bg-gray-800/30">
-                <td className="p-3 font-bold text-red-400">OFF</td>
-                <td className="p-3">0V</td>
-                <td className="p-3">Open, Low, Clear</td>
-                <td className="p-3">False, Logic 0</td>
+              <tr className={classNames(styles, "bg-gray-800/30")}>
+                <td className={classNames(styles, "p-3 font-bold text-red-400")}>OFF</td>
+                <td className={classNames(styles, "p-3")}>0V</td>
+                <td className={classNames(styles, "p-3")}>Open, Low, Clear</td>
+                <td className={classNames(styles, "p-3")}>False, Logic 0</td>
               </tr>
             </tbody>
           </table>
@@ -191,9 +182,9 @@ export const DOC_DATA: DocSection[] = [
                   <li>3.3 V represents <strong>ON</strong>, <strong>HIGH</strong>, <strong>SET</strong>, <strong>TRUE</strong>, or <strong>Logic 1</strong></li>
                 </UL>
 
-                <div className="bg-blue-900/20 p-4 border-l-4 border-blue-500 mb-6">
-                <h4 className="font-bold text-blue-400">Note</h4>
-                   <p className="text-sm text-gray-300">
+                <div className={classNames(styles, "bg-blue-900/20 p-4 border-l-4 border-blue-500 mb-6")}>
+                <h4 className={classNames(styles, "font-bold text-blue-400")}>Note</h4>
+                   <p className={classNames(styles, "text-sm text-gray-300")}>
                       All of these terms are used interchangeably in embedded systems literature and practice
                    </p>
                 </div>
@@ -229,9 +220,9 @@ export const DOC_DATA: DocSection[] = [
                   <li>PTA14</li>
                 </UL>
 
-              <div className="bg-red-900/20 border-l-4 border-red-500 p-4 mb-4">
-              <h4 className="font-bold text-red-400">CRITICAL</h4>
-              <p className="text-gray-300">
+              <div className={classNames(styles, "bg-red-900/20 border-l-4 border-red-500 p-4 mb-4")}>
+              <h4 className={classNames(styles, "font-bold text-red-400")}>CRITICAL</h4>
+              <p className={classNames(styles, "text-gray-300")}>
                 These two pins are reserved for debugging and should not be repurposed for general I/O.
                 The DarkLight also has two on board LEDs which are attached to pins  <strong>PTA8</strong> for <strong>BoardLED1</strong> and pin <strong>PTB8</strong> attached to <strong>BoardLED2</strong>   
               </p>
@@ -244,26 +235,26 @@ export const DOC_DATA: DocSection[] = [
               register manipulation and provides a clean, readable interface.
               
               The DigitalOut class provides three essential functions:
-          <div className="overflow-x-auto">
-          <table className="w-full text-left border-collapse rounded-lg overflow-hidden">
+          <div className={classNames(styles, "overflow-x-auto")}>
+          <table className={classNames(styles, "w-full text-left border-collapse rounded-lg overflow-hidden")}>
             <thead>
-              <tr className="bg-gray-800 text-brand-300">
-                <th className="p-3"> Function Name</th>
-                <th className="p-3">Purpose</th>
+              <tr className={classNames(styles, "bg-gray-800 text-brand-300")}>
+                <th className={classNames(styles, "p-3")}> Function Name</th>
+                <th className={classNames(styles, "p-3")}>Purpose</th>
               </tr>
             </thead>
-            <tbody className="divide-y divide-gray-700">
-              <tr className="bg-gray-800/50">
-                <td className="p-3">DigitalOut()</td>
-                <td className="p-3">Configures a specified pin as a digital output pin</td>
+            <tbody className={classNames(styles, "divide-y divide-gray-700")}>
+              <tr className={classNames(styles, "bg-gray-800/50")}>
+                <td className={classNames(styles, "p-3")}>DigitalOut()</td>
+                <td className={classNames(styles, "p-3")}>Configures a specified pin as a digital output pin</td>
               </tr>
-              <tr className="bg-gray-800/30">
-                <td className="p-3">write()</td>
-                <td className="p-3">Sets the output state of the pin (HIGH or LOW)</td>
+              <tr className={classNames(styles, "bg-gray-800/30")}>
+                <td className={classNames(styles, "p-3")}>write()</td>
+                <td className={classNames(styles, "p-3")}>Sets the output state of the pin (HIGH or LOW)</td>
               </tr>
-              <tr className="bg-gray-800/50">
-                <td className="p-3">read()</td>
-                <td className="p-3">Returns the current logical state of the pin</td>
+              <tr className={classNames(styles, "bg-gray-800/50")}>
+                <td className={classNames(styles, "p-3")}>read()</td>
+                <td className={classNames(styles, "p-3")}>Returns the current logical state of the pin</td>
               </tr>
             </tbody>
           </table>
@@ -286,9 +277,9 @@ export const DOC_DATA: DocSection[] = [
                 </li>
               </OL>
 
-              <div className="bg-blue-900/20 p-4 border-l-4 border-blue-500 mb-6">
-                <h4 className="font-bold text-blue-400">Note</h4>
-                   <p className="text-sm text-gray-300">
+              <div className={classNames(styles, "bg-blue-900/20 p-4 border-l-4 border-blue-500 mb-6")}>
+                <h4 className={classNames(styles, "font-bold text-blue-400")}>Note</h4>
+                   <p className={classNames(styles, "text-sm text-gray-300")}>
                     The variable name should describe the function of the pin, not just the pin itself. This improves readability and maintainability.
                    </p>
               </div>
@@ -316,9 +307,9 @@ export const DOC_DATA: DocSection[] = [
 
         <P>
             <H3>Practical Demonstration: Blinking an LED</H3>
-            <div className="bg-blue-900/20 p-4 border-l-4 border-blue-500 mb-6">
-                <h4 className="font-bold text-blue-400">Objective</h4>
-                   <p className="text-sm text-gray-300">
+            <div className={classNames(styles, "bg-blue-900/20 p-4 border-l-4 border-blue-500 mb-6")}>
+                <h4 className={classNames(styles, "font-bold text-blue-400")}>Objective</h4>
+                   <p className={classNames(styles, "text-sm text-gray-300")}>
                 Write software to blink an on boardLED1 connected to PTA8 every 500 milliseconds.                   </p>
             </div>
             
@@ -399,9 +390,9 @@ export const DOC_DATA: DocSection[] = [
         </UL>
         <strong>Observe the onbaord LED1 on the DarkLight blinking once per second, confirming correct digital output operation.</strong>
         
-        <div className="bg-blue-900/20 p-4 border-l-4 border-blue-500 mb-6">
-          <h4 className="font-bold text-blue-400">Summary</h4>
-            <p className="text-sm text-gray-300">
+        <div className={classNames(styles, "bg-blue-900/20 p-4 border-l-4 border-blue-500 mb-6")}>
+          <h4 className={classNames(styles, "font-bold text-blue-400")}>Summary</h4>
+            <p className={classNames(styles, "text-sm text-gray-300")}>
               In this tutorial, you learned:
               <UL>
                   <li>What a digital output is and how logic levels map to voltages</li>
@@ -467,7 +458,7 @@ export const DOC_DATA: DocSection[] = [
               href="https://www.theengineeringprojects.com/2017/08/pir-sensor-arduino-interfacing.html"
               target="_blank"
               rel="noopener noreferrer"
-              className="text-brand-400 hover:text-brand-300 underline"
+              className={classNames(styles, "text-brand-400 hover:text-brand-300 underline")}
             >
               here
             </a>
@@ -484,26 +475,26 @@ export const DOC_DATA: DocSection[] = [
               
             The DarkLight software library provides the DigitalIn class to simplify digital input configuration and usage.   
           <br />  
-          <div className="overflow-x-auto">
-          <table className="w-full text-left border-collapse rounded-lg overflow-hidden">
+          <div className={classNames(styles, "overflow-x-auto")}>
+          <table className={classNames(styles, "w-full text-left border-collapse rounded-lg overflow-hidden")}>
             <thead>
-              <tr className="bg-gray-800 text-brand-300">
-                <th className="p-3"> Function Name</th>
-                <th className="p-3">Purpose</th>
+              <tr className={classNames(styles, "bg-gray-800 text-brand-300")}>
+                <th className={classNames(styles, "p-3")}> Function Name</th>
+                <th className={classNames(styles, "p-3")}>Purpose</th>
               </tr>
             </thead>
-            <tbody className="divide-y divide-gray-700">
-              <tr className="bg-gray-800/50">
-                <td className="p-3">DigitalIn()</td>
-                <td className="p-3">Configures a specified pin as a digital input pin</td>
+            <tbody className={classNames(styles, "divide-y divide-gray-700")}>
+              <tr className={classNames(styles, "bg-gray-800/50")}>
+                <td className={classNames(styles, "p-3")}>DigitalIn()</td>
+                <td className={classNames(styles, "p-3")}>Configures a specified pin as a digital input pin</td>
               </tr>
-              <tr className="bg-gray-800/30">
-                <td className="p-3">mode()</td>
-                <td className="p-3">Configures the internal pin mode:Pull-up or Pull-down</td>
+              <tr className={classNames(styles, "bg-gray-800/30")}>
+                <td className={classNames(styles, "p-3")}>mode()</td>
+                <td className={classNames(styles, "p-3")}>Configures the internal pin mode:Pull-up or Pull-down</td>
               </tr>
-              <tr className="bg-gray-800/50">
-                <td className="p-3">read()</td>
-                <td className="p-3">Reads the current logical state of the pin:Returns 0 for LOW and 1 for HIGH</td>
+              <tr className={classNames(styles, "bg-gray-800/50")}>
+                <td className={classNames(styles, "p-3")}>read()</td>
+                <td className={classNames(styles, "p-3")}>Reads the current logical state of the pin:Returns 0 for LOW and 1 for HIGH</td>
               </tr>
             </tbody>
           </table>
@@ -517,7 +508,7 @@ export const DOC_DATA: DocSection[] = [
               Pull-up resistor → forces the pin to 3.3 V when the switch is open. 
             <br />
             <a href="https://www.circuitbread.com/ee-faq/why-are-pull-up-and-pull-down-resistors-used" target="_blank" rel="noopener noreferrer" 
-               className="text-brand-400 hover:text-brand-300 underline"> Read more on Pull-up and Pull-down Resistors</a>
+               className={classNames(styles, "text-brand-400 hover:text-brand-300 underline")}> Read more on Pull-up and Pull-down Resistors</a>
             <br />
 
               <H3>Example Program</H3>
@@ -525,9 +516,8 @@ export const DOC_DATA: DocSection[] = [
               Push-Button Switch SW on the DarkLight Development Board as an Input to control the onboard leds.
               <br />
               <div style={{position: 'relative', display: 'inline-block', margin: '20px 0', width: '100%'}}>
-                <style>{pointerAnimationStyle}</style>
                 <img src="https://lh3.googleusercontent.com/d/1qFN3aTKLaIjXNAYBg9TVFGIWkcxdrOVe" alt="DarkLight Pin Diagram" style={{height: 'auto', borderRadius: '12px', width: '100%'}} />
-                <div className="pointer-container" style={{position: 'absolute', top: 0, left: 0, width: '100%', height: '100%', pointerEvents: 'none'}}>
+                <div className={styles.pointerContainer} style={{position: 'absolute', top: 0, left: 0, width: '100%', height: '100%', pointerEvents: 'none'}}>
                   <div style={{position: 'absolute', top: 'calc(50% + 1cm)', left: 'calc(50% + 6cm)', fontSize: '48px', cursor: 'pointer', zIndex: 10, transform: 'translateY(-50%) rotate(-90deg)'}}>
                     👆
                   </div>
@@ -543,9 +533,9 @@ export const DOC_DATA: DocSection[] = [
           tuitorial, we will still call the mode function to configure the pin in pull-down mode.
               
           The <strong>on_BOARDLED1</strong> and <strong>on_BOARDLED2</strong> are internally connected to pins  <strong>PTA8</strong> and <strong>PTB8</strong> and we will configure them as digital output pins.   
-          <div className="bg-blue-900/20 p-4 border-l-4 border-blue-500 mb-6">
-          <h4 className="font-bold text-blue-400">Application Objective</h4>
-            <p className="text-sm text-gray-300">
+          <div className={classNames(styles, "bg-blue-900/20 p-4 border-l-4 border-blue-500 mb-6")}>
+          <h4 className={classNames(styles, "font-bold text-blue-400")}>Application Objective</h4>
+            <p className={classNames(styles, "text-sm text-gray-300")}>
               We will implement the following behavior:
               <br />
               When the switch is pressed :
@@ -625,9 +615,9 @@ export const DOC_DATA: DocSection[] = [
           </P>
 
           <P>
-              <div className="bg-blue-900/20 p-4 border-l-4 border-blue-500 mb-6">
-              <h4 className="font-bold text-blue-400">Summary</h4>
-              <p className="text-sm text-gray-300">
+              <div className={classNames(styles, "bg-blue-900/20 p-4 border-l-4 border-blue-500 mb-6")}>
+              <h4 className={classNames(styles, "font-bold text-blue-400")}>Summary</h4>
+              <p className={classNames(styles, "text-sm text-gray-300")}>
                 In this tutorial, you learned:
                 What digital inputs are and how they differ from outputs
                 How logic levels map to voltage levels on DarkLight
@@ -677,7 +667,7 @@ export const DOC_DATA: DocSection[] = [
           Resolution determines the smallest change in voltage the system can detect. 
           With a system voltage of 3.3V and 12-bit depth ($2^{12} = 4096$ levels):
         </P>
-        <div className="bg-gray-800 p-4 rounded mb-4 font-mono text-center text-brand-300">
+        <div className={classNames(styles, "bg-gray-800 p-4 rounded mb-4 font-mono text-center text-brand-300")}>
           Resolution = 3.3V / 4096 ≈ 0.81 mV
         </div>
 
@@ -688,9 +678,9 @@ export const DOC_DATA: DocSection[] = [
           and 1.0 represents 3.3V.
         </P>
 
-        <div className="bg-blue-900/20 p-4 border-l-4 border-blue-500 mb-6">
-          <h4 className="font-bold text-blue-400">Note on Sampling Frequency</h4>
-          <p className="text-sm text-gray-300">
+        <div className={classNames(styles, "bg-blue-900/20 p-4 border-l-4 border-blue-500 mb-6")}>
+          <h4 className={classNames(styles, "font-bold text-blue-400")}>Note on Sampling Frequency</h4>
+          <p className={classNames(styles, "text-sm text-gray-300")}>
             Ensure your sampling frequency is at least twice the highest frequency component of the signal (Nyquist theorem), 
             though 5x-10x is recommended for better reconstruction.
           </p>
@@ -828,9 +818,9 @@ int main() {
         </P>
 
         <H2>Non-Blocking Requirement</H2>
-        <div className="bg-red-900/20 border-l-4 border-red-500 p-4 mb-4">
-          <h4 className="font-bold text-red-400">CRITICAL</h4>
-          <p className="text-gray-300">
+        <div className={classNames(styles, "bg-red-900/20 border-l-4 border-red-500 p-4 mb-4")}>
+          <h4 className={classNames(styles, "font-bold text-red-400")}>CRITICAL</h4>
+          <p className={classNames(styles, "text-gray-300")}>
              Functions attached to a Ticker <strong>must be non-blocking</strong>. Do not use <code>wait_ms()</code> 
              or long synchronous operations inside a Ticker callback, as this will stall the entire system.
           </p>
@@ -888,7 +878,7 @@ int main() {
           <li><code>asyncWrite(data, length)</code>: Non-blocking asynchronous transfer.</li>
         </UL>
 
-        <hr className="border-gray-700 my-8" />
+        <hr className={classNames(styles, "border-gray-700 my-8")} />
 
         <H2>UART (Serial)</H2>
         <P>

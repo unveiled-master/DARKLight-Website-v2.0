@@ -1,3 +1,4 @@
+import { classNames } from '../styles/classNames';
 import React, { useState, useMemo } from 'react';
 import {
   BookOpen,
@@ -25,7 +26,7 @@ import {
   Bug,
 } from 'lucide-react';
 import { BOARDS } from '../components/ImageCarousel';
-import styles from './styles/downloads.module.css'
+import styles from './styles/Downloads.module.css'
 
 type CategoryFilter = 'all' | 'tools' | 'sdk' | 'templates' | 'docs' | 'libraries';
 
@@ -346,21 +347,21 @@ export const Downloads: React.FC = () => {
   const getTypeIcon = (type: DownloadItem['type']) => {
     switch (type) {
       case 'IDE':
-        return <Terminal size={20} className="text-brand-400" />;
+        return <Terminal size={20} className={classNames(styles, "text-brand-400")} />;
       case 'Debugger':
-        return <Bug size={20} className="text-cyan-400" />;
+        return <Bug size={20} className={classNames(styles, "text-cyan-400")} />;
       case 'Driver':
-        return <Usb size={20} className="text-purple-400" />;
+        return <Usb size={20} className={classNames(styles, "text-purple-400")} />;
       case 'SDK':
-        return <Cpu size={20} className="text-brand-400" />;
+        return <Cpu size={20} className={classNames(styles, "text-brand-400")} />;
       case 'Documentation':
-        return <FileText size={20} className="text-amber-400" />;
+        return <FileText size={20} className={classNames(styles, "text-amber-400")} />;
       case 'Template':
-        return <FileArchive size={20} className="text-emerald-400" />;
+        return <FileArchive size={20} className={classNames(styles, "text-emerald-400")} />;
       case 'Examples':
-        return <Code2 size={20} className="text-cyan-400" />;
+        return <Code2 size={20} className={classNames(styles, "text-cyan-400")} />;
       case 'Library':
-        return <Library size={20} className="text-brand-400" />;
+        return <Library size={20} className={classNames(styles, "text-brand-400")} />;
     }
   };
 
@@ -391,86 +392,86 @@ export const Downloads: React.FC = () => {
   }
 
   return (
-    <div className="min-h-screen bg-gray-950 relative overflow-hidden">
+    <div className={classNames(styles, "min-h-screen bg-gray-950 relative overflow-hidden")}>
       {/* Ambient Background Glows */}
-      <div className="absolute top-0 left-1/4 w-[650px] h-[500px] bg-brand-500/10 rounded-full blur-[150px] pointer-events-none" />
-      <div className="absolute top-1/3 right-10 w-[500px] h-[500px] bg-cyan-500/5 rounded-full blur-[140px] pointer-events-none" />
+      <div className={classNames(styles, "absolute top-0 left-1/4 w-[650px] h-[500px] bg-brand-500/10 rounded-full blur-[150px] pointer-events-none")} />
+      <div className={classNames(styles, "absolute top-1/3 right-10 w-[500px] h-[500px] bg-cyan-500/5 rounded-full blur-[140px] pointer-events-none")} />
 
       {/* Technical Pinout Modal */}
       {isPinoutModalOpen && (
         <div
-          className="fixed inset-0 z-[100] flex items-center justify-center p-4 bg-black/80 backdrop-blur-md animate-in fade-in duration-300"
+          className={classNames(styles, "fixed inset-0 z-[100] flex items-center justify-center p-4 bg-black/80 backdrop-blur-md animate-in fade-in duration-300")}
           onClick={() => setIsPinoutModalOpen(false)}
         >
           <div
-            className="relative max-w-5xl w-full bg-gray-900 rounded-2xl border border-gray-700 shadow-2xl overflow-hidden animate-in zoom-in-95 duration-300"
+            className={classNames(styles, "relative max-w-5xl w-full bg-gray-900 rounded-2xl border border-gray-700 shadow-2xl overflow-hidden animate-in zoom-in-95 duration-300")}
             onClick={(e) => e.stopPropagation()}
           >
-            <div className="flex items-center justify-between p-4 border-b border-gray-800 bg-gray-950">
-              <div className="flex items-center gap-2.5">
-                <Cpu className="text-brand-400" size={20} />
-                <h3 className="text-white font-bold">{activeBoard.title} — Technical Pinout Diagram</h3>
-                <span className="hidden sm:inline-flex px-2.5 py-0.5 rounded-full text-xs font-mono bg-gray-800 text-gray-300 border border-gray-700">
+            <div className={classNames(styles, "flex items-center justify-between p-4 border-b border-gray-800 bg-gray-950")}>
+              <div className={classNames(styles, "flex items-center gap-2.5")}>
+                <Cpu className={classNames(styles, "text-brand-400")} size={20} />
+                <h3 className={classNames(styles, "text-white font-bold")}>{activeBoard.title} — Technical Pinout Diagram</h3>
+                <span className={classNames(styles, "hidden sm:inline-flex px-2.5 py-0.5 rounded-full text-xs font-mono bg-gray-800 text-gray-300 border border-gray-700")}>
                   {activeTheme.partNumber}
                 </span>
               </div>
               <button
                 onClick={() => setIsPinoutModalOpen(false)}
                 aria-label="Close pinout modal"
-                className="p-1.5 hover:bg-gray-800 rounded-lg text-gray-400 hover:text-white transition-colors"
+                className={classNames(styles, "p-1.5 hover:bg-gray-800 rounded-lg text-gray-400 hover:text-white transition-colors")}
               >
                 <X size={22} />
               </button>
             </div>
-            <div className="p-3 md:p-8 bg-gray-900 flex items-center justify-center min-h-[380px]">
+            <div className={classNames(styles, "p-3 md:p-8 bg-gray-900 flex items-center justify-center min-h-[380px]")}>
               <img
                 src={activeBoard.pinoutImage ?? activeBoard.image.url}
                 alt={`${activeBoard.title} pinout`}
-                className="max-w-full max-h-[70vh] object-contain rounded-xl shadow-lg border border-gray-800"
+                className={classNames(styles, "max-w-full max-h-[70vh] object-contain rounded-xl shadow-lg border border-gray-800")}
               />
             </div>
-            <div className="p-4 bg-gray-950 border-t border-gray-800 flex flex-wrap items-center justify-between gap-2 text-xs text-gray-400 font-mono">
+            <div className={classNames(styles, "p-4 bg-gray-950 border-t border-gray-800 flex flex-wrap items-center justify-between gap-2 text-xs text-gray-400 font-mono")}>
               <span>{activeBoard.title} • 48 Multiplexed GPIO • 3.3V Logic Levels Required</span>
-              <span className="text-brand-400">Rev 1.8 Hardware Reference</span>
+              <span className={classNames(styles, "text-brand-400")}>Rev 1.8 Hardware Reference</span>
             </div>
           </div>
         </div>
       )}
 
-      <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-8 lg:py-12 relative z-10">
+      <div className={classNames(styles, "container mx-auto px-4 sm:px-6 lg:px-8 py-8 lg:py-12 relative z-10")}>
         {/* HERO BANNER WITH CUSTOM SVG HARDWARE TOOLCHAIN GRAPHIC */}
-        <div className="relative rounded-3xl border border-gray-800/90 bg-gradient-to-br from-gray-900/95 via-gray-900/80 to-gray-950 p-6 sm:p-8 lg:p-10 mb-10 overflow-hidden shadow-2xl">
+        <div className={classNames(styles, "relative rounded-3xl border border-gray-800/90 bg-gradient-to-br from-gray-900/95 via-gray-900/80 to-gray-950 p-6 sm:p-8 lg:p-10 mb-10 overflow-hidden shadow-2xl")}>
           {/* Decorative Circuit Grid Pattern */}
           <svg
-            className="absolute inset-0 w-full h-full opacity-[0.04] pointer-events-none"
+            className={classNames(styles, "absolute inset-0 w-full h-full opacity-[0.04] pointer-events-none")}
             xmlns="http://www.w3.org/2000/svg"
             aria-hidden="true"
           >
             <defs>
               <pattern id="dl-circuit-grid" width="36" height="36" patternUnits="userSpaceOnUse">
-                <path d="M 36 0 L 0 0 0 36" fill="none" stroke="currentColor" strokeWidth="1" className="text-brand-400" />
-                <circle cx="36" cy="36" r="1.5" fill="currentColor" className="text-brand-400" />
+                <path d="M 36 0 L 0 0 0 36" fill="none" stroke="currentColor" strokeWidth="1" className={classNames(styles, "text-brand-400")} />
+                <circle cx="36" cy="36" r="1.5" fill="currentColor" className={classNames(styles, "text-brand-400")} />
               </pattern>
             </defs>
             <rect width="100%" height="100%" fill="url(#dl-circuit-grid)" />
           </svg>
 
-          <div className="relative z-10 grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
+          <div className={classNames(styles, "relative z-10 grid grid-cols-1 lg:grid-cols-12 gap-8 items-center")}>
             {/* Left Column: Title, Copy & Ecosystem Metrics */}
-            <div className="lg:col-span-7 space-y-4">
+            <div className={classNames(styles, "lg:col-span-7 space-y-4")}>
               {/* <div className="inline-flex items-center gap-2 rounded-full border border-brand-500/30 bg-brand-500/10 px-3.5 py-1 text-xs font-semibold text-brand-300 tracking-wide uppercase">
                 <Sparkles size={13} className="text-brand-400" />
                 <span>DarkLight Developer Resource Center • SDK v2.4</span>
               </div> */}
 
-              <h1 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-white tracking-tight leading-tight">
+              <h1 className={classNames(styles, "text-3xl sm:text-4xl lg:text-5xl font-extrabold text-white tracking-tight leading-tight")}>
                 Darklight {' '}
-                <span className="text-transparent bg-clip-text bg-gradient-to-r from-brand-400 via-cyan-400 to-blue-500">
+                <span className={classNames(styles, "text-transparent bg-clip-text bg-gradient-to-r from-brand-400 via-cyan-400 to-blue-500")}>
                   Resources
                 </span>
               </h1>
 
-              <p className="text-gray-400 text-base sm:text-lg max-w-2xl leading-relaxed">
+              <p className={classNames(styles, "text-gray-400 text-base sm:text-lg max-w-2xl leading-relaxed")}>
                 Download production-grade Board Support Packages (BSP), RTOS starter templates, non-blocking DMA driver libraries, and technical datasheets for the entire DarkLight lineup.
               </p>
 
@@ -497,30 +498,30 @@ export const Downloads: React.FC = () => {
         </div>
 
         {/* MAIN BODY: STICKY SIDEBAR + CONTENT */}
-        <div className="flex flex-col lg:flex-row gap-8">
+        <div className={classNames(styles, "flex flex-col lg:flex-row gap-8")}>
           {/* Sticky Sidebar Navigation */}
-          <aside className="lg:w-60 flex-shrink-0">
-            <div className="sticky top-24 rounded-2xl border border-gray-800/90 bg-gray-900/50 backdrop-blur-md p-5 space-y-6">
+          <aside className={classNames(styles, "lg:w-60 flex-shrink-0")}>
+            <div className={classNames(styles, "sticky top-24 rounded-2xl border border-gray-800/90 bg-gray-900/50 backdrop-blur-md p-5 space-y-6")}>
               <div>
-                <h5 className="text-xs font-bold uppercase tracking-wider text-gray-400 mb-3 flex items-center gap-2">
-                  <BookOpen size={14} className="text-brand-400" />
+                <h5 className={classNames(styles, "text-xs font-bold uppercase tracking-wider text-gray-400 mb-3 flex items-center gap-2")}>
+                  <BookOpen size={14} className={classNames(styles, "text-brand-400")} />
                   <span>Resource Sections</span>
                 </h5>
 
-                <ul className="space-y-1.5">
+                <ul className={classNames(styles, "space-y-1.5")}>
                   <li>
                     <button
                       onClick={() => {
                         renderItems(SOFTWARE_TOOLS, 'Software Tools & Host Drivers');
                         scrollToSection('software-tools');
                       }}
-                      className="w-full text-left px-3 py-2 rounded-xl text-sm font-medium text-gray-300 hover:text-white hover:bg-gray-800/70 flex items-center justify-between group transition-colors"
+                      className={classNames(styles, "w-full text-left px-3 py-2 rounded-xl text-sm font-medium text-gray-300 hover:text-white hover:bg-gray-800/70 flex items-center justify-between group transition-colors")}
                     >
-                      <span className="flex items-center gap-2.5">
-                        <Wrench size={15} className="text-brand-400" />
+                      <span className={classNames(styles, "flex items-center gap-2.5")}>
+                        <Wrench size={15} className={classNames(styles, "text-brand-400")} />
                         Software Tools
                       </span>
-                      <span className="text-[11px] font-mono text-gray-500 group-hover:text-gray-300">
+                      <span className={classNames(styles, "text-[11px] font-mono text-gray-500 group-hover:text-gray-300")}>
                         {SOFTWARE_TOOLS.length}
                       </span>
                     </button>
@@ -532,13 +533,13 @@ export const Downloads: React.FC = () => {
                         renderItems([], 'Documentation');
                         scrollToSection('board-hub')
                       }}
-                      className="w-full text-left px-3 py-2 rounded-xl text-sm font-medium text-gray-300 hover:text-white hover:bg-gray-800/70 flex items-center justify-between group transition-colors"
+                      className={classNames(styles, "w-full text-left px-3 py-2 rounded-xl text-sm font-medium text-gray-300 hover:text-white hover:bg-gray-800/70 flex items-center justify-between group transition-colors")}
                     >
-                      <span className="flex items-center gap-2.5">
-                        <Cpu size={15} className="text-cyan-400" />
+                      <span className={classNames(styles, "flex items-center gap-2.5")}>
+                        <Cpu size={15} className={classNames(styles, "text-cyan-400")} />
                         Docs
                       </span>
-                      <span className="text-[11px] font-mono text-gray-500 group-hover:text-gray-300">
+                      <span className={classNames(styles, "text-[11px] font-mono text-gray-500 group-hover:text-gray-300")}>
                         5 Boards
                       </span>
                     </button>
@@ -550,13 +551,13 @@ export const Downloads: React.FC = () => {
                         renderItems(LIBRARIES, 'Extended Libraries');
                         scrollToSection('libraries');
                       }}
-                      className="w-full text-left px-3 py-2 rounded-xl text-sm font-medium text-gray-300 hover:text-white hover:bg-gray-800/70 flex items-center justify-between group transition-colors"
+                      className={classNames(styles, "w-full text-left px-3 py-2 rounded-xl text-sm font-medium text-gray-300 hover:text-white hover:bg-gray-800/70 flex items-center justify-between group transition-colors")}
                     >
-                      <span className="flex items-center gap-2.5">
-                        <Library size={15} className="text-purple-400" />
+                      <span className={classNames(styles, "flex items-center gap-2.5")}>
+                        <Library size={15} className={classNames(styles, "text-purple-400")} />
                         Extended Libraries
                       </span>
-                      <span className="text-[11px] font-mono text-gray-500 group-hover:text-gray-300">
+                      <span className={classNames(styles, "text-[11px] font-mono text-gray-500 group-hover:text-gray-300")}>
                         {LIBRARIES.length}
                       </span>
                     </button>
@@ -565,12 +566,12 @@ export const Downloads: React.FC = () => {
               </div>
 
               {/* Quick Checksum / Verification Note */}
-              <div className="rounded-xl bg-gray-950/90 border border-gray-800/80 p-3.5 text-xs text-gray-400 space-y-1.5">
-                <div className="flex items-center gap-1.5 text-white font-semibold">
-                  <ShieldCheck size={14} className="text-emerald-400" />
+              <div className={classNames(styles, "rounded-xl bg-gray-950/90 border border-gray-800/80 p-3.5 text-xs text-gray-400 space-y-1.5")}>
+                <div className={classNames(styles, "flex items-center gap-1.5 text-white font-semibold")}>
+                  <ShieldCheck size={14} className={classNames(styles, "text-emerald-400")} />
                   <span>Verified Packages</span>
                 </div>
-                <p className="text-[11px] leading-relaxed text-gray-400">
+                <p className={classNames(styles, "text-[11px] leading-relaxed text-gray-400")}>
                   All DarkLight SDK archives and drivers are SHA-256 signed and tested with SEGGER Embedded Studio.
                 </p>
               </div>
@@ -578,12 +579,12 @@ export const Downloads: React.FC = () => {
           </aside>
 
           {/* Main Content Column */}
-          <main className="flex-1 min-w-0 space-y-16">
+          <main className={classNames(styles, "flex-1 min-w-0 space-y-16")}>
             {totalMatchingCount === 0 && (
-              <div className="rounded-2xl border border-gray-800 bg-gray-900/50 p-12 text-center space-y-3">
-                <Search size={32} className="mx-auto text-gray-500" />
-                <h3 className="text-lg font-bold text-white">No matching downloads found</h3>
-                <p className="text-sm text-gray-400 max-w-md mx-auto">
+              <div className={classNames(styles, "rounded-2xl border border-gray-800 bg-gray-900/50 p-12 text-center space-y-3")}>
+                <Search size={32} className={classNames(styles, "mx-auto text-gray-500")} />
+                <h3 className={classNames(styles, "text-lg font-bold text-white")}>No matching downloads found</h3>
+                <p className={classNames(styles, "text-sm text-gray-400 max-w-md mx-auto")}>
                   No resources matched &ldquo;{searchQuery}&rdquo; in the selected category. Try clearing your filter or searching for another term.
                 </p>
                 <button
@@ -591,7 +592,7 @@ export const Downloads: React.FC = () => {
                     setSearchQuery('');
                     setActiveCategory('all');
                   }}
-                  className="px-4 py-2 rounded-xl bg-brand-600 hover:bg-brand-500 text-white text-xs font-semibold transition-colors"
+                  className={classNames(styles, "px-4 py-2 rounded-xl bg-brand-600 hover:bg-brand-500 text-white text-xs font-semibold transition-colors")}
                 >
                   Reset Filters
                 </button>
@@ -601,18 +602,18 @@ export const Downloads: React.FC = () => {
             {
               title === 'Documentation' 
               ?
-              <section id="board-hub" className="scroll-mt-24">
-                <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4 mb-6">
+              <section id="board-hub" className={classNames(styles, "scroll-mt-24")}>
+                <div className={classNames(styles, "flex flex-col sm:flex-row sm:items-end justify-between gap-4 mb-6")}>
                   <div>
-                    <div className="flex items-center gap-2.5">
-                      <div className="w-9 h-9 rounded-xl bg-cyan-500/10 border border-cyan-500/30 flex items-center justify-center">
-                        <Cpu size={18} className="text-cyan-400" />
+                    <div className={classNames(styles, "flex items-center gap-2.5")}>
+                      <div className={classNames(styles, "w-9 h-9 rounded-xl bg-cyan-500/10 border border-cyan-500/30 flex items-center justify-center")}>
+                        <Cpu size={18} className={classNames(styles, "text-cyan-400")} />
                       </div>
-                      <h2 className="text-2xl font-bold text-white tracking-tight">
+                      <h2 className={classNames(styles, "text-2xl font-bold text-white tracking-tight")}>
                         Board Support Packages, Templates & Datasheets
                       </h2>
                     </div>
-                    <p className="text-sm text-gray-400 mt-1.5">
+                    <p className={classNames(styles, "text-sm text-gray-400 mt-1.5")}>
                       Select your DarkLight development board below to view its tailored SDKs, RTOS templates, and hardware documentation.
                     </p>
                   </div>
@@ -622,7 +623,7 @@ export const Downloads: React.FC = () => {
                 <div
                   role="tablist"
                   aria-label="Select DarkLight hardware board"
-                  className="flex items-center gap-2 overflow-x-auto no-scrollbar pb-3 mb-5"
+                  className={classNames(styles, "flex items-center gap-2 overflow-x-auto no-scrollbar pb-3 mb-5")}
                 >
                   {BOARD_THEMES.map((theme, idx) => {
                     const isActive = idx === selectedBoardIdx;
@@ -632,18 +633,18 @@ export const Downloads: React.FC = () => {
                         role="tab"
                         aria-selected={isActive}
                         onClick={() => setSelectedBoardIdx(idx)}
-                        className={`px-4 py-2.5 rounded-xl text-xs sm:text-sm font-semibold whitespace-nowrap transition-all flex items-center gap-2 border ${isActive
+                        className={classNames(styles, `px-4 py-2.5 rounded-xl text-xs sm:text-sm font-semibold whitespace-nowrap transition-all flex items-center gap-2 border ${isActive
                             ? 'bg-gray-900 text-white border-brand-500/60 shadow-lg shadow-brand-500/10 ring-1 ring-brand-500/30'
                             : 'bg-gray-900/50 text-gray-400 border-gray-800 hover:bg-gray-800 hover:text-gray-200'
-                          }`}
+                          }`)}
                       >
                         <span
-                          className={`w-2 h-2 rounded-full ${isActive ? 'bg-brand-400 scale-125 animate-pulse' : 'bg-gray-600'
-                            }`}
+                          className={classNames(styles, `w-2 h-2 rounded-full ${isActive ? 'bg-brand-400 scale-125 animate-pulse' : 'bg-gray-600'
+                            }`)}
                         />
                         <span>DarkLight {theme.shortName}</span>
                         {theme.hasWireless && (
-                          <span className="px-1.5 py-0.5 rounded bg-amber-500/15 text-amber-300 border border-amber-500/30 text-[10px] font-mono">
+                          <span className={classNames(styles, "px-1.5 py-0.5 rounded bg-amber-500/15 text-amber-300 border border-amber-500/30 text-[10px] font-mono")}>
                             WiFi 6
                           </span>
                         )}
@@ -653,37 +654,37 @@ export const Downloads: React.FC = () => {
                 </div>
 
                 {/* Selected Board Visual Showcase Banner Card */}
-                <div className="relative rounded-2xl border border-gray-800 bg-gradient-to-br from-gray-900/95 via-gray-900/80 to-gray-950 p-5 sm:p-6 lg:p-7 mb-6 overflow-hidden shadow-xl">
+                <div className={classNames(styles, "relative rounded-2xl border border-gray-800 bg-gradient-to-br from-gray-900/95 via-gray-900/80 to-gray-950 p-5 sm:p-6 lg:p-7 mb-6 overflow-hidden shadow-xl")}>
                   {/* Dynamic Tier Glow */}
                   <div
-                    className={`absolute -top-24 -right-24 w-80 h-80 bg-gradient-to-br ${activeTheme.glowGradient} rounded-full blur-[80px] pointer-events-none`}
+                    className={classNames(styles, `absolute -top-24 -right-24 w-80 h-80 bg-gradient-to-br ${activeTheme.glowGradient} rounded-full blur-[80px] pointer-events-none`)}
                   />
 
-                  <div className="relative z-10 grid grid-cols-1 lg:grid-cols-12 gap-6 items-center">
+                  <div className={classNames(styles, "relative z-10 grid grid-cols-1 lg:grid-cols-12 gap-6 items-center")}>
                     {/* Board Image Preview */}
-                    <div className="lg:col-span-5">
-                      <div className="relative rounded-xl overflow-hidden border border-gray-800 bg-gray-950 h-48 sm:h-56 group">
+                    <div className={classNames(styles, "lg:col-span-5")}>
+                      <div className={classNames(styles, "relative rounded-xl overflow-hidden border border-gray-800 bg-gray-950 h-48 sm:h-56 group")}>
                         <img
                           src={activeBoard.image.url}
                           alt={activeBoard.title}
-                          className="w-full h-full object-cover opacity-85 group-hover:scale-105 transition-transform duration-500"
+                          className={classNames(styles, "w-full h-full object-cover opacity-85 group-hover:scale-105 transition-transform duration-500")}
                         />
-                        <div className="absolute top-3 left-3 right-3 flex items-center justify-between">
-                          <span className="px-2.5 py-1 rounded-md bg-black/70 backdrop-blur-md border border-white/10 text-[11px] font-mono text-gray-200 flex items-center gap-1.5">
-                            <Radio size={11} className={activeTheme.accentText} />
+                        <div className={classNames(styles, "absolute top-3 left-3 right-3 flex items-center justify-between")}>
+                          <span className={classNames(styles, "px-2.5 py-1 rounded-md bg-black/70 backdrop-blur-md border border-white/10 text-[11px] font-mono text-gray-200 flex items-center gap-1.5")}>
+                            <Radio size={11} className={classNames(styles, activeTheme.accentText)} />
                             {activeTheme.partNumber}
                           </span>
-                          <span className="px-2 py-0.5 rounded-md bg-brand-500/20 backdrop-blur-md border border-brand-500/40 text-[10px] font-bold text-brand-300 font-mono">
+                          <span className={classNames(styles, "px-2 py-0.5 rounded-md bg-brand-500/20 backdrop-blur-md border border-brand-500/40 text-[10px] font-bold text-brand-300 font-mono")}>
                             48-PIN QFP
                           </span>
                         </div>
-                        <div className="absolute bottom-0 inset-x-0 p-3.5 bg-gradient-to-t from-gray-950 via-gray-950/80 to-transparent flex items-center justify-between">
-                          <span className="text-xs font-semibold text-white">
+                        <div className={classNames(styles, "absolute bottom-0 inset-x-0 p-3.5 bg-gradient-to-t from-gray-950 via-gray-950/80 to-transparent flex items-center justify-between")}>
+                          <span className={classNames(styles, "text-xs font-semibold text-white")}>
                             {activeBoard.image.title}
                           </span>
                           <button
                             onClick={() => setIsPinoutModalOpen(true)}
-                            className="px-2.5 py-1 rounded-lg bg-brand-600/90 hover:bg-brand-500 text-white text-[11px] font-semibold flex items-center gap-1 shadow-md transition-colors"
+                            className={classNames(styles, "px-2.5 py-1 rounded-lg bg-brand-600/90 hover:bg-brand-500 text-white text-[11px] font-semibold flex items-center gap-1 shadow-md transition-colors")}
                           >
                             <Cpu size={12} />
                             <span>View Pinout</span>
@@ -693,42 +694,42 @@ export const Downloads: React.FC = () => {
                     </div>
 
                     {/* Board Details & Specs Summary */}
-                    <div className="lg:col-span-7 flex flex-col justify-between space-y-4">
+                    <div className={classNames(styles, "lg:col-span-7 flex flex-col justify-between space-y-4")}>
                       <div>
-                        <div className="flex flex-wrap items-center gap-2 mb-2">
+                        <div className={classNames(styles, "flex flex-wrap items-center gap-2 mb-2")}>
                           <span
-                            className={`inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-xs font-semibold border ${activeTheme.accentBg} ${activeTheme.accentText} ${activeTheme.accentBorder}`}
+                            className={classNames(styles, `inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-xs font-semibold border ${activeTheme.accentBg} ${activeTheme.accentText} ${activeTheme.accentBorder}`)}
                           >
                             <Sparkles size={11} />
                             {activeTheme.tierBadge}
                           </span>
-                          <span className="text-xs font-mono text-gray-500">
+                          <span className={classNames(styles, "text-xs font-mono text-gray-500")}>
                             {activeTheme.tagline}
                           </span>
                         </div>
 
-                        <h3 className="text-2xl sm:text-3xl font-extrabold text-white tracking-tight mb-2">
+                        <h3 className={classNames(styles, "text-2xl sm:text-3xl font-extrabold text-white tracking-tight mb-2")}>
                           {activeBoard.title} Documentation
                         </h3>
 
-                        <p className="text-sm text-gray-400 leading-relaxed">
+                        <p className={classNames(styles, "text-sm text-gray-400 leading-relaxed")}>
                           {activeBoard.description}
                         </p>
                       </div>
 
                       {/* Key Hardware Architecture Pills */}
                       <div>
-                        <div className="text-[11px] font-semibold uppercase tracking-wider text-gray-500 mb-2 flex items-center gap-1.5">
-                          <Layers size={12} className="text-brand-400" />
+                        <div className={classNames(styles, "text-[11px] font-semibold uppercase tracking-wider text-gray-500 mb-2 flex items-center gap-1.5")}>
+                          <Layers size={12} className={classNames(styles, "text-brand-400")} />
                           <span>Target Silicon Specifications</span>
                         </div>
-                        <div className="flex flex-wrap gap-1.5">
+                        <div className={classNames(styles, "flex flex-wrap gap-1.5")}>
                           {activeBoard.specs.slice(0, 6).map((spec, sIdx) => (
                             <span
                               key={sIdx}
-                              className="px-2.5 py-1 rounded-lg bg-gray-950/80 border border-gray-800 text-xs text-gray-300 flex items-center gap-1.5"
+                              className={classNames(styles, "px-2.5 py-1 rounded-lg bg-gray-950/80 border border-gray-800 text-xs text-gray-300 flex items-center gap-1.5")}
                             >
-                              <Check size={11} className="text-brand-400" />
+                              <Check size={11} className={classNames(styles, "text-brand-400")} />
                               {spec}
                             </span>
                           ))}
@@ -739,8 +740,8 @@ export const Downloads: React.FC = () => {
                 </div>
 
                 {/* 6-Card Grid for Selected Board Resources */}
-                <div className={styles.tableContent}>
-                  <table className={styles.table}>
+                <div className={classNames(styles, styles.tableContent)}>
+                  <table className={classNames(styles, styles.table)}>
                     <thead>
                       <tr>
                         <th>Name</th>
@@ -769,25 +770,25 @@ export const Downloads: React.FC = () => {
               (
                 title === 'Extended Libraries' 
                 ?
-                <section id="libraries" className="scroll-mt-24 pb-8">
-                  <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-2 mb-6">
+                <section id="libraries" className={classNames(styles, "scroll-mt-24 pb-8")}>
+                  <div className={classNames(styles, "flex flex-col sm:flex-row sm:items-end justify-between gap-2 mb-6")}>
                     <div>
-                      <div className="flex items-center gap-2.5">
-                        <div className="w-9 h-9 rounded-xl bg-purple-500/10 border border-purple-500/30 flex items-center justify-center">
-                          <Library size={18} className="text-purple-400" />
+                      <div className={classNames(styles, "flex items-center gap-2.5")}>
+                        <div className={classNames(styles, "w-9 h-9 rounded-xl bg-purple-500/10 border border-purple-500/30 flex items-center justify-center")}>
+                          <Library size={18} className={classNames(styles, "text-purple-400")} />
                         </div>
-                        <h2 className="text-2xl font-bold text-white tracking-tight">
+                        <h2 className={classNames(styles, "text-2xl font-bold text-white tracking-tight")}>
                           Non-Blocking DMA Peripheral Libraries
                         </h2>
                       </div>
-                      <p className="text-sm text-gray-400 mt-1.5">
+                      <p className={classNames(styles, "text-sm text-gray-400 mt-1.5")}>
                         Production C libraries engineered around DarkLight&apos;s DMA controller for zero-jitter waveform generation.
                       </p>
                     </div>
                   </div>
 
-                  <div className={styles.tableContent}>
-                    <table className={styles.table}>
+                  <div className={classNames(styles, styles.tableContent)}>
+                    <table className={classNames(styles, styles.table)}>
                       <thead>
                         <tr>
                           <th>Name</th>
@@ -815,34 +816,34 @@ export const Downloads: React.FC = () => {
                 
                   :
 
-                <section id="software-tools" className="scroll-mt-24">
-                  <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-2 mb-6">
+                <section id="software-tools" className={classNames(styles, "scroll-mt-24")}>
+                  <div className={classNames(styles, "flex flex-col sm:flex-row sm:items-end justify-between gap-2 mb-6")}>
                     <div>
-                      <div className="flex items-center gap-2.5">
-                        <div className="w-9 h-9 rounded-xl bg-brand-500/10 border border-brand-500/30 flex items-center justify-center">
-                          <Wrench size={18} className="text-brand-400" />
+                      <div className={classNames(styles, "flex items-center gap-2.5")}>
+                        <div className={classNames(styles, "w-9 h-9 rounded-xl bg-brand-500/10 border border-brand-500/30 flex items-center justify-center")}>
+                          <Wrench size={18} className={classNames(styles, "text-brand-400")} />
                         </div>
-                        <h2 className="text-2xl font-bold text-white tracking-tight">
+                        <h2 className={classNames(styles, "text-2xl font-bold text-white tracking-tight")}>
                           {title}
                         </h2>
                       </div>
-                      <p className="text-sm text-gray-400 mt-1.5">
+                      <p className={classNames(styles, "text-sm text-gray-400 mt-1.5")}>
                         Core development environment, J-Link debug probes, and USB communication drivers.
                       </p>
                     </div>
-                    <span className="text-xs font-mono text-gray-500">
+                    <span className={classNames(styles, "text-xs font-mono text-gray-500")}>
                       Windows 10/11 • macOS (Universal) • Ubuntu/Debian
                     </span>
                   </div>
 
-                  <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
+                  <div className={classNames(styles, "grid grid-cols-1 md:grid-cols-3 gap-5")}>
                     {downloadItems.map((tool) => (
                       <div
                         key={tool.id}
-                        className="group relative rounded-2xl border border-gray-800/90 bg-gradient-to-b from-gray-900/90 to-gray-950 p-6 flex flex-col justify-between hover:border-brand-500/50 transition-all duration-300 shadow-lg hover:shadow-brand-500/5 overflow-hidden"
+                        className={classNames(styles, "group relative rounded-2xl border border-gray-800/90 bg-gradient-to-b from-gray-900/90 to-gray-950 p-6 flex flex-col justify-between hover:border-brand-500/50 transition-all duration-300 shadow-lg hover:shadow-brand-500/5 overflow-hidden")}
                       >
                         {/* Decorative Corner Schematic Accent */}
-                        <div className="absolute -right-8 -top-8 w-28 h-28 bg-brand-500/5 rounded-full blur-2xl group-hover:bg-brand-500/15 transition-colors pointer-events-none" />
+                        <div className={classNames(styles, "absolute -right-8 -top-8 w-28 h-28 bg-brand-500/5 rounded-full blur-2xl group-hover:bg-brand-500/15 transition-colors pointer-events-none")} />
 
                         <div>
                           {/* Top Icon + Format Pill */}
@@ -872,16 +873,16 @@ export const Downloads: React.FC = () => {
                             </div>
                           )}*/}
 
-                          <h3 className="text-lg font-bold text-white mb-2 group-hover:text-brand-300 transition-colors">
+                          <h3 className={classNames(styles, "text-lg font-bold text-white mb-2 group-hover:text-brand-300 transition-colors")}>
                             {tool.title}
                           </h3>
 
-                          <p className="text-sm text-gray-400 leading-relaxed mb-6">
+                          <p className={classNames(styles, "text-sm text-gray-400 leading-relaxed mb-6")}>
                             {tool.description}
                           </p>
                         </div>
 
-                        <div className="pt-4 border-t border-gray-800/80 flex items-center justify-between gap-3">
+                        <div className={classNames(styles, "pt-4 border-t border-gray-800/80 flex items-center justify-between gap-3")}>
                           {/* <span className="text-xs font-mono text-gray-500">
                             {tool.sizeOrPlatform}
                           </span> */}
@@ -890,7 +891,7 @@ export const Downloads: React.FC = () => {
                             href={tool.link}
                             target={tool.isExternal ? '_blank' : undefined}
                             rel={tool.isExternal ? 'noopener noreferrer' : undefined}
-                            className="px-4 py-2 rounded-xl bg-gray-800 hover:bg-brand-600 text-white text-xs font-semibold border border-gray-700 hover:border-brand-500 transition-all flex items-center gap-1.5 shadow-sm"
+                            className={classNames(styles, "px-4 py-2 rounded-xl bg-gray-800 hover:bg-brand-600 text-white text-xs font-semibold border border-gray-700 hover:border-brand-500 transition-all flex items-center gap-1.5 shadow-sm")}
                           >
                             <span>{tool.actionText}</span>
                             {tool.isExternal ? (

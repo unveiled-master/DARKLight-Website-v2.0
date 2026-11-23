@@ -1,7 +1,9 @@
+import { classNames } from '../styles/classNames';
 import React, { useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
 import { DOC_DATA } from '../constants';
 import { BookOpen, ChevronRight } from 'lucide-react';
+import styles from './styles/Documentation.module.css';
 
 export const Documentation: React.FC = () => {
   const { hash } = useLocation();
@@ -22,26 +24,22 @@ export const Documentation: React.FC = () => {
   const categories = Array.from(new Set(DOC_DATA.map(d => d.category)));
 
   return (
-    <div className="container mx-auto px-4 py-8 flex flex-col lg:flex-row gap-8">
+    <div className={classNames(styles, styles.layout)}>
       {/* Sidebar Navigation */}
-      <aside className="lg:w-64 flex-shrink-0">
-        <div className="sticky top-24 space-y-8">
+      <aside className={classNames(styles, styles.sidebar)}>
+        <div className={classNames(styles, styles.stickyNav)}>
           {categories.map(category => (
             <div key={category}>
-              <h5 className="font-bold text-white mb-3 flex items-center gap-2">
-                <BookOpen size={16} className="text-brand-500" />
+              <h5 className={classNames(styles, styles.categoryTitle)}>
+                <BookOpen size={16} className={classNames(styles, styles.categoryIcon)} />
                 {category}
               </h5>
-              <ul className="space-y-1 border-l border-gray-800 ml-2">
+              <ul className={classNames(styles, styles.linkList)}>
                 {DOC_DATA.filter(d => d.category === category).map(doc => (
                   <li key={doc.id}>
                     <a 
                       href={`#${doc.id}`}
-                      className={`block pl-4 py-1 text-sm border-l-2 transition-colors ${
-                        hash === `#${doc.id}` 
-                        ? 'border-brand-500 text-brand-400' 
-                        : 'border-transparent text-gray-400 hover:text-white hover:border-gray-600'
-                      }`}
+                      className={classNames(styles, `${styles.docLink} ${hash === `#${doc.id}` ? styles.docLinkActive : ''}`)}
                     >
                       {doc.title}
                     </a>
@@ -54,22 +52,22 @@ export const Documentation: React.FC = () => {
       </aside>
 
       {/* Main Content Area */}
-      <main className="flex-1 min-w-0">
-        <div className="max-w-4xl">
-          <h1 className="text-4xl font-bold text-white mb-6">Documentation</h1>
-          <p className="text-xl text-gray-400 mb-12 border-b border-gray-800 pb-8">
+      <main className={classNames(styles, styles.main)}>
+        <div className={classNames(styles, styles.article)}>
+          <h1 className={classNames(styles, styles.title)}>Documentation</h1>
+          <p className={classNames(styles, styles.intro)}>
             Complete technical reference for the DarkLight microcontroller ecosystem.
           </p>
 
-          <div className="space-y-20">
+          <div className={classNames(styles, styles.sections)}>
             {DOC_DATA.map((doc) => (
-              <section key={doc.id} id={doc.id} className="scroll-mt-24">
-                <div className="flex items-center gap-2 mb-6">
-                  <span className="text-brand-500 text-sm font-mono uppercase tracking-wider">{doc.category}</span>
-                  <ChevronRight size={14} className="text-gray-600" />
+              <section key={doc.id} id={doc.id} className={classNames(styles, styles.section)}>
+                <div className={classNames(styles, styles.eyebrow)}>
+                  <span>{doc.category}</span>
+                  <ChevronRight size={14} className={classNames(styles, styles.chevron)} />
                 </div>
-                <h2 className="text-3xl font-bold text-white mb-6">{doc.title}</h2>
-                <div className="prose prose-invert prose-brand max-w-none">
+                <h2 className={classNames(styles, styles.sectionTitle)}>{doc.title}</h2>
+                <div className={classNames(styles, styles.prose)}>
                   {doc.content}
                 </div>
               </section>

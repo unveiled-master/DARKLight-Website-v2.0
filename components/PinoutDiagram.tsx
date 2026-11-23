@@ -1,5 +1,7 @@
+import { classNames } from '../styles/classNames';
 import React, { useState } from 'react';
 import { Zap, Activity, Radio, Cpu, Info, Minimize2 } from 'lucide-react';
+import styles from './styles/PinoutDiagram.module.css';
 
 interface PinData {
   id: number;
@@ -56,58 +58,58 @@ export const PinoutDiagram: React.FC = () => {
     const isADC = pin.capabilities.includes('AnalogIn');
 
     // Color coding based on primary capability
-    let pinColor = "bg-gray-700 hover:bg-gray-600";
-    if (isPWM) pinColor = "bg-purple-900/80 hover:bg-purple-800 border-purple-500/50";
-    else if (isADC) pinColor = "bg-blue-900/80 hover:bg-blue-800 border-blue-500/50";
+    let pinColor = styles.pinDigital;
+    if (isPWM) pinColor = styles.pinPwm;
+    else if (isADC) pinColor = styles.pinAnalog;
     
-    if (isSelected) pinColor = "bg-brand-600 border-brand-400 ring-2 ring-brand-400/50";
+    if (isSelected) pinColor = styles.pinSelected;
 
     return (
       <button
         key={pin.id}
         onClick={() => setSelectedPin(pin)}
-        className={`w-10 h-10 md:w-12 md:h-12 rounded flex items-center justify-center text-[10px] md:text-xs font-mono font-bold transition-all border border-transparent ${pinColor} text-white relative group`}
+        className={classNames(styles, `${styles.pin} ${pinColor}`)}
         title={`${pin.name} - Click for details`}
       >
         {pin.id}
         {isSelected && (
-           <span className="absolute -top-1 -right-1 w-2 h-2 bg-white rounded-full animate-pulse" />
+           <span className={classNames(styles, styles.pinMarker)} />
         )}
       </button>
     );
   };
 
   return (
-    <div className="bg-gray-900 rounded-xl border border-gray-800 p-6 md:p-8 shadow-2xl">
-      <div className="flex flex-col lg:flex-row gap-8">
+    <div className={classNames(styles, styles.diagram)}>
+      <div className={classNames(styles, styles.content)}>
         
         {/* Visual Board Representation */}
-        <div className="flex-1 flex flex-col items-center">
-          <div className="text-gray-400 mb-4 text-sm flex gap-4">
-             <div className="flex items-center gap-1"><div className="w-3 h-3 bg-blue-900 rounded border border-blue-500/50"></div> Analog (ADC)</div>
-             <div className="flex items-center gap-1"><div className="w-3 h-3 bg-purple-900 rounded border border-purple-500/50"></div> PWM</div>
-             <div className="flex items-center gap-1"><div className="w-3 h-3 bg-gray-700 rounded border border-gray-600"></div> Digital I/O</div>
+        <div className={classNames(styles, styles.boardColumn)}>
+          <div className={classNames(styles, styles.legend)}>
+             <div className={classNames(styles, styles.legendItem)}><div className={classNames(styles, `${styles.swatch} ${styles.analogSwatch}`)}></div> Analog (ADC)</div>
+             <div className={classNames(styles, styles.legendItem)}><div className={classNames(styles, `${styles.swatch} ${styles.pwmSwatch}`)}></div> PWM</div>
+             <div className={classNames(styles, styles.legendItem)}><div className={classNames(styles, `${styles.swatch} ${styles.digitalSwatch}`)}></div> Digital I/O</div>
           </div>
 
-          <div className="relative bg-gray-950 rounded-2xl border-2 border-gray-800 p-4 md:p-8 shadow-inner max-w-2xl w-full">
+          <div className={classNames(styles, styles.board)}>
             {/* Chip Label */}
-            <div className="absolute inset-0 flex items-center justify-center opacity-10 pointer-events-none">
+            <div className={classNames(styles, styles.chipWatermark)}>
                 <Cpu size={200} />
             </div>
-            <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-center pointer-events-none">
-                <h3 className="text-2xl md:text-4xl font-bold text-gray-800 tracking-widest">DARKLIGHT</h3>
-                <span className="text-gray-800 font-mono">DL-CORE-V2</span>
+            <div className={classNames(styles, styles.chipLabel)}>
+                <h3 className={classNames(styles, styles.chipTitle)}>DARKLIGHT</h3>
+                <span className={classNames(styles, styles.chipVersion)}>DL-CORE-V2</span>
             </div>
 
             {/* Pins Grid - Simulating a board layout */}
-            <div className="relative z-10 flex justify-between gap-8 md:gap-16">
+            <div className={classNames(styles, styles.banks)}>
               {/* Left Bank */}
-              <div className="grid grid-cols-2 gap-2 md:gap-3">
+              <div className={classNames(styles, styles.pinBank)}>
                 {PINS.slice(0, 25).map(renderPin)}
               </div>
               
               {/* Right Bank */}
-              <div className="grid grid-cols-2 gap-2 md:gap-3">
+              <div className={classNames(styles, styles.pinBank)}>
                 {PINS.slice(25, 49).map(renderPin)}
               </div>
             </div>
@@ -115,28 +117,28 @@ export const PinoutDiagram: React.FC = () => {
         </div>
 
         {/* Info Panel */}
-        <div className="lg:w-80 bg-gray-800/50 rounded-xl border border-gray-700 p-6 flex flex-col">
-          <h3 className="text-xl font-bold text-white mb-4 flex items-center gap-2">
-            <Info size={20} className="text-brand-400" />
+        <div className={classNames(styles, styles.info)}>
+          <h3 className={classNames(styles, styles.infoHeading)}>
+            <Info size={20} className={classNames(styles, styles.accentIcon)} />
             Pin Details
           </h3>
           
           {selectedPin ? (
-            <div className="animate-in fade-in slide-in-from-right-4 duration-300">
-              <div className="mb-6">
-                <span className="text-5xl font-mono font-bold text-brand-500">{selectedPin.name}</span>
-                <span className="block text-gray-500 text-sm mt-1">Physical Pin: {selectedPin.id}</span>
+            <div className={classNames(styles, styles.pinDetails)}>
+              <div className={classNames(styles, styles.detailSection)}>
+                <span className={classNames(styles, styles.pinName)}>{selectedPin.name}</span>
+                <span className={classNames(styles, styles.physicalPin)}>Physical Pin: {selectedPin.id}</span>
               </div>
               
-              <div className="mb-6">
-                <h4 className="text-sm font-semibold text-gray-300 uppercase tracking-wider mb-3">Capabilities</h4>
-                <div className="flex flex-wrap gap-2">
+              <div className={classNames(styles, styles.detailSection)}>
+                <h4 className={classNames(styles, styles.detailTitle)}>Capabilities</h4>
+                <div className={classNames(styles, styles.capabilities)}>
                   {selectedPin.capabilities.map(cap => (
-                    <span key={cap} className="px-2 py-1 bg-gray-700 rounded text-xs text-white border border-gray-600 flex items-center gap-1">
-                      {cap === 'PwmOut' && <Zap size={10} className="text-yellow-400" />}
-                      {cap === 'AnalogIn' && <Activity size={10} className="text-blue-400" />}
-                      {cap === 'InterruptIn' && <Radio size={10} className="text-red-400" />}
-                      {cap === 'DigitalOut' && <Minimize2 size={10} className="text-green-400" />}
+                    <span key={cap} className={classNames(styles, styles.capability)}>
+                      {cap === 'PwmOut' && <Zap size={10} />}
+                      {cap === 'AnalogIn' && <Activity size={10} />}
+                      {cap === 'InterruptIn' && <Radio size={10} />}
+                      {cap === 'DigitalOut' && <Minimize2 size={10} />}
                       {cap}
                     </span>
                   ))}
@@ -144,15 +146,15 @@ export const PinoutDiagram: React.FC = () => {
               </div>
 
               <div>
-                <h4 className="text-sm font-semibold text-gray-300 uppercase tracking-wider mb-2">Description</h4>
-                <p className="text-gray-400 text-sm leading-relaxed">
+                <h4 className={classNames(styles, styles.detailTitle)}>Description</h4>
+                <p className={classNames(styles, styles.description)}>
                   {selectedPin.description}
                 </p>
               </div>
             </div>
           ) : (
-            <div className="flex-1 flex flex-col items-center justify-center text-center text-gray-500 space-y-4 min-h-[200px]">
-              <Cpu size={48} className="opacity-20" />
+            <div className={classNames(styles, styles.empty)}>
+              <Cpu size={48} />
               <p>Select a pin on the board diagram to view its specific configuration and hardware capabilities.</p>
             </div>
           )}

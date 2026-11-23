@@ -1,6 +1,8 @@
+import { classNames } from '../styles/classNames';
 import React, { useRef } from 'react';
 import { Canvas, useFrame } from '@react-three/fiber';
 import { OrbitControls, Stage, Environment, ContactShadows, Float } from '@react-three/drei';
+import styles from './styles/BoardModel.module.css';
 import * as THREE from 'three';
 
 // Augment React's JSX namespace to support Three.js elements
@@ -237,7 +239,7 @@ export const BoardModel: React.FC = () => {
     const [isInteracting, setInteracting] = React.useState(false);
 
     return (
-        <div className="w-full h-full relative">
+        <div className={classNames(styles, styles.model)}>
             <Canvas shadows camera={{ position: [4, 4, 4], fov: 45 }}>
                 <ambientLight intensity={0.5} />
                 <spotLight position={[10, 10, 10]} angle={0.15} penumbra={1} intensity={1000} castShadow />
@@ -260,11 +262,11 @@ export const BoardModel: React.FC = () => {
                 />
             </Canvas>
             
-            <div className="absolute bottom-4 left-4 pointer-events-none">
-                <div className="bg-gray-900/80 backdrop-blur border border-gray-700 p-3 rounded-lg text-xs text-gray-300">
-                    <p className="font-bold text-white mb-1">DarkLight Core v2</p>
+            <div className={classNames(styles, styles.hint)}>
+                <div>
+                    <p className={classNames(styles, styles.hintTitle)}>DarkLight Core v2</p>
                     <p>Interactive 3D Preview</p>
-                    <p className="text-gray-500 mt-1">Left Click: Rotate • Scroll: Zoom</p>
+                    <p className={classNames(styles, styles.hintText)}>Left Click: Rotate • Scroll: Zoom</p>
                 </div>
             </div>
         </div>

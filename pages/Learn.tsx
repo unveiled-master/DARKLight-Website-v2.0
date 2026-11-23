@@ -1,8 +1,10 @@
+import { classNames } from '../styles/classNames';
 import React, { useEffect, useState } from 'react';
 import { useLocation, useParams, Link } from 'react-router-dom';
 import { DOC_DATA } from '../constants';
 import { BookOpen, ChevronRight } from 'lucide-react';
 import { LEARN_PAGES } from '../learnPages';
+import styles from './styles/Learn.module.css';
 
 export const Learn: React.FC = () => {
   const [isMobile, setIsMobile] = useState<boolean>(window.innerWidth < 768);
@@ -69,29 +71,29 @@ export const Learn: React.FC = () => {
   const renderDocsInfo = (id: string) => {
     return <>
     { isMobile && openSubMenu.includes(id) && (
-      <div className='space-y-20 p-4'>
+      <div className={classNames(styles, "space-y-20 p-4")}>
         {pageDocs.map(doc => (
           <section
             key={doc.id}
             id={doc.id}
-            className="scroll-mt-24"
+            className={classNames(styles, "scroll-mt-24")}
           >
-            <div className="flex items-center gap-2 mb-6">
-              <span className="text-brand-500 text-sm font-mono uppercase tracking-wider">
+            <div className={classNames(styles, "flex items-center gap-2 mb-6")}>
+              <span className={classNames(styles, "text-brand-500 text-sm font-mono uppercase tracking-wider")}>
                 {doc.category}
               </span>
 
               <ChevronRight
                 size={14}
-                className="text-gray-600"
+                className={classNames(styles, "text-gray-600")}
               />
             </div>
 
-            <h2 className="text-3xl font-bold text-white mb-6">
+            <h2 className={classNames(styles, "text-3xl font-bold text-white mb-6")}>
               {doc.title}
             </h2>
 
-            <div className="prose prose-invert prose-brand max-w-none">
+            <div className={classNames(styles, "prose prose-invert prose-brand max-w-none")}>
               {doc.content}
             </div>
           </section>
@@ -103,28 +105,28 @@ export const Learn: React.FC = () => {
 
   // if(isMobile) return <></>
   return (
-    <div className="container mx-auto px-4 py-8 flex flex-col lg:flex-row gap-8">
+    <div className={classNames(styles, "container mx-auto px-4 py-8 flex flex-col lg:flex-row gap-8")}>
       
       {/* Sidebar */}
-      <aside className="lg:w-64 flex-shrink-0">
-        <div className="sticky top-24 space-y-8">
+      <aside className={classNames(styles, "lg:w-64 flex-shrink-0")}>
+        <div className={classNames(styles, "sticky top-24 space-y-8")}>
 
           {/* Getting Started */}
           <div>
-            <h5 className="font-bold text-white mb-3 flex items-center gap-2">
-              <BookOpen size={16} className="text-brand-500" />
+            <h5 className={classNames(styles, "font-bold text-white mb-3 flex items-center gap-2")}>
+              <BookOpen size={16} className={classNames(styles, "text-brand-500")} />
               Getting Started
             </h5>
 
-            <ul className="space-y-1 border-l border-gray-800 ml-2">
+            <ul className={classNames(styles, "space-y-1 border-l border-gray-800 ml-2")}>
               <li>
                 <Link
                   to="/learn/installation-setup"
-                  className={`block pl-4 py-1 text-sm border-l-2 transition-colors ${
+                  className={classNames(styles, `block pl-4 py-1 text-sm border-l-2 transition-colors ${
                     pageSlug === 'installation-setup'
                       ? 'border-brand-500 text-brand-400'
                       : 'border-transparent text-gray-400 hover:text-white hover:border-gray-600'
-                  }`}
+                  }`)}
                   onClick={(e) => {
                     handleSubMenu(e);
                   }}
@@ -137,11 +139,11 @@ export const Learn: React.FC = () => {
               <li>
                 <Link
                   to="/learn/getting-started"
-                  className={`block pl-4 py-1 text-sm border-l-2 transition-colors ${
+                  className={classNames(styles, `block pl-4 py-1 text-sm border-l-2 transition-colors ${
                     pageSlug === 'getting-started'
                       ? 'border-brand-500 text-brand-400'
                       : 'border-transparent text-gray-400 hover:text-white hover:border-gray-600'
-                  }`}
+                  }`)}
                   onClick={(e) => {
                     handleSubMenu(e);
                   }}
@@ -157,20 +159,20 @@ export const Learn: React.FC = () => {
 
           {/* Hardware I/O */}
           <div>
-            <h5 className="font-bold text-white mb-3 flex items-center gap-2">
-              <BookOpen size={16} className="text-brand-500" />
+            <h5 className={classNames(styles, "font-bold text-white mb-3 flex items-center gap-2")}>
+              <BookOpen size={16} className={classNames(styles, "text-brand-500")} />
               Hardware I/O
             </h5>
 
-            <ul className="space-y-1 border-l border-gray-800 ml-2">
+            <ul className={classNames(styles, "space-y-1 border-l border-gray-800 ml-2")}>
               <li>
                 <Link
                   to="/learn/digital-io"
-                  className={`block pl-4 py-1 text-sm border-l-2 transition-colors ${
+                  className={classNames(styles, `block pl-4 py-1 text-sm border-l-2 transition-colors ${
                     pageSlug === 'digital-io'
                       ? 'border-brand-500 text-brand-400'
                       : 'border-transparent text-gray-400 hover:text-white hover:border-gray-600'
-                  }`}
+                  }`)}
                   onClick={(e) => {
                     handleSubMenu(e);
                   }}
@@ -185,11 +187,11 @@ export const Learn: React.FC = () => {
               <li>
                 <Link
                   to="/learn/analog"
-                  className={`block pl-4 py-1 text-sm border-l-2 transition-colors ${
+                  className={classNames(styles, `block pl-4 py-1 text-sm border-l-2 transition-colors ${
                     pageSlug === 'analog'
                       ? 'border-brand-500 text-brand-400'
                       : 'border-transparent text-gray-400 hover:text-white hover:border-gray-600'
-                  }`}
+                  }`)}
                   onClick={(e) => {
                     handleSubMenu(e);
                   }}
@@ -204,11 +206,11 @@ export const Learn: React.FC = () => {
               <li>
                 <Link
                   to="/learn/pwm"
-                  className={`block pl-4 py-1 text-sm border-l-2 transition-colors ${
+                  className={classNames(styles, `block pl-4 py-1 text-sm border-l-2 transition-colors ${
                     pageSlug === 'pwm'
                       ? 'border-brand-500 text-brand-400'
                       : 'border-transparent text-gray-400 hover:text-white hover:border-gray-600'
-                  }`}
+                  }`)}
                   onClick={(e) => {
                     handleSubMenu(e);
                   }}
@@ -224,20 +226,20 @@ export const Learn: React.FC = () => {
 
           {/* Advanced Control */}
           <div>
-            <h5 className="font-bold text-white mb-3 flex items-center gap-2">
-              <BookOpen size={16} className="text-brand-500" />
+            <h5 className={classNames(styles, "font-bold text-white mb-3 flex items-center gap-2")}>
+              <BookOpen size={16} className={classNames(styles, "text-brand-500")} />
               Advanced Control
             </h5>
 
-            <ul className="space-y-1 border-l border-gray-800 ml-2">
+            <ul className={classNames(styles, "space-y-1 border-l border-gray-800 ml-2")}>
               <li>
                 <Link
                   to="/learn/interrupts"
-                  className={`block pl-4 py-1 text-sm border-l-2 transition-colors ${
+                  className={classNames(styles, `block pl-4 py-1 text-sm border-l-2 transition-colors ${
                     pageSlug === 'interrupts'
                       ? 'border-brand-500 text-brand-400'
                       : 'border-transparent text-gray-400 hover:text-white hover:border-gray-600'
-                  }`}
+                  }`)}
                   onClick={(e) => {
                     handleSubMenu(e);
                   }}
@@ -251,11 +253,11 @@ export const Learn: React.FC = () => {
               <li>
                 <Link
                   to="/learn/ticker"
-                  className={`block pl-4 py-1 text-sm border-l-2 transition-colors ${
+                  className={classNames(styles, `block pl-4 py-1 text-sm border-l-2 transition-colors ${
                     pageSlug === 'ticker'
                       ? 'border-brand-500 text-brand-400'
                       : 'border-transparent text-gray-400 hover:text-white hover:border-gray-600'
-                  }`}
+                  }`)}
                   onClick={(e) => {
                     handleSubMenu(e);
                   }}
@@ -270,20 +272,20 @@ export const Learn: React.FC = () => {
 
           {/* Communication */}
           <div>
-            <h5 className="font-bold text-white mb-3 flex items-center gap-2">
-              <BookOpen size={16} className="text-brand-500" />
+            <h5 className={classNames(styles, "font-bold text-white mb-3 flex items-center gap-2")}>
+              <BookOpen size={16} className={classNames(styles, "text-brand-500")} />
               Communication
             </h5>
 
-            <ul className="space-y-1 border-l border-gray-800 ml-2">
+            <ul className={classNames(styles, "space-y-1 border-l border-gray-800 ml-2")}>
               <li>
                 <Link
                   to="/learn/comms"
-                  className={`block pl-4 py-1 text-sm border-l-2 transition-colors ${
+                  className={classNames(styles, `block pl-4 py-1 text-sm border-l-2 transition-colors ${
                     pageSlug === 'comms'
                       ? 'border-brand-500 text-brand-400'
                       : 'border-transparent text-gray-400 hover:text-white hover:border-gray-600'
-                  }`}
+                  }`)}
                   onClick={(e) => {
                     handleSubMenu(e);
                   }}
@@ -299,55 +301,55 @@ export const Learn: React.FC = () => {
       </aside>
 
       {/* Main Content */}
-      <main className="flex-1 min-w-0">
+      <main className={classNames(styles, "flex-1 min-w-0")}>
         {!isMobile && (
-          <div className="max-w-4xl">
+          <div className={classNames(styles, "max-w-4xl")}>
 
-            <h1 className="text-4xl font-bold text-white mb-6">
+            <h1 className={classNames(styles, "text-4xl font-bold text-white mb-6")}>
               {currentPage.title}
             </h1>
 
-            <p className="text-xl text-gray-400 mb-12 border-b border-gray-800 pb-8">
+            <p className={classNames(styles, "text-xl text-gray-400 mb-12 border-b border-gray-800 pb-8")}>
               Complete technical reference and tutorials for the DarkLight microcontroller ecosystem.
             </p>
 
-            <div className="space-y-20">
+            <div className={classNames(styles, "space-y-20")}>
               {pageDocs.map(doc => (
                 <section
                   key={doc.id}
                   id={doc.id}
-                  className="scroll-mt-24"
+                  className={classNames(styles, "scroll-mt-24")}
                 >
-                  <div className="flex items-center gap-2 mb-6">
-                    <span className="text-brand-500 text-sm font-mono uppercase tracking-wider">
+                  <div className={classNames(styles, "flex items-center gap-2 mb-6")}>
+                    <span className={classNames(styles, "text-brand-500 text-sm font-mono uppercase tracking-wider")}>
                       {doc.category}
                     </span>
 
                     <ChevronRight
                       size={14}
-                      className="text-gray-600"
+                      className={classNames(styles, "text-gray-600")}
                     />
                   </div>
 
-                  <h2 className="text-3xl font-bold text-white mb-6">
+                  <h2 className={classNames(styles, "text-3xl font-bold text-white mb-6")}>
                     {doc.title}
                   </h2>
 
-                  <div className="prose prose-invert prose-brand max-w-none">
+                  <div className={classNames(styles, "prose prose-invert prose-brand max-w-none")}>
                     {doc.content}
                   </div>
                 </section>
               ))}
             </div>
 
-            <div className="flex justify-between mt-16 border-t border-gray-800 pt-8">
+            <div className={classNames(styles, "flex justify-between mt-16 border-t border-gray-800 pt-8")}>
               {currentPage.previous ? (
                 <Link
                   to={`/learn/${currentPage.previous}`}
                   onClick={(e) => {
                     handleSubMenu(e);
                   }}
-                  className="px-5 py-3 rounded-lg bg-gray-800 hover:bg-gray-700 transition"
+                  className={classNames(styles, "px-5 py-3 rounded-lg bg-gray-800 hover:bg-gray-700 transition")}
                 >
                   ← Previous
                 </Link>
@@ -361,7 +363,7 @@ export const Learn: React.FC = () => {
                   onClick={(e) => {
                     handleSubMenu(e);
                   }}
-                  className="px-5 py-3 rounded-lg bg-brand-600 hover:bg-brand-500 text-white transition"
+                  className={classNames(styles, "px-5 py-3 rounded-lg bg-brand-600 hover:bg-brand-500 text-white transition")}
                 >
                   Next →
                 </Link>
