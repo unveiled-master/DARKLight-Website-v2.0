@@ -3,14 +3,14 @@
   gap: 0.5rem;
 }
 
-.card {
-  width: 150%;
-  
-  scroll-snap-align: start;
-}
 .track{
   padding-inline: calc((100% - 50vw) / 2);
   scroll-snap-type: x mandatory;
+}
+
+.card {
+  width: 180%;
+  scroll-snap-align: start;
 }
 
 
