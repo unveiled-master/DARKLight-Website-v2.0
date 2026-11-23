@@ -95,7 +95,10 @@ export const BoardShowcaseCarousel: React.FC<BoardShowcaseCarouselProps> = ({
   const [scrollStartLeft, setScrollStartLeft] = useState(0);
 
   // Auto-scroll states adhering to Web Interface Guidelines
-  const [isAutoPlaying, setIsAutoPlaying] = useState<boolean>(false);
+  const [isAutoPlaying, setIsAutoPlaying] = useState<boolean>(() =>
+    typeof window === 'undefined' ||
+    !window.matchMedia('(prefers-reduced-motion: reduce)').matches
+  );
   const [isFocused, setIsFocused] = useState(false);
 
   // Honor prefers-reduced-motion changes dynamically
@@ -297,6 +300,14 @@ export const BoardShowcaseCarousel: React.FC<BoardShowcaseCarouselProps> = ({
   };
 
   const isPaused = isFocused || isPointerDown;
+
+  const toggleAutoPlay = () => {
+    const shouldPlay = !isAutoPlaying;
+    setIsAutoPlaying(shouldPlay);
+    if (shouldPlay) {
+      setIsFocused(false);
+    }
+  };
 
   return (
     <section 
@@ -618,7 +629,7 @@ export const BoardShowcaseCarousel: React.FC<BoardShowcaseCarouselProps> = ({
 
           {/* Play / Pause Toggle Button */}
           <button
-            onClick={() => setIsAutoPlaying((prev) => !prev)}
+            onClick={toggleAutoPlay}
             aria-label={isAutoPlaying ? 'Pause carousel auto-scroll' : 'Resume carousel auto-scroll'}
             aria-pressed={isAutoPlaying}
             className="w-10 h-10 rounded-xl bg-gray-900 border border-gray-800 text-gray-300 hover:text-white hover:bg-gray-800 hover:border-gray-700 active:scale-95 transition-[transform,opacity,background-color,border-color] duration-200 flex items-center justify-center focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-500 shadow-lg"
