@@ -11,7 +11,9 @@
 .card {
   width: 180% !important;
   scroll-snap-align: start !important;
+  height: 75dvh !important;
 }
+
 
 
 @media (min-width: 640px) {
